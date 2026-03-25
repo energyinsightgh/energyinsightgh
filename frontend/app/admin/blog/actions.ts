@@ -10,7 +10,7 @@ export async function createPostAction(formData: FormData): Promise<void> {
   const title = formData.get('title') as string
   const status = formData.get('status') as 'draft' | 'published'
 
-  const { error } = await supabase.from('blog_posts').insert({
+  const { error } = await (supabase.from('blog_posts') as any).insert({
     title,
     slug: slugify(title),
     excerpt: formData.get('excerpt') as string || null,
@@ -34,17 +34,18 @@ export async function updatePostAction(formData: FormData): Promise<void> {
   const status = formData.get('status') as 'draft' | 'published'
 
   // Get current post to check if we're publishing for the first time
-  const { data: current } = await supabase.from('blog_posts').select('status, published_at').eq('id', id).single()
-  const isFirstPublish = status === 'published' && current?.status !== 'published'
+  const { data: current } = await (supabase.from('blog_posts') as any).select('status, published_at').eq('id', id).single()
+  const c = current as any
+  const isFirstPublish = status === 'published' && c?.status !== 'published'
 
-  const { error } = await supabase.from('blog_posts').update({
+  const { error } = await (supabase.from('blog_posts') as any).update({
     title: formData.get('title') as string,
     excerpt: formData.get('excerpt') as string || null,
     content: formData.get('content') as string || null,
     author: formData.get('author') as string || 'energyinsightgh',
     tags: (formData.get('tags') as string || '').split(',').map(t => t.trim()).filter(Boolean),
     status,
-    published_at: isFirstPublish ? new Date().toISOString() : (current?.published_at ?? null),
+    published_at: isFirstPublish ? new Date().toISOString() : (c?.published_at ?? null),
   }).eq('id', id)
 
   if (error) throw new Error(error.message)
