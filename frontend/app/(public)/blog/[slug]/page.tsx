@@ -2,14 +2,14 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, Calendar, User, Tag } from 'lucide-react'
-import { createClient } from '@/lib/supabase/server'
+import { createClient, createStaticClient } from '@/lib/supabase/server'
 import { formatDate } from '@/lib/utils'
 import type { BlogPost } from '@/types'
 
 export const revalidate = 1800
 
 export async function generateStaticParams() {
-  const supabase = await createClient()
+  const supabase = createStaticClient()
   const { data } = await supabase
     .from('blog_posts')
     .select('slug')
@@ -26,7 +26,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>
 }): Promise<Metadata> {
   const { slug } = await params
-  const supabase = await createClient()
+  const supabase = createStaticClient()
   const { data } = await supabase
     .from('blog_posts')
     .select('title, excerpt')

@@ -8,8 +8,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 
 export default async function AdminServicesPage() {
   const supabase = await createClient()
-  const { data: services } = await supabase
-    .from('services')
+  const { data: services } = await (supabase.from('services') as any)
     .select('*')
     .order('display_order', { ascending: true })
 

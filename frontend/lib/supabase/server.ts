@@ -26,3 +26,15 @@ export async function createClient() {
     }
   )
 }
+
+/**
+ * Use this client ONLY in generateStaticParams or other contexts 
+ * where the Next.js cookies() API is not available.
+ */
+export function createStaticClient() {
+  return createServerClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    { cookies: { getAll: () => [], setAll: () => {} } }
+  )
+}

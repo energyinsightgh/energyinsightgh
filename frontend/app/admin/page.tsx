@@ -7,14 +7,13 @@ export default async function AdminDashboardPage() {
 
   const [{ count: postCount }, { count: serviceCount }, { data: recentPosts }] =
     await Promise.all([
-      supabase.from('blog_posts').select('*', { count: 'exact', head: true }),
-      supabase.from('services').select('*', { count: 'exact', head: true }),
-      supabase
-        .from('blog_posts')
+      (supabase.from('blog_posts') as any).select('*', { count: 'exact', head: true }),
+      (supabase.from('services') as any).select('*', { count: 'exact', head: true }),
+      (supabase.from('blog_posts') as any)
         .select('id, title, slug, status, published_at')
         .order('created_at', { ascending: false })
         .limit(5),
-    ])
+    ]) as any[]
 
   return (
     <div>
@@ -80,7 +79,7 @@ export default async function AdminDashboardPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
-                {recentPosts.map((post) => (
+                {(recentPosts as any[]).map((post: any) => (
                   <tr key={post.id} className="hover:bg-surface-muted/50">
                     <td className="px-4 py-3 font-medium text-text-primary">{post.title}</td>
                     <td className="px-4 py-3">

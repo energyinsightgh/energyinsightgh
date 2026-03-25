@@ -2,13 +2,15 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { PlusCircle } from 'lucide-react'
 import { deletePostAction } from './actions'
+import type { BlogPost } from '@/types'
 
 export default async function AdminBlogPage() {
   const supabase = await createClient()
-  const { data: posts } = await supabase
-    .from('blog_posts')
+  const { data: postsData } = await (supabase.from('blog_posts') as any)
     .select('id, title, slug, status, published_at, author, created_at')
     .order('created_at', { ascending: false })
+  
+  const posts = (postsData || []) as BlogPost[]
 
   return (
     <div>

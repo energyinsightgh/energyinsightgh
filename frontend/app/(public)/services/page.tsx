@@ -14,8 +14,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 
 export default async function ServicesPage() {
   const supabase = await createClient()
-  const { data: services } = await supabase
-    .from('services')
+  const { data: services } = await (supabase.from('services') as any)
     .select('*')
     .eq('is_active', true)
     .order('display_order', { ascending: true })

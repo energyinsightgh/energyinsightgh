@@ -4,7 +4,7 @@ import Link from 'next/link'
 import {
   Building2, Cpu, BarChart2, GraduationCap, ClipboardList, CheckCircle, ArrowLeft,
 } from 'lucide-react'
-import { createClient } from '@/lib/supabase/server'
+import { createClient, createStaticClient } from '@/lib/supabase/server'
 import { ContactCTASection } from '@/components/sections/ContactCTASection'
 import type { Service } from '@/types'
 
@@ -15,7 +15,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 export const revalidate = 3600
 
 export async function generateStaticParams() {
-  const supabase = await createClient()
+  const supabase = createStaticClient()
   const { data } = await supabase.from('services').select('slug').eq('is_active', true)
   return (data as any[] ?? []).map((s) => ({ slug: s.slug }))
 }
@@ -26,7 +26,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>
 }): Promise<Metadata> {
   const { slug } = await params
-  const supabase = await createClient()
+  const supabase = createStaticClient()
   const { data } = await supabase.from('services').select('title').eq('slug', slug).single()
   return { title: (data as any)?.title ?? 'Service' }
 }

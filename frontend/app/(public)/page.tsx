@@ -13,20 +13,21 @@ export const revalidate = 3600
 export default async function HomePage() {
   const supabase = await createClient()
 
-  const [{ data: services }, { data: posts }] = await Promise.all([
-    supabase
-      .from('services')
+  const [{ data: servicesData }, { data: postsData }] = await Promise.all([
+    (supabase.from('services') as any)
       .select('*')
       .eq('is_active', true)
       .order('display_order', { ascending: true })
       .limit(3),
-    supabase
-      .from('blog_posts')
+    (supabase.from('blog_posts') as any)
       .select('id, title, slug, excerpt, cover_image_url, author, published_at, tags')
       .eq('status', 'published')
       .order('published_at', { ascending: false })
       .limit(3),
-  ])
+  ]) as any[]
+
+  const services = servicesData ?? []
+  const posts = postsData ?? []
 
   return (
     <>

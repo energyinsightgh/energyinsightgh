@@ -9,8 +9,7 @@ export const revalidate = 1800
 
 export default async function BlogPage() {
   const supabase = await createClient()
-  const { data: posts } = await supabase
-    .from('blog_posts')
+  const { data: posts } = await (supabase.from('blog_posts') as any)
     .select('id, title, slug, excerpt, cover_image_url, author, published_at, tags')
     .eq('status', 'published')
     .order('published_at', { ascending: false })
