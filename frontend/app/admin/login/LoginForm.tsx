@@ -1,6 +1,6 @@
 'use client'
 
-import { useActionState } from 'react'
+import { useFormState, useFormStatus } from 'react-dom'
 import { loginAction } from './actions'
 import { AlertCircle, Loader2 } from 'lucide-react'
 
@@ -10,11 +10,32 @@ interface LoginState {
 
 const initialState: LoginState = {}
 
+function SubmitButton() {
+  const { pending } = useFormStatus()
+  
+  return (
+    <button
+      type="submit"
+      disabled={pending}
+      className="btn-primary w-full justify-center mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      {pending ? (
+        <>
+          <Loader2 className="w-4 h-4 animate-spin" />
+          Signing in…
+        </>
+      ) : (
+        'Sign In'
+      )}
+    </button>
+  )
+}
+
 export function LoginForm() {
-  const [state, action, isPending] = useActionState(loginAction, initialState)
+  const [state, formAction] = useFormState(loginAction, initialState)
 
   return (
-    <form action={action} className="space-y-4">
+    <form action={formAction} className="space-y-4">
       {state?.error && (
         <div className="flex items-center gap-2 text-red-600 bg-red-50 border border-red-200 rounded-lg px-4 py-3 text-sm">
           <AlertCircle className="w-4 h-4 shrink-0" />
@@ -47,13 +68,7 @@ export function LoginForm() {
           className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
         />
       </div>
-      <button
-        type="submit"
-        disabled={isPending}
-        className="btn-primary w-full justify-center mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {isPending ? <><Loader2 className="w-4 h-4 animate-spin" /> Signing in…</> : 'Sign In'}
-      </button>
+      <SubmitButton />
     </form>
   )
 }

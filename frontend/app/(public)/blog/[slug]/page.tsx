@@ -14,7 +14,10 @@ export async function generateStaticParams() {
     .from('blog_posts')
     .select('slug')
     .eq('status', 'published')
-  return (data ?? []).map((p) => ({ slug: p.slug }))
+  
+  return (data as any[] ?? []).map((p) => ({
+    slug: (p as any).slug
+  }))
 }
 
 export async function generateMetadata({
