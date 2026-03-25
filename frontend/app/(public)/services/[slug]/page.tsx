@@ -17,7 +17,7 @@ export const revalidate = 3600
 export async function generateStaticParams() {
   const supabase = await createClient()
   const { data } = await supabase.from('services').select('slug').eq('is_active', true)
-  return (data ?? []).map((s) => ({ slug: s.slug }))
+  return (data as any[] ?? []).map((s) => ({ slug: s.slug }))
 }
 
 export async function generateMetadata({
@@ -28,7 +28,7 @@ export async function generateMetadata({
   const { slug } = await params
   const supabase = await createClient()
   const { data } = await supabase.from('services').select('title').eq('slug', slug).single()
-  return { title: data?.title ?? 'Service' }
+  return { title: (data as any)?.title ?? 'Service' }
 }
 
 export default async function ServiceDetailPage({

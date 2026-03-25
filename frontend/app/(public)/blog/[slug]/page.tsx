@@ -32,7 +32,12 @@ export async function generateMetadata({
     .select('title, excerpt')
     .eq('slug', slug)
     .single()
-  return { title: data?.title ?? 'Blog Post', description: data?.excerpt ?? undefined }
+  
+  const d = data as any
+  return { 
+    title: d?.title ?? 'Blog Post', 
+    description: d?.excerpt ?? undefined 
+  }
 }
 
 export default async function BlogPostPage({
