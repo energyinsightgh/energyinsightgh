@@ -13,7 +13,12 @@
     @apply font-sans text-text-primary bg-white antialiased;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-semibold leading-tight;
   }
 }
@@ -28,20 +33,15 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center gap-2 bg-primary text-white font-semibold px-6 py-3 rounded-lg
-           hover:bg-primary-600 transition-colors duration-200 focus:outline-none focus:ring-2
-           focus:ring-primary focus:ring-offset-2;
+    @apply inline-flex items-center gap-2 bg-primary text-white font-semibold px-6 py-3 rounded-lg hover:bg-primary-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
   }
 
   .btn-accent {
-    @apply inline-flex items-center gap-2 bg-accent text-white font-semibold px-6 py-3 rounded-lg
-           hover:bg-accent-600 transition-colors duration-200 focus:outline-none focus:ring-2
-           focus:ring-accent focus:ring-offset-2;
+    @apply inline-flex items-center gap-2 bg-accent text-white font-semibold px-6 py-3 rounded-lg hover:bg-accent-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2;
   }
 
   .btn-outline {
-    @apply inline-flex items-center gap-2 border-2 border-primary text-primary font-semibold
-           px-6 py-3 rounded-lg hover:bg-primary hover:text-white transition-colors duration-200;
+    @apply inline-flex items-center gap-2 border-2 border-primary text-primary font-semibold px-6 py-3 rounded-lg hover:bg-primary hover:text-white transition-colors duration-200;
   }
 
   .card {
@@ -55,8 +55,9 @@
     padding-right: 0.1rem;
   }
 }
+
 .animate-marquee {
-  animation: marquee 30s linear infinite;
+  animation: marquee 100s linear infinite;
 }
 
 .animate-marquee:hover {
@@ -64,6 +65,11 @@
 }
 
 @keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
