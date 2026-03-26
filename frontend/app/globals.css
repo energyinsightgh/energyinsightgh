@@ -57,6 +57,7 @@
 }
 
 .animate-marquee {
+  /* Marquee animation speed - updated to 70s */
   animation: marquee 70s linear infinite;
 }
 
