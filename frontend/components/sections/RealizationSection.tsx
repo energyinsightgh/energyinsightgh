@@ -48,18 +48,18 @@ export function RealizationSection() {
     <section className="bg-white py-20 lg:py-28 overflow-hidden">
       <div className="container-site">
         
-        {/* Main Side-by-Side Typography Layout (No bulky box wrapper) */}
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
+        {/* Main Side-by-Side Typography Layout */}
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-20 items-start">
           
           {/* Left Column: Minimalist Content & Typography Accordion */}
           <div className="flex-1 w-full flex flex-col justify-start">
             
-            <div className="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-4 py-1.5 text-xs text-[#0a192f] font-bold shadow-sm w-max mb-6 tracking-wide">
+            <div className="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-3 py-1.5 text-[11px] sm:text-xs text-[#0a192f] font-bold shadow-sm w-max mb-4 sm:mb-6 tracking-wide">
               The Realization
             </div>
             
-            <h2 className="text-4xl md:text-5xl lg:text-[4rem] font-extrabold text-[#0a192f] leading-[1.05] tracking-tight mb-8">
-              Most Buildings Waste<br /> Energy—<span className="text-[#0a192f] underline decoration-[#f5a623] decoration-[4px] underline-offset-[12px]">Silently.</span>
+            <h2 className="text-[28px] sm:text-3xl md:text-5xl lg:text-[3.5rem] font-extrabold text-[#0a192f] leading-[1.1] sm:leading-[1.05] tracking-tight mb-6 sm:mb-8">
+              Most Buildings Waste<br className="hidden md:block" /> Energy—<span className="text-[#0a192f] underline decoration-[#f5a623] decoration-[3px] md:decoration-[4px] underline-offset-[8px] md:underline-offset-[12px]">Silently.</span>
             </h2>
             
             <p className="text-lg text-slate-500 font-medium leading-relaxed max-w-xl mb-12">
@@ -115,10 +115,10 @@ export function RealizationSection() {
             </div>
             
             {/* "More" Toggle Button */}
-            <div className="pt-2">
+            <div className="pt-2 w-full sm:w-auto">
               <button
                 onClick={() => setShowAll(!showAll)}
-                className="group inline-flex items-center gap-3 bg-white border border-slate-200 hover:border-slate-300 text-[#0a192f] font-bold text-[15px] px-6 py-2.5 rounded-full shadow-sm transition-all duration-300"
+                className="group inline-flex items-center justify-center w-full sm:w-auto gap-2 sm:gap-3 bg-white border border-slate-200 hover:border-slate-300 text-[#0a192f] font-bold text-sm sm:text-[15px] px-6 py-3 sm:py-2.5 rounded-full shadow-sm transition-all duration-300"
               >
                 {showAll ? (
                   <>Show Less <Minus className="w-4 h-4 text-[#14b8a6]" /></>
@@ -130,8 +130,8 @@ export function RealizationSection() {
             
           </div>
 
-          {/* Right Column: Constrained Rounded Image Block (Starting from 2nd line height) */}
-          <div className="flex-1 w-full relative pt-12 lg:pt-28">
+          {/* Right Column: Constrained Rounded Image Block */}
+          <div className="flex-1 w-full relative pt-8 lg:pt-28">
             <div className="w-full h-[450px] relative rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-100">
               <Image
                 src="/images/hero/man-working-environment-project-close-up.jpg"
