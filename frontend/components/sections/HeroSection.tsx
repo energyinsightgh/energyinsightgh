@@ -141,9 +141,9 @@ export function HeroSection() {
           </div>
 
           {/* Centered Container taking exactly 60% of space on large screens */}
-          <div className="relative z-10 w-full lg:w-[60%] mx-auto h-full flex flex-col justify-center items-center px-6 py-16 md:px-12 text-center">
+          <div className="relative z-10 w-full lg:w-[70%] mx-auto h-full flex flex-col justify-center items-center px-4 py-20 md:px-12 text-center">
             
-            <div className="space-y-6 md:space-y-8 flex flex-col items-center relative w-full">
+            <div className="space-y-6 md:space-y-8 flex flex-col items-center relative w-full pt-10 lg:pt-0">
               <div className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-1.5 text-sm text-white font-medium shadow-sm w-max">
                 <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
                 Energy Insight
@@ -155,20 +155,20 @@ export function HeroSection() {
                 </span>
               </h1>
 
-              <p className="text-lg md:text-xl text-white/90 leading-relaxed font-medium">
+              <p className="text-lg md:text-xl text-white/90 leading-relaxed font-medium max-w-2xl px-2">
                 We identify where you’re losing energy, measure your carbon impact, and ensure you meet environmental standards—so you save money and stay compliant without the guesswork.
               </p>
 
-              <div className="pt-2 flex flex-col items-center">
+              <div className="pt-2 flex flex-col items-center gap-6 w-full">
                 <Link
                   href="/contact"
-                  className="group relative inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent/90 text-[#0a192f] font-bold px-6 py-3 rounded-xl transition-all duration-300 transform hover:-translate-y-1 shadow-md text-sm md:text-base"
+                  className="group relative inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent/90 text-[#0a192f] font-bold px-8 py-4 rounded-xl transition-all duration-300 transform hover:-translate-y-1 shadow-md text-base"
                 >
                   See Where You’re Losing Energy
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 
-                <div className="mt-6 bg-black/40 backdrop-blur-md border border-white/10 rounded-xl px-4 py-2.5 max-w-md">
+                <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3 max-w-md">
                   <p className="text-xs md:text-sm text-white/90 font-medium leading-relaxed flex items-center gap-3 text-left">
                     <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
                     Trusted by homeowners, engineers, and commercial facilities to reduce energy costs.
@@ -178,7 +178,7 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Top Right Floating Stat Bubble */}
+          {/* Floating Stat Bubble (Hidden on mobile to avoid mess, shown from sm up) */}
           <div className="absolute top-6 right-6 lg:top-12 lg:right-12 z-20 pointer-events-none hidden sm:block">
             {floatingStats.map((stat, idx) => (
               <div 
@@ -200,30 +200,30 @@ export function HeroSection() {
             ))}
           </div>
 
-          {/* Bottom Left Slider Navigation Controls */}
-          <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8 z-20 flex flex-col md:flex-row md:items-center gap-3 bg-black/40 backdrop-blur-md px-4 py-2 rounded-[1rem] border border-white/10">
+          {/* Slider Navigation Controls (Adjusted for better mobile placement) */}
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 md:left-8 md:translate-x-0 z-20 flex flex-nowrap items-center gap-3 bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 whitespace-nowrap">
             <div className="text-white font-medium text-xs flex items-center gap-2">
               <span className="text-accent font-bold">0{currentSlide + 1}</span> 
               <span className="text-white/50">/</span> 
               <span className="text-white/50">0{slideImages.length}</span>
               <span className="hidden md:inline-block w-6 h-[1px] bg-white/30 mx-1.5" />
-              <span className="text-primary-50 tracking-wide">{slideImages[currentSlide].title}</span>
+              <span className="text-primary-50 tracking-wide text-[10px] md:text-xs">{slideImages[currentSlide].title}</span>
             </div>
             
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-1">
               <button 
                 onClick={prevSlide}
-                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white transition-colors"
+                className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white transition-colors"
                 aria-label="Previous Slide"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
               </button>
               <button 
                 onClick={nextSlide}
-                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white transition-colors"
+                className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white transition-colors"
                 aria-label="Next Slide"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
               </button>
             </div>
           </div>

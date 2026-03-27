@@ -15,7 +15,7 @@ interface ServicesPreviewSectionProps {
 
 export function ServicesPreviewSection({ services }: ServicesPreviewSectionProps) {
   return (
-    <section className="section-padding bg-white">
+    <section className="py-20 lg:py-32 bg-white">
       <div className="container-site">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
           <div>

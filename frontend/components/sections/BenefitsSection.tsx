@@ -23,7 +23,7 @@ const benefits = [
 
 export function BenefitsSection() {
   return (
-    <section className="section-padding bg-surface-muted">
+    <section className="py-20 lg:py-32 bg-white">
       <div className="container-site">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-text-primary mb-4">
