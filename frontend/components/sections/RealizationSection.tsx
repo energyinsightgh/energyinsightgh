@@ -58,7 +58,7 @@ export function RealizationSection() {
               The Realization
             </div>
             
-            <h2 className="text-4xl md:text-5xl lg:text-[4.5rem] font-extrabold text-[#0a192f] leading-[1.1] tracking-tight mb-8">
+            <h2 className="text-4xl md:text-5xl lg:text-[3.2rem] font-extrabold text-[#0a192f] leading-[1.1] tracking-tight mb-8">
               Most Buildings Waste<br /> Energy—<span className="text-[#0a192f] underline decoration-[#f5a623] decoration-[4px] underline-offset-[8px] lg:underline-offset-[12px]">Silently.</span>
             </h2>
             
@@ -99,15 +99,13 @@ export function RealizationSection() {
                     
                     <div 
                       className={cn(
-                        "grid transition-all duration-300 ease-in-out",
-                        isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                        "overflow-hidden transition-all duration-300 ease-in-out",
+                        isOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
                       )}
                     >
-                      <div className="overflow-hidden">
-                        <p className="pb-6 pl-9 text-base text-slate-500 leading-relaxed font-medium">
-                          {point.description}
-                        </p>
-                      </div>
+                      <p className="pb-6 pl-9 text-base text-slate-500 leading-relaxed font-medium">
+                        {point.description}
+                      </p>
                     </div>
                   </div>
                 )
@@ -117,8 +115,9 @@ export function RealizationSection() {
             {/* "More" Toggle Button */}
             <div className="pt-2 w-full sm:w-auto">
               <button
+                type="button"
                 onClick={() => setShowAll(!showAll)}
-                className="group inline-flex items-center justify-center w-full sm:w-auto gap-2 sm:gap-3 bg-white border border-slate-200 hover:border-slate-300 text-[#0a192f] font-bold text-sm sm:text-[15px] px-6 py-3 sm:py-2.5 rounded-full shadow-sm transition-all duration-300"
+                className="group inline-flex items-center justify-center w-full sm:w-auto gap-2 sm:gap-3 bg-white border border-slate-200 hover:border-slate-300 text-[#0a192f] font-bold text-sm sm:text-[15px] px-6 py-3 sm:py-2.5 rounded-full shadow-sm transition-all duration-300 active:scale-95"
               >
                 {showAll ? (
                   <>Show Less <Minus className="w-4 h-4 text-[#14b8a6]" /></>
