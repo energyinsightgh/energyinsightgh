@@ -74,7 +74,7 @@ export function Header() {
               className="inline-flex items-center gap-2 bg-accent text-white text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-accent/90 transition-colors duration-200 shadow-[0_4px_14px_0_rgba(245,166,35,0.39)] transform hover:-translate-y-0.5"
             >
               <WhatsAppIcon className="w-4 h-4" />
-              Let's Talk
+              Let&apos;s Talk
             </a>
           </div>
 
