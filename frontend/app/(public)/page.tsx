@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { HeroSection } from '@/components/sections/HeroSection'
 import { BenefitsSection } from '@/components/sections/BenefitsSection'
+import { RealizationSection } from '@/components/sections/RealizationSection'
 import { ServicesPreviewSection } from '@/components/sections/ServicesPreviewSection'
 import { ContactCTASection } from '@/components/sections/ContactCTASection'
 import Link from 'next/link'
@@ -32,6 +33,7 @@ export default async function HomePage() {
   return (
     <>
       <HeroSection />
+      <RealizationSection />
       <BenefitsSection />
       <ServicesPreviewSection services={(services ?? []) as Service[]} />
 

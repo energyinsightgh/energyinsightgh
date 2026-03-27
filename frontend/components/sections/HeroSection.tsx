@@ -38,46 +38,46 @@ const slideImages = [
 
 const trustBadges = [
   {
-    icon: Search,
-    title: "100% Comprehensive Inspection",
-    subtitle: "Identifying every leak in your energy spend.",
+    icon: FileSearch,
+    title: "Comprehensive Energy Audits",
+    subtitle: "Identify opportunities to reduce consumption and costs.",
     color: "text-blue-400",
     bg: "bg-blue-400"
   },
   {
-    icon: ShieldCheck,
-    title: "Guaranteed Regulatory Alignment",
-    subtitle: "Ensuring your facility meets local energy codes.",
+    icon: Activity,
+    title: "Carbon Accounting",
+    subtitle: "Measure, track, and reduce your greenhouse gas emissions.",
     color: "text-emerald-400",
     bg: "bg-emerald-400"
   },
   {
-    icon: FileSearch,
-    title: "The 5-Point Insight Audit",
-    subtitle: "Our rigorous proprietary framework for load analysis.",
+    icon: ShieldCheck,
+    title: "Environmental Management",
+    subtitle: "Navigate complex regulations and ensure ongoing compliance.",
     color: "text-purple-400",
     bg: "bg-purple-400"
   },
   {
-    icon: TrendingUp,
-    title: "Immediate ROI Strategy",
-    subtitle: "Recommendations prioritized by fastest payback.",
+    icon: BarChart2,
+    title: "Impact Assessments (EIA)",
+    subtitle: "Expert evaluation of environmental impacts for your projects.",
     color: "text-amber-400",
     bg: "bg-amber-400"
   },
   {
-    icon: GraduationCap,
-    title: "Certified Energy Literacy Program",
-    subtitle: "Empowering your staff to maintain efficiency long-term.",
+    icon: Building2,
+    title: "Strategic Assessments (SEA)",
+    subtitle: "Customized solutions aligned with sustainability practices.",
     color: "text-indigo-400",
     bg: "bg-indigo-400"
   }
 ]
 
 const floatingStats = [
-  { value: '30%', text: 'waste in buildings', type: 'warn' },
-  { value: '15-20%', text: 'immediate savings found', type: 'success' },
-  { value: '100%', text: 'regulatory alignment', type: 'info' }
+  { value: 'Energy', text: 'Audits', type: 'warn' },
+  { value: 'Carbon', text: 'Accounting', type: 'success' },
+  { value: 'Environmental', text: 'Compliance', type: 'info' }
 ]
 
 export function HeroSection() {
@@ -146,17 +146,17 @@ export function HeroSection() {
             <div className="space-y-6 md:space-y-8 flex flex-col items-center relative w-full">
               <div className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-1.5 text-sm text-white font-medium shadow-sm w-max">
                 <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-                Stop the Losses
+                Energy Insight
               </div>
 
               <h1 className="text-4xl md:text-5xl lg:text-[4rem] font-extrabold text-white leading-[1.1] tracking-tight text-shadow-md">
-                You’re Paying for Energy <span className="text-accent underline decoration-accent/50 underline-offset-8">
-                   You Don’t Use.
+                “You’re Paying for Energy <span className="text-accent underline decoration-accent/50 underline-offset-8">
+                   You Don’t Use.”
                 </span>
               </h1>
 
               <p className="text-lg md:text-xl text-white/90 leading-relaxed font-medium">
-                We uncover hidden energy losses in your home or business and turn them into measurable savings, efficiency, and compliance.
+                We identify where you’re losing energy, measure your carbon impact, and ensure you meet environmental standards—so you save money and stay compliant without the guesswork.
               </p>
 
               <div className="pt-2 flex flex-col items-center">
@@ -193,7 +193,7 @@ export function HeroSection() {
                   {stat.type === 'success' && <TrendingUp className="w-5 h-5 text-emerald-400" />}
                   {stat.type === 'info' && <Search className="w-5 h-5 text-blue-400" />}
                   <p className="text-white text-sm font-medium">
-                    Up to <span className={cn("font-bold", stat.type === 'warn' ? "text-red-400" : stat.type === 'success' ? "text-emerald-400" : "text-blue-400")}>{stat.value}</span> {stat.text}
+                    <span className={cn("font-bold", stat.type === 'warn' ? "text-red-400" : stat.type === 'success' ? "text-emerald-400" : "text-blue-400")}>{stat.value}</span> {stat.text}
                   </p>
                 </div>
               </div>
