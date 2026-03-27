@@ -42,7 +42,51 @@ export function RealizationSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
   const [showAll, setShowAll] = useState(false)
 
-  const displayedPoints = showAll ? wastePoints : wastePoints.slice(0, 3)
+  const renderPoint = (point: typeof wastePoints[0], idx: number) => {
+    const isOpen = openIndex === idx
+    return (
+      <div 
+        key={idx}
+        className={cn(
+          "border-b border-slate-200 transition-colors duration-300",
+          idx === wastePoints.length - 1 ? "border-0" : ""
+        )}
+      >
+        <button
+          onClick={() => setOpenIndex(isOpen ? null : idx)}
+          className="w-full flex items-center justify-between py-5 text-left focus:outline-none group"
+        >
+          <div className="flex items-center gap-4">
+            <point.icon className={cn(
+              "w-5 h-5 transition-colors duration-300",
+              isOpen ? "text-[#14b8a6]" : "text-slate-400 group-hover:text-slate-600"
+            )} />
+            <h4 className={cn(
+              "font-semibold text-lg transition-colors duration-300",
+              isOpen ? "text-[#0a192f]" : "text-[#0a192f]/70 group-hover:text-[#0a192f]"
+            )}>
+              {point.title}
+            </h4>
+          </div>
+          <ChevronDown className={cn(
+            "w-5 h-5 text-slate-300 transition-transform duration-300 shrink-0",
+            isOpen && "rotate-180"
+          )} />
+        </button>
+        
+        <div 
+          className={cn(
+            "overflow-hidden transition-all duration-300 ease-in-out",
+            isOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
+          )}
+        >
+          <p className="pb-6 pl-9 text-base text-slate-500 leading-relaxed font-medium">
+            {point.description}
+          </p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <section className="bg-white py-12 lg:py-28 overflow-hidden">
@@ -68,48 +112,16 @@ export function RealizationSection() {
 
             {/* Minimalist Accordion List with Borders strictly between items */}
             <div className="space-y-0 w-full max-w-lg mb-8">
-              {displayedPoints.map((point, idx) => {
-                const isOpen = openIndex === idx
-                return (
-                  <div 
-                    key={idx}
-                    className="border-b border-slate-200 last:border-0"
-                  >
-                    <button
-                      onClick={() => setOpenIndex(isOpen ? null : idx)}
-                      className="w-full flex items-center justify-between py-5 text-left focus:outline-none group"
-                    >
-                      <div className="flex items-center gap-4">
-                        <point.icon className={cn(
-                          "w-5 h-5 transition-colors duration-300",
-                          isOpen ? "text-[#14b8a6]" : "text-slate-400 group-hover:text-slate-600"
-                        )} />
-                        <h4 className={cn(
-                          "font-semibold text-lg transition-colors duration-300",
-                          isOpen ? "text-[#0a192f]" : "text-[#0a192f]/70 group-hover:text-[#0a192f]"
-                        )}>
-                          {point.title}
-                        </h4>
-                      </div>
-                      <ChevronDown className={cn(
-                        "w-5 h-5 text-slate-300 transition-transform duration-300 shrink-0",
-                        isOpen && "rotate-180"
-                      )} />
-                    </button>
-                    
-                    <div 
-                      className={cn(
-                        "overflow-hidden transition-all duration-300 ease-in-out",
-                        isOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
-                      )}
-                    >
-                      <p className="pb-6 pl-9 text-base text-slate-500 leading-relaxed font-medium">
-                        {point.description}
-                      </p>
-                    </div>
-                  </div>
-                )
-              })}
+              {wastePoints.slice(0, 3).map((point, idx) => renderPoint(point, idx))}
+              
+              <div 
+                className={cn(
+                  "transition-all duration-500 ease-in-out overflow-hidden origin-top",
+                  showAll ? "max-h-[800px] opacity-100" : "max-h-0 opacity-0"
+                )}
+              >
+                {wastePoints.slice(3).map((point, idx) => renderPoint(point, idx + 3))}
+              </div>
             </div>
             
             {/* "More" Toggle Button */}
