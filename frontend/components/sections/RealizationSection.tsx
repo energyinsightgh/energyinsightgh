@@ -53,6 +53,7 @@ export function RealizationSection() {
         )}
       >
         <button
+          type="button"
           onClick={() => setOpenIndex(isOpen ? null : idx)}
           className="w-full flex items-center justify-between py-5 text-left focus:outline-none group"
         >
@@ -76,13 +77,15 @@ export function RealizationSection() {
         
         <div 
           className={cn(
-            "overflow-hidden transition-all duration-300 ease-in-out",
-            isOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
+            "grid transition-all duration-300 ease-in-out",
+            isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
           )}
         >
-          <p className="pb-6 pl-9 text-base text-slate-500 leading-relaxed font-medium">
-            {point.description}
-          </p>
+          <div className="overflow-hidden">
+            <p className="pb-6 pl-9 text-base text-slate-500 leading-relaxed font-medium">
+              {point.description}
+            </p>
+          </div>
         </div>
       </div>
     )
@@ -116,11 +119,13 @@ export function RealizationSection() {
               
               <div 
                 className={cn(
-                  "transition-all duration-500 ease-in-out overflow-hidden origin-top",
-                  showAll ? "max-h-[800px] opacity-100" : "max-h-0 opacity-0"
+                  "grid transition-all duration-500 ease-in-out",
+                  showAll ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
                 )}
               >
-                {wastePoints.slice(3).map((point, idx) => renderPoint(point, idx + 3))}
+                <div className="overflow-hidden">
+                  {wastePoints.slice(3).map((point, idx) => renderPoint(point, idx + 3))}
+                </div>
               </div>
             </div>
             
