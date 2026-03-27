@@ -48,44 +48,44 @@ export function RealizationSection() {
     <section className="bg-white py-20 lg:py-28 overflow-hidden">
       <div className="container-site">
         
-        {/* Main Side-by-Side Typography Layout */}
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-24 items-start">
+        {/* Main Side-by-Side Typography Layout (No bulky box wrapper) */}
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
           
           {/* Left Column: Minimalist Content & Typography Accordion */}
           <div className="flex-1 w-full flex flex-col justify-start">
             
-            <div className="inline-flex items-center gap-2 bg-white border border-slate-100 rounded-full px-5 py-2 text-[13px] text-[#0a192f] font-bold shadow-sm w-max mb-8 tracking-wide">
+            <div className="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-4 py-1.5 text-xs text-[#0a192f] font-bold shadow-sm w-max mb-6 tracking-wide">
               The Realization
             </div>
             
-            <h2 className="text-[2.5rem] md:text-[3.5rem] lg:text-[4.8rem] font-bold text-[#0a192f] leading-[1.05] tracking-tight mb-10">
-              Most Buildings Waste<br /> Energy—<span className="text-[#0a192f] underline decoration-[#f5a623] decoration-[5px] underline-offset-[14px]">Silently.</span>
+            <h2 className="text-4xl md:text-5xl lg:text-[4rem] font-extrabold text-[#0a192f] leading-[1.05] tracking-tight mb-8">
+              Most Buildings Waste<br /> Energy—<span className="text-[#0a192f] underline decoration-[#f5a623] decoration-[4px] underline-offset-[12px]">Silently.</span>
             </h2>
             
-            <p className="text-[1.1rem] text-slate-500 font-medium leading-relaxed max-w-xl mb-14">
+            <p className="text-lg text-slate-500 font-medium leading-relaxed max-w-xl mb-12">
               Because current systems only show you the total bill, finding the root cause of the waste is incredibly tough. 
             </p>
 
-            {/* Minimalist Accordion List */}
-            <div className="space-y-0 w-full max-w-lg mb-10">
+            {/* Minimalist Accordion List with Borders strictly between items */}
+            <div className="space-y-0 w-full max-w-lg mb-8">
               {displayedPoints.map((point, idx) => {
                 const isOpen = openIndex === idx
                 return (
                   <div 
                     key={idx}
-                    className="border-b border-slate-100 last:border-0"
+                    className="border-b border-slate-200 last:border-0"
                   >
                     <button
                       onClick={() => setOpenIndex(isOpen ? null : idx)}
-                      className="w-full flex items-center justify-between py-6 text-left focus:outline-none group"
+                      className="w-full flex items-center justify-between py-5 text-left focus:outline-none group"
                     >
-                      <div className="flex items-center gap-5">
+                      <div className="flex items-center gap-4">
                         <point.icon className={cn(
                           "w-5 h-5 transition-colors duration-300",
-                          isOpen ? "text-[#14b8a6]" : "text-slate-300 group-hover:text-slate-500"
+                          isOpen ? "text-[#14b8a6]" : "text-slate-400 group-hover:text-slate-600"
                         )} />
                         <h4 className={cn(
-                          "font-bold text-[1.15rem] transition-colors duration-300",
+                          "font-semibold text-lg transition-colors duration-300",
                           isOpen ? "text-[#0a192f]" : "text-[#0a192f]/70 group-hover:text-[#0a192f]"
                         )}>
                           {point.title}
@@ -104,7 +104,7 @@ export function RealizationSection() {
                       )}
                     >
                       <div className="overflow-hidden">
-                        <p className="pb-6 pl-10 text-[1rem] text-slate-500 leading-relaxed font-medium">
+                        <p className="pb-6 pl-9 text-base text-slate-500 leading-relaxed font-medium">
                           {point.description}
                         </p>
                       </div>
@@ -114,11 +114,11 @@ export function RealizationSection() {
               })}
             </div>
             
-            {/* "See More" Toggle Button - Capsule Design matching c2.png */}
-            <div>
+            {/* "More" Toggle Button */}
+            <div className="pt-2">
               <button
                 onClick={() => setShowAll(!showAll)}
-                className="group inline-flex items-center gap-3 bg-white border border-slate-200 text-[#0a192f] font-bold text-[15px] px-8 py-3.5 rounded-full hover:bg-slate-50 transition-all duration-300 shadow-sm"
+                className="group inline-flex items-center gap-3 bg-white border border-slate-200 hover:border-slate-300 text-[#0a192f] font-bold text-[15px] px-6 py-2.5 rounded-full shadow-sm transition-all duration-300"
               >
                 {showAll ? (
                   <>Show Less <Minus className="w-4 h-4 text-[#14b8a6]" /></>
@@ -130,9 +130,9 @@ export function RealizationSection() {
             
           </div>
 
-          {/* Right Column: Constrained Rounded Image Block */}
-          <div className="flex-1 w-full relative pt-12 lg:pt-32">
-            <div className="w-full h-[480px] relative rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-50">
+          {/* Right Column: Constrained Rounded Image Block (Starting from 2nd line height) */}
+          <div className="flex-1 w-full relative pt-12 lg:pt-28">
+            <div className="w-full h-[450px] relative rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-100">
               <Image
                 src="/images/hero/man-working-environment-project-close-up.jpg"
                 alt="Energy Consultant with Tablet"
@@ -142,24 +142,27 @@ export function RealizationSection() {
                 priority
               />
               
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+              {/* Subtle tint overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
-              {/* Stat Overlays */}
-              <div className="absolute bottom-8 left-8 right-8 flex gap-5">
+              {/* Minimal Glassmorphic Overlays within Image Block Bounds */}
+              <div className="absolute bottom-6 left-6 right-6 flex gap-4">
                 
-                <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-[1.5rem] p-5 flex-1 shadow-lg">
+                {/* Stat 1 */}
+                <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-[1.5rem] p-5 flex-1 shadow-sm">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-white font-bold text-xl tracking-tight">30%</span>
                     <ArrowUpRight className="w-4 h-4 text-[#f5a623]" />
                   </div>
-                  <div className="text-white/60 text-[10px] font-extrabold uppercase tracking-widest">Waste</div>
+                  <div className="text-white/60 text-[10px] font-bold uppercase tracking-[0.1em]">Waste</div>
                 </div>
 
-                <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-[1.5rem] p-5 flex-1 shadow-lg">
+                {/* Stat 2 */}
+                <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-[1.5rem] p-5 flex-1 shadow-sm">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-white font-bold text-xl tracking-tight">24/7</span>
                   </div>
-                  <div className="text-white/60 text-[10px] font-extrabold uppercase tracking-widest">Monitor</div>
+                  <div className="text-white/60 text-[10px] font-bold uppercase tracking-[0.1em]">Monitor</div>
                 </div>
 
               </div>
