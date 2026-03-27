@@ -45,7 +45,7 @@ export function RealizationSection() {
   const displayedPoints = showAll ? wastePoints : wastePoints.slice(0, 3)
 
   return (
-    <section className="bg-white py-20 lg:py-28 overflow-hidden">
+    <section className="bg-white py-12 lg:py-28 overflow-hidden">
       <div className="container-site">
         
         {/* Main Side-by-Side Typography Layout */}
@@ -54,12 +54,12 @@ export function RealizationSection() {
           {/* Left Column: Minimalist Content & Typography Accordion */}
           <div className="flex-1 w-full flex flex-col justify-start">
             
-            <div className="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-3 py-1.5 text-[11px] sm:text-xs text-[#0a192f] font-bold shadow-sm w-max mb-4 sm:mb-6 tracking-wide">
+            <div className="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-4 py-1.5 text-[11px] lg:text-xs text-[#0a192f] font-bold shadow-sm w-max mb-6 tracking-wide">
               The Realization
             </div>
             
-            <h2 className="text-[28px] sm:text-3xl md:text-5xl lg:text-[3.5rem] font-extrabold text-[#0a192f] leading-[1.1] sm:leading-[1.05] tracking-tight mb-6 sm:mb-8">
-              Most Buildings Waste<br className="hidden md:block" /> Energy—<span className="text-[#0a192f] underline decoration-[#f5a623] decoration-[3px] md:decoration-[4px] underline-offset-[8px] md:underline-offset-[12px]">Silently.</span>
+            <h2 className="text-4xl md:text-5xl lg:text-[4.5rem] font-extrabold text-[#0a192f] leading-[1.1] tracking-tight mb-8">
+              Most Buildings Waste<br /> Energy—<span className="text-[#0a192f] underline decoration-[#f5a623] decoration-[4px] underline-offset-[8px] lg:underline-offset-[12px]">Silently.</span>
             </h2>
             
             <p className="text-lg text-slate-500 font-medium leading-relaxed max-w-xl mb-12">
@@ -130,8 +130,8 @@ export function RealizationSection() {
             
           </div>
 
-          {/* Right Column: Constrained Rounded Image Block */}
-          <div className="flex-1 w-full relative pt-8 lg:pt-28">
+          {/* Right Column: Constrained Rounded Image Block, Aligned precisely with 2nd line */}
+          <div className="flex-1 w-full relative lg:mt-[112px]">
             <div className="w-full h-[450px] relative rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-100">
               <Image
                 src="/images/hero/man-working-environment-project-close-up.jpg"
