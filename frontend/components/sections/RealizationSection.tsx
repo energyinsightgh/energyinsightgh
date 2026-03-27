@@ -131,8 +131,8 @@ export function RealizationSection() {
           </div>
 
           {/* Right Column: Constrained Rounded Image Block (Not stretching full height) */}
-          <div className="flex-1 w-full relative max-w-[550px] aspect-[4/5] mx-auto lg:mx-0 shrink-0">
-            <div className="w-full h-full relative rounded-3xl overflow-hidden shadow-2xl">
+          <div className="flex-1 w-full relative max-w-[550px] aspect-[4/3] lg:aspect-[3/2] mx-auto lg:mx-0 shrink-0 lg:mt-32">
+            <div className="w-full h-full relative rounded-2xl overflow-hidden shadow-xl border border-white/20">
               <Image
                 src="/images/hero/man-working-environment-project-close-up.jpg"
                 alt="Energy Consultant with Tablet"
@@ -143,27 +143,26 @@ export function RealizationSection() {
               />
               
               {/* Subtle tint overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0a192f]/80 via-[#0a192f]/20 to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0a192f]/60 via-transparent to-transparent pointer-events-none" />
 
               {/* Minimal Glassmorphic Overlays within Image Block Bounds */}
-              <div className="absolute bottom-6 left-6 right-6 flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+              <div className="absolute bottom-4 left-4 right-4 flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
                 
                 {/* Stat 1 */}
-                <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 flex-1 min-w-[130px]">
-                  <div className="text-white font-bold text-lg flex items-center gap-1 mb-1">
-                    30% <ArrowUpRight className="w-4 h-4 text-red-400" />
+                <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-3 flex-1 min-w-[110px]">
+                  <div className="text-white font-bold text-base flex items-center gap-1">
+                    30% <ArrowUpRight className="w-3 h-3 text-red-400" />
                   </div>
-                  <div className="text-white/70 text-xs font-semibold uppercase tracking-wider">Hidden Waste</div>
+                  <div className="text-white/70 text-[10px] uppercase tracking-wider font-bold">Waste</div>
                 </div>
 
                 {/* Stat 2 */}
-                <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 flex-1 min-w-[130px]">
-                  <div className="text-white font-bold text-lg mb-1">24/7</div>
-                  <div className="text-white/70 text-xs font-semibold uppercase tracking-wider">Monitoring</div>
+                <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-3 flex-1 min-w-[110px]">
+                  <div className="text-white font-bold text-base">24/7</div>
+                  <div className="text-white/70 text-[10px] uppercase tracking-wider font-bold">Monitor</div>
                 </div>
 
               </div>
-
             </div>
           </div>
 
