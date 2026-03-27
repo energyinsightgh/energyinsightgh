@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import Image from 'next/image'
-import { Zap, TrendingDown, Clock, Activity, CloudOff, ShieldAlert, ChevronDown, ArrowUpRight, BatteryCharging } from 'lucide-react'
+import { Zap, TrendingDown, Clock, Activity, CloudOff, ShieldAlert, ChevronDown, ArrowUpRight, BatteryCharging, Plus, Minus } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const wastePoints = [
@@ -40,58 +40,59 @@ const wastePoints = [
 
 export function RealizationSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
+  const [showAll, setShowAll] = useState(false)
+
+  const displayedPoints = showAll ? wastePoints : wastePoints.slice(0, 3)
 
   return (
-    <section className="py-20 lg:py-28 bg-surface-muted overflow-hidden">
+    <section className="bg-white py-20 lg:py-28 overflow-hidden">
       <div className="container-site">
         
-        {/* Main Side-by-Side Flex Layout */}
-        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start">
+        {/* Main Side-by-Side Typography Layout (No bulky box wrapper) */}
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
           
-          {/* Left Column: Interactive Content & Accordion */}
+          {/* Left Column: Minimalist Content & Typography Accordion */}
           <div className="flex-1 w-full flex flex-col justify-start">
             
-            <div className="inline-flex items-center gap-2 bg-white border border-[#14b8a6]/10 rounded-full px-3 py-1 text-[11px] md:text-[12px] text-[#0a192f] font-bold shadow-sm w-max mb-6 tracking-wider uppercase">
+            <div className="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-4 py-1.5 text-xs text-[#0a192f] font-bold shadow-sm w-max mb-6 tracking-wide">
               The Realization
             </div>
             
-            <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-[#0a192f] leading-[1.1] tracking-tight mb-5">
-              Most Buildings Waste<br /> Energy—<span className="text-[#0a192f] underline decoration-accent decoration-[3px] underline-offset-6">Silently.</span>
+            <h2 className="text-4xl md:text-5xl lg:text-[4.5rem] font-bold text-[#0a192f] leading-[1.05] tracking-tight mb-8">
+              Most Buildings Waste<br /> Energy—<span className="text-[#0a192f] underline decoration-[#f5a623] decoration-[4px] underline-offset-[12px]">Silently.</span>
             </h2>
             
-            <p className="text-base text-slate-500 font-medium leading-relaxed max-w-lg mb-8">
+            <p className="text-lg text-slate-500 font-medium leading-relaxed max-w-xl mb-12">
               Because current systems only show you the total bill, finding the root cause of the waste is incredibly tough. 
             </p>
 
-            {/* Compressed Card Accordion Items */}
-            <div className="space-y-3 w-full max-w-md">
-              {wastePoints.map((point, idx) => {
+            {/* Minimalist Accordion List with Borders strictly between items */}
+            <div className="space-y-0 w-full max-w-lg mb-8">
+              {displayedPoints.map((point, idx) => {
                 const isOpen = openIndex === idx
                 return (
                   <div 
                     key={idx}
-                    className={cn(
-                      "group border rounded-2xl transition-all duration-300 overflow-hidden",
-                      isOpen ? "bg-white border-[#14b8a6]/30 shadow-sm ring-1 ring-[#14b8a6]/5" : "bg-white/50 border-white/80 hover:bg-white hover:border-[#14b8a6]/20"
-                    )}
+                    className="border-b border-slate-100 last:border-0"
                   >
                     <button
                       onClick={() => setOpenIndex(isOpen ? null : idx)}
-                      className="w-full flex items-center justify-between p-4 text-left focus:outline-none"
+                      className="w-full flex items-center justify-between py-6 text-left focus:outline-none group"
                     >
-                      <div className="flex items-center gap-3">
-                        <div className={cn(
-                          "w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-300",
-                          isOpen ? "bg-[#14b8a6] text-white" : "bg-white text-[#14b8a6] shadow-[0_2px_4px_rgba(0,0,0,0.05)]"
+                      <div className="flex items-center gap-4">
+                        <point.icon className={cn(
+                          "w-5 h-5 transition-colors duration-300",
+                          isOpen ? "text-[#14b8a6]" : "text-slate-400 group-hover:text-slate-600"
+                        )} />
+                        <h4 className={cn(
+                          "font-bold text-lg transition-colors duration-300",
+                          isOpen ? "text-[#0a192f]" : "text-[#0a192f]/70 group-hover:text-[#0a192f]"
                         )}>
-                          <point.icon className="w-4 h-4" />
-                        </div>
-                        <h4 className="font-bold text-[#0a192f] text-[15px] md:text-base">
                           {point.title}
                         </h4>
                       </div>
                       <ChevronDown className={cn(
-                        "w-4 h-4 text-slate-400 transition-transform duration-300",
+                        "w-5 h-5 text-slate-300 transition-transform duration-300 shrink-0",
                         isOpen && "rotate-180"
                       )} />
                     </button>
@@ -103,7 +104,7 @@ export function RealizationSection() {
                       )}
                     >
                       <div className="overflow-hidden">
-                        <p className="px-4 pb-4 pt-0 text-[14px] text-slate-500 leading-relaxed font-medium max-w-[90%]">
+                        <p className="pb-6 pl-9 text-base text-slate-500 leading-relaxed font-medium">
                           {point.description}
                         </p>
                       </div>
@@ -113,60 +114,59 @@ export function RealizationSection() {
               })}
             </div>
             
+            {/* "More" Toggle Button */}
+            <div>
+              <button
+                onClick={() => setShowAll(!showAll)}
+                className="group inline-flex items-center gap-2 text-slate-400 hover:text-primary font-bold text-sm transition-all duration-300"
+              >
+                {showAll ? (
+                  <>Show Less <Minus className="w-4 h-4" /></>
+                ) : (
+                  <>See {wastePoints.length - 3} More <Plus className="w-4 h-4" /></>
+                )}
+              </button>
+            </div>
+            
           </div>
 
-          {/* Right Column: High-Quality Visual with Adjusted Height & Positioning */}
-          <div className="flex-1 w-full relative pt-12 lg:pt-16"> {/* Top padding to start the image at the 2nd line height */}
-            {/* Image Container with constrained height ([aspect-video] or specific h) */}
-            <div className="w-full h-[350px] md:h-[450px] relative rounded-[2.5rem] overflow-hidden shadow-xl border border-white/20">
+          {/* Right Column: Constrained Rounded Image Block (Starting from 2nd line height) */}
+          <div className="flex-1 w-full relative pt-12 lg:pt-28">
+            <div className="w-full h-[450px] relative rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-100">
               <Image
                 src="/images/hero/man-working-environment-project-close-up.jpg"
-                alt="Energy Consultant at Work"
+                alt="Energy Consultant with Tablet"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 priority
               />
               
-              {/* Vibrant Overlay for Tension */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0a192f]/80 via-[#0a192f]/20 to-transparent pointer-events-none" />
+              {/* Subtle tint overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
-              {/* Smaller Glassmorphic Stat Cards Overlaid on Image */}
-              <div className="absolute bottom-6 left-6 right-6 flex flex-row gap-3 overflow-x-auto pb-2 scrollbar-hide">
+              {/* Minimal Glassmorphic Overlays within Image Block Bounds */}
+              <div className="absolute bottom-6 left-6 right-6 flex gap-4">
                 
-                {/* Compact Glass Card 1 */}
-                <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-[1.5rem] p-4 shadow-xl min-w-[140px] flex-1">
-                  <div className="flex flex-col gap-1">
-                    <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 bg-red-500/20 rounded-lg flex items-center justify-center">
-                        <ArrowUpRight className="w-4 h-4 text-red-500" />
-                      </div>
-                      <span className="text-red-400 text-[9px] font-bold uppercase tracking-widest">Efficiency Gap</span>
-                    </div>
-                    <div>
-                      <span className="text-white text-xl font-black">30%</span>
-                      <p className="text-white/60 text-[11px] font-semibold mt-0.5">Wasted daily</p>
-                    </div>
+                {/* Stat 1 */}
+                <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-[1.5rem] p-5 flex-1 shadow-sm">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-white font-bold text-xl tracking-tight">30%</span>
+                    <ArrowUpRight className="w-4 h-4 text-[#f5a623]" />
                   </div>
+                  <div className="text-white/60 text-[10px] font-bold uppercase tracking-[0.1em]">Waste</div>
                 </div>
 
-                {/* Compact Glass Card 2 */}
-                <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-[1.5rem] p-4 shadow-xl min-w-[140px] flex-1">
-                  <div className="flex flex-col gap-1">
-                    <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 bg-[#14b8a6]/20 rounded-lg flex items-center justify-center">
-                        <BatteryCharging className="w-4 h-4 text-[#14b8a6]" />
-                      </div>
-                      <span className="text-[#14b8a6] text-[9px] font-bold uppercase tracking-widest">Monitoring</span>
-                    </div>
-                    <div>
-                      <span className="text-white text-xl font-black">24/7</span>
-                      <p className="text-white/60 text-[11px] font-semibold mt-0.5">Real-time oversight</p>
-                    </div>
+                {/* Stat 2 */}
+                <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-[1.5rem] p-5 flex-1 shadow-sm">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-white font-bold text-xl tracking-tight">24/7</span>
                   </div>
+                  <div className="text-white/60 text-[10px] font-bold uppercase tracking-[0.1em]">Monitor</div>
                 </div>
 
               </div>
+
             </div>
           </div>
 
