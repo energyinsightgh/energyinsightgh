@@ -36,21 +36,30 @@ export function SolutionFrameworkSection() {
             Solution Framework
           </div>
 
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#0a192f] leading-[1.1] tracking-tight mb-5">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#0a192f] leading-[1.1] tracking-tight mb-6">
             We Don&apos;t Guess.{' '}
-            <span className="relative inline-block">
+            <span className="relative inline-block pb-2">
               <span>We Diagnose and Optimize.</span>
-              <span
-                aria-hidden="true"
-                className="absolute left-0 right-0 bottom-0 h-[4px] rounded-full bg-[#f5a623]"
-              />
+              <svg
+                viewBox="0 0 350 20"
+                className="absolute left-0 right-0 -bottom-1 w-full h-4 text-[#f5a623]"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M5 15 Q 175 2 345 15"
+                  stroke="currentColor"
+                  strokeWidth="6"
+                  strokeLinecap="round"
+                  fill="transparent"
+                  className="opacity-90"
+                />
+              </svg>
             </span>
           </h2>
 
           <p className="text-base text-slate-500 font-medium leading-relaxed max-w-2xl mx-auto">
-            Every recommendation we make is evidence-based — rooted in data, not
-            assumptions. Our structured three-phase process turns energy
-            complexity into clarity and measurable results.
+            Instead of juggling audits, spreadsheets, and compliance reports,
+            you get a single, clear system that shows where you’re losing money—and how to fix it.
           </p>
         </div>
 
