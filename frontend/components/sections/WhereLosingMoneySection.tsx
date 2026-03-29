@@ -9,13 +9,7 @@ const coreProblems = [
     icon: Fan,
     title: "Inefficient Equipment",
     subtitle: "(ACs, Lighting, Motors)",
-    items: [
-      "Outdated air conditioning systems consuming excess power",
-      "Lighting systems running longer than necessary or using old tech",
-      "Motors and compressors operating without load optimization",
-      "Equipment not sized correctly for actual demand"
-    ],
-    punchline: "Your systems aren’t broken—they’re just costing you more than they should.",
+    punchline: "Your systems aren't broken—they're just costing you more than they should.",
     microStat: "Inefficient equipment can increase energy costs by up to 20–40%.",
     isTilted: true
   },
@@ -23,12 +17,6 @@ const coreProblems = [
     icon: Building2,
     title: "Poor Building Design",
     subtitle: "& Load Imbalance",
-    items: [
-      "Heat gain from poor insulation or building orientation",
-      "Uneven energy distribution across floors or departments",
-      "Overloaded circuits in some areas, underutilized in others",
-      "HVAC systems compensating for poor structural efficiency"
-    ],
     punchline: "Your building could be forcing your systems to work harder than necessary.",
     microStat: null,
     isTilted: false
@@ -37,13 +25,7 @@ const coreProblems = [
     icon: LineChart,
     title: "No Energy Tracking",
     subtitle: "or Carbon Visibility",
-    items: [
-      "No real-time monitoring of energy consumption",
-      "No breakdown of which systems consume the most energy",
-      "Carbon emissions not measured or reported",
-      "Decisions based on bills—not actual data"
-    ],
-    punchline: "You’re paying for energy—but you don’t know where it’s going.",
+    punchline: "You're paying for energy—but you don't know where it's going.",
     microStat: "No baseline = no optimization. No tracking = no accountability.",
     isTilted: false
   }
@@ -53,34 +35,16 @@ const hiddenProblems = [
   {
     icon: ShieldAlert,
     title: "Regulatory Blind Spots",
-    items: [
-      "Lack of proper environmental impact assessments (EIA)",
-      "Missing or outdated environmental management plans (EMP)",
-      "No structured carbon reporting for regulatory bodies",
-      "Exposure to penalties, shutdowns, or reputational damage"
-    ],
-    punchline: "Non-compliance doesn’t always show up—until it’s too late."
+    punchline: "Non-compliance doesn't always show up—until it's too late."
   },
   {
     icon: RotateCcw,
-    title: "Daily Operations",
-    items: [
-      "Equipment left running during non-operational hours",
-      "Lack of automation or smart controls",
-      "Manual processes where optimization could exist",
-      "No internal awareness of energy-saving practices"
-    ],
-    punchline: "Energy waste isn’t just in systems—it’s in daily behavior."
+    title: "Energy Waste in Daily Operations",
+    punchline: "Energy waste isn't just in systems—it's in daily behavior."
   },
   {
     icon: Target,
-    title: "Lack of Strategy",
-    items: [
-      "No long-term energy efficiency plan",
-      "Teams not trained on energy-conscious operations",
-      "No internal benchmarks or performance targets",
-      "Decisions made without energy impact in mind"
-    ],
+    title: "Lack of Energy Strategy",
     punchline: "Without a strategy, energy loss becomes a permanent expense."
   }
 ]
@@ -92,12 +56,15 @@ export function WhereLosingMoneySection() {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
-          <div className="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-4 py-1.5 text-xs text-[#f5a623] font-bold shadow-sm w-max mb-6 tracking-wide">
+          <div className="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-4 py-1.5 text-xs text-[#f5a623] font-bold shadow-sm w-max mb-6 tracking-wide mx-auto">
             The Financial Leak
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold text-[#0a192f] leading-[1.1] tracking-tight">
-            Where You’re Losing Money <span className="text-[#14b8a6]">Right Now.</span>
+          <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold text-[#0a192f] leading-[1.1] tracking-tight mb-6">
+            Where You&apos;re Losing Money <span className="text-[#14b8a6]">Right Now.</span>
           </h2>
+          <p className="text-lg text-slate-500 font-medium leading-relaxed">
+            Most businesses pay for the energy they use. Very few understand where it actually goes.
+          </p>
         </div>
 
         {/* Option B Layout Structure */}
@@ -109,7 +76,7 @@ export function WhereLosingMoneySection() {
               <div 
                 key={idx}
                 className={cn(
-                  "bg-white rounded-3xl p-8 lg:p-10 border border-slate-100 flex flex-col h-full transition-all duration-300",
+                  "bg-white rounded-3xl p-8 lg:p-10 border border-slate-100 flex flex-col transition-all duration-300",
                   card.isTilted 
                     ? "transform md:-rotate-2 md:scale-105 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] z-10 hover:-translate-y-2 hover:-rotate-1" 
                     : "shadow-lg hover:-translate-y-2 hover:shadow-xl"
@@ -130,15 +97,6 @@ export function WhereLosingMoneySection() {
                     {card.subtitle}
                   </p>
                 )}
-                
-                <ul className="space-y-3 mb-8 flex-1">
-                  {card.items.map((item, i) => (
-                    <li key={i} className="flex items-start text-slate-500 text-sm leading-relaxed font-medium">
-                      <span className="w-1.5 h-1.5 rounded-full bg-slate-300 mr-3 mt-2 shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
                 
                 <div className="pt-6 border-t border-slate-100 mt-auto">
                   <p className="text-[#0a192f] font-bold italic text-[15px] leading-snug">
@@ -166,7 +124,7 @@ export function WhereLosingMoneySection() {
               {hiddenProblems.map((card, idx) => (
                 <div 
                   key={idx}
-                  className="bg-white/40 backdrop-blur-sm rounded-[2rem] p-8 border border-slate-200/60 shadow-sm flex flex-col h-full hover:bg-white/60 transition-colors duration-300 group"
+                  className="bg-white/40 backdrop-blur-sm rounded-[2rem] p-8 border border-slate-200/60 shadow-sm flex flex-col hover:bg-white/60 transition-colors duration-300 group"
                 >
                   <div className="flex items-center gap-4 mb-6">
                     <div className="w-12 h-12 bg-white/60 rounded-xl flex items-center justify-center shadow-sm border border-slate-100 group-hover:bg-white transition-colors duration-300">
@@ -176,15 +134,6 @@ export function WhereLosingMoneySection() {
                       {card.title}
                     </h3>
                   </div>
-                  
-                  <ul className="space-y-3 mb-8 flex-1">
-                    {card.items.map((item, i) => (
-                      <li key={i} className="flex items-start text-slate-500 text-sm leading-relaxed font-medium">
-                        <span className="w-1.5 h-1.5 rounded-full bg-slate-300 mr-3 mt-2 shrink-0 group-hover:bg-[#f5a623]/50 transition-colors duration-300" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
                   
                   <div className="pt-5 border-t border-slate-200/60 mt-auto">
                     <p className="text-slate-600 font-semibold italic text-[14px] leading-snug group-hover:text-[#0a192f] transition-colors duration-300">
