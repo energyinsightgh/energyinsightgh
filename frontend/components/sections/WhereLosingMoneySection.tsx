@@ -57,7 +57,7 @@ const allProblems = [
 
 export function WhereLosingMoneySection() {
   return (
-    <section className="bg-[#f8fafc] py-16 lg:py-24 relative overflow-hidden">
+    <section className="bg-[#eef2f7] py-16 lg:py-24 relative overflow-hidden">
       <div className="container-site relative z-10">
         
         {/* Section Header */}
