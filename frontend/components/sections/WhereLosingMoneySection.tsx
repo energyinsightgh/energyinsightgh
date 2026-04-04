@@ -62,11 +62,11 @@ export function WhereLosingMoneySection() {
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-14 lg:mb-20">
-          <div className="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-4 py-1.5 text-xs text-[#f5a623] font-bold shadow-sm mb-5 tracking-wide">
+          <div className="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-4 py-1.5 text-xs text-[#ef4444] font-bold shadow-sm mb-5 tracking-wide">
             The Financial Leak
           </div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#0a192f] leading-[1.1] tracking-tight mb-5">
-            Where You&apos;re Losing Money <span className="text-[#14b8a6]">Right Now.</span>
+            Where You&apos;re Losing Money <span className="text-[#f5a623]">Right Now.</span>
           </h2>
           <p className="text-base text-slate-500 font-medium leading-relaxed">
             Your bill shows the total. It never shows the waste. Here&apos;s where your money quietly exits every single month.
@@ -84,15 +84,15 @@ export function WhereLosingMoneySection() {
               )}
             >
               {/* Icon */}
-              <div className="w-11 h-11 bg-[#f0fdfa] rounded-xl flex items-center justify-center mb-5 border border-[#ccfbf1]">
-                <card.icon className="w-5 h-5 text-[#14b8a6]" />
+              <div className="w-11 h-11 bg-[#fffbeb] rounded-xl flex items-center justify-center mb-5 border border-[#fef3c7]">
+                <card.icon className="w-5 h-5 text-[#f5a623]" />
               </div>
               
               {/* Title & Subtitle */}
               <h3 className="text-lg font-bold text-[#0a192f] leading-snug mb-1">
                 {card.title}
               </h3>
-              <p className="text-[#14b8a6] font-semibold text-[11px] uppercase tracking-wider mb-5">
+              <p className="text-[#f5a623] font-semibold text-[11px] uppercase tracking-wider mb-5">
                 {card.subtitle}
               </p>
               
@@ -102,7 +102,7 @@ export function WhereLosingMoneySection() {
                   &ldquo;{card.punchline}&rdquo;
                 </p>
                 {card.microStat && (
-                  <div className="mt-3 bg-[#f0fdfa] text-[#0d9488] text-[11px] font-bold py-1.5 px-3 rounded-lg inline-block">
+                  <div className="mt-3 bg-[#fffbeb] text-[#d97706] text-[11px] font-bold py-1.5 px-3 rounded-lg inline-block">
                     {card.microStat}
                   </div>
                 )}

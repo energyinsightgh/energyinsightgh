@@ -5,21 +5,23 @@ import React from 'react'
 const steps = [
   {
     number: '01',
-    title: 'Inspect',
-    description:
-      'Facility checks, audits, load analysis',
+    title: 'Assess',
+    description: 'We analyze your energy usage, systems, and data.',
   },
   {
     number: '02',
-    title: 'Analyze',
-    description:
-      'Energy data + carbon accounting + inefficiencies',
+    title: 'Identify',
+    description: 'We uncover inefficiencies and risks.',
   },
   {
     number: '03',
-    title: 'Transform',
-    description:
-      'Recommendations, compliance, cost reduction',
+    title: 'Optimize',
+    description: 'You get clear actions to reduce cost and emissions.',
+  },
+  {
+    number: '04',
+    title: 'Monitor',
+    description: 'Track improvements in real-time.',
   },
 ]
 
@@ -74,32 +76,43 @@ export function SolutionFrameworkSection() {
           */}
           <div
             className="hidden lg:block absolute h-[2px] bg-[#0a192f]/10 top-[40px]"
-            style={{ left: '16.67%', right: '16.67%' }}
+            style={{ left: '12.5%', right: '12.5%' }}
           />
 
           {/* Steps */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-14 lg:gap-0">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-y-16 lg:gap-8">
             {steps.map((step, idx) => (
               <div
                 key={idx}
                 className="relative flex flex-col items-center"
               >
-                {/* Mobile vertical connector (only between steps) */}
-                {idx < steps.length - 1 ? (
-                  <div className="lg:hidden absolute top-[80px] left-1/2 -translate-x-1/2 w-[2px] h-12 bg-[#0a192f]/10" />
-                ) : null}
+                {/* Vertical connector lines (only for mobile/tablet where stacked) */}
+                <div className="md:hidden">
+                  {idx < steps.length - 1 && (
+                    <div className="absolute top-[80px] left-1/2 -translate-x-1/2 w-[2px] h-12 bg-[#0a192f]/10" />
+                  )}
+                </div>
+                <div className="hidden md:block lg:hidden">
+                  {/* Tablet vertical connector for 2-column layout */}
+                  {idx % 2 === 0 && (
+                    <div className="absolute left-center right-center h-[2px] bg-[#0a192f]/10 top-[40px] w-full" style={{ left: '50%' }} />
+                  )}
+                  {idx < 2 && (
+                    <div className="absolute top-[80px] left-1/2 -translate-x-1/2 w-[2px] h-16 bg-[#0a192f]/10" />
+                  )}
+                </div>
 
                 {/* Number Circle */}
                 <div className="relative z-10 mb-8">
-                  {idx === 1 ? (
-                    /* Middle step — filled circle (like reference 02) */
+                  {idx === 1 || idx === 2 ? (
+                    /* Middle steps — filled circle */
                     <div className="w-[72px] h-[72px] rounded-full bg-[#0a192f] border-[3px] border-[#0a192f] flex items-center justify-center shadow-lg ring-4 ring-[#0a192f]/10">
                       <span className="text-[22px] font-extrabold text-white tracking-tight">
                         {step.number}
                       </span>
                     </div>
                   ) : (
-                    /* First & last steps — outlined circle (like reference 01/03) */
+                    /* First & last steps — outlined circle */
                     <div className="w-[72px] h-[72px] rounded-full bg-white border-[2.5px] border-[#0a192f] flex items-center justify-center shadow-sm">
                       <span className="text-[22px] font-extrabold text-[#0a192f] tracking-tight">
                         {step.number}
@@ -122,13 +135,24 @@ export function SolutionFrameworkSection() {
           </div>
         </div>
 
-        {/* Bottom authority tagline */}
-        <div className="mt-16 lg:mt-20 flex items-center justify-center gap-4">
-          <div className="h-px flex-1 max-w-xs bg-slate-200" />
-          <span className="text-[11px] font-bold uppercase tracking-widest text-slate-400">
-            Precision · Data · Results
-          </span>
-          <div className="h-px flex-1 max-w-xs bg-slate-200" />
+        {/* CTA Button */}
+        <div className="mt-16 flex flex-col items-center">
+          <a
+            href="#contact"
+            className="group relative inline-flex items-center gap-3 bg-[#0a192f] text-white font-bold px-8 py-4 rounded-full transition-all duration-300 hover:bg-[#14b8a6] hover:shadow-[0_10px_25px_-5px_rgba(20,184,166,0.4)] active:scale-95"
+          >
+            <span className="relative z-10 flex items-center gap-2">
+              Start Your Assessment Now!! <span className="text-xl">👉</span>
+            </span>
+          </a>
+          
+          <div className="mt-12 flex items-center justify-center gap-4 w-full">
+            <div className="h-px flex-1 max-w-xs bg-slate-200" />
+            <span className="text-[11px] font-bold uppercase tracking-widest text-slate-400">
+              Precision · Data · Results
+            </span>
+            <div className="h-px flex-1 max-w-xs bg-slate-200" />
+          </div>
         </div>
       </div>
     </section>

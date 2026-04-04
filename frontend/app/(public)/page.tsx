@@ -3,6 +3,7 @@ import { HeroSection } from '@/components/sections/HeroSection'
 import { BenefitsSection } from '@/components/sections/BenefitsSection'
 import { RealizationSection } from '@/components/sections/RealizationSection'
 import { SolutionFrameworkSection } from '@/components/sections/SolutionFrameworkSection'
+import { TransformationSection } from '@/components/sections/TransformationSection'
 import { WhereLosingMoneySection } from '@/components/sections/WhereLosingMoneySection'
 import { ServicesPreviewSection } from '@/components/sections/ServicesPreviewSection'
 import { ContactCTASection } from '@/components/sections/ContactCTASection'
@@ -38,6 +39,7 @@ export default async function HomePage() {
       <RealizationSection />
       <WhereLosingMoneySection />
       <SolutionFrameworkSection />
+      <TransformationSection />
       <BenefitsSection />
       <ServicesPreviewSection services={(services ?? []) as Service[]} />
 
