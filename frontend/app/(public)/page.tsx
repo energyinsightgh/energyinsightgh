@@ -5,7 +5,7 @@ import { RealizationSection } from '@/components/sections/RealizationSection'
 import { SolutionFrameworkSection } from '@/components/sections/SolutionFrameworkSection'
 import { TransformationSection } from '@/components/sections/TransformationSection'
 import { WhereLosingMoneySection } from '@/components/sections/WhereLosingMoneySection'
-import { ServicesPreviewSection } from '@/components/sections/ServicesPreviewSection'
+import { ComprehensiveServicesSection } from '@/components/sections/ComprehensiveServicesSection'
 import { ContactCTASection } from '@/components/sections/ContactCTASection'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
@@ -40,8 +40,8 @@ export default async function HomePage() {
       <WhereLosingMoneySection />
       <SolutionFrameworkSection />
       <TransformationSection />
+      <ComprehensiveServicesSection />
       <BenefitsSection />
-      <ServicesPreviewSection services={(services ?? []) as Service[]} />
 
       {/* Blog Preview */}
       {posts && posts.length > 0 && (
