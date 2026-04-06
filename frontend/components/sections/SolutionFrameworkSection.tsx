@@ -5,23 +5,23 @@ import React from 'react'
 const steps = [
   {
     number: '01',
-    title: 'Assess',
-    description: 'We analyze your energy usage, systems, and data.',
+    title: 'Request assessment',
+    description: 'We start by understanding your facility, current energy usage, and goals.',
   },
   {
     number: '02',
-    title: 'Identify',
-    description: 'We uncover inefficiencies and risks.',
+    title: 'On-site / system audit',
+    description: 'Our experts conduct a thorough, hassle-free inspection to uncover hidden inefficiencies.',
   },
   {
     number: '03',
-    title: 'Optimize',
-    description: 'You get clear actions to reduce cost and emissions.',
+    title: 'Insight report delivered',
+    description: 'You receive a clear, actionable breakdown of exactly where you are losing money.',
   },
   {
     number: '04',
-    title: 'Monitor',
-    description: 'Track improvements in real-time.',
+    title: 'Implementation guidance',
+    description: 'We guide you step-by-step through executing the recommended cost-saving solutions.',
   },
 ]
 
@@ -60,13 +60,11 @@ export function SolutionFrameworkSection() {
           </h2>
 
           <p className="text-base text-slate-500 font-medium leading-relaxed max-w-2xl mx-auto">
-            Instead of juggling audits, spreadsheets, and compliance reports,
-            you get a single, clear system that shows where you’re losing money—and how to fix it.
+            We make optimizing your facility&apos;s energy effortlessly simple. With a straightforward, hassle-free process, we identify where you&apos;re losing money and give you the exact steps to fix it.
           </p>
         </div>
 
-        {/* 3-Step Flow */}
-        <div className="relative max-w-4xl mx-auto px-4">
+        <div className="relative max-w-[75rem] mx-auto px-4">
 
           {/* ── Desktop connector line ── */}
           {/*

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { 
@@ -8,32 +8,29 @@ import {
   Activity, 
   Building2, 
   BarChart2, 
-  Search, 
   ShieldCheck, 
-  FileSearch, 
-  TrendingUp, 
-  GraduationCap,
-  Zap
+  FileSearch,
+  Play
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-const slideImages = [
+const heroSlides = [
   {
-    src: '/images/hero/image1.jpg',
-    title: 'Energy Insight Analytics'
+    src: '/images/hero/energy-audit.jpg',
+    title: 'Energy Audit',
   },
   {
-    src: '/images/hero/man-working-environment-project-close-up.jpg',
-    title: 'Commercial Efficiency Audits'
+    src: '/images/hero/carbon-accounting.jpg',
+    title: 'Carbon Accounting',
   },
   {
-    src: '/images/hero/turbine-green-energy-electricity-technology-concept.jpg',
-    title: 'Renewable Power Strategies'
+    src: '/images/hero/environmental-assessment.jpg',
+    title: 'Environmental Assessment',
   },
   {
-    src: '/images/hero/wind-power-with-affordable-clean-energy-environment-banner.jpg',
-    title: 'Sustainable Growth'
-  }
+    src: '/images/hero/lighting-design.jpg',
+    title: 'Pre-Construction Lighting',
+  },
 ]
 
 const trustBadges = [
@@ -74,164 +71,193 @@ const trustBadges = [
   }
 ]
 
-const floatingStats = [
-  { value: 'Energy', text: 'Audits', type: 'warn' },
-  { value: 'Carbon', text: 'Accounting', type: 'success' },
-  { value: 'Environmental', text: 'Compliance', type: 'info' }
-]
-
 export function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0)
-  const [statIndex, setStatIndex] = useState(0)
 
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slideImages.length)
-  const prevSlide = () => setCurrentSlide((prev) => (prev === 0 ? slideImages.length - 1 : prev - 1))
-
-  useEffect(() => {
-    const slideTimer = setInterval(() => {
-      nextSlide()
-    }, 5000)
-    
-    // Cycle stats every 6 seconds to match the bounce animation duration
-    const statTimer = setInterval(() => {
-      setStatIndex((prev) => (prev + 1) % floatingStats.length)
-    }, 6000)
-
-    return () => {
-      clearInterval(slideTimer)
-      clearInterval(statTimer)
-    }
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
   }, [])
 
-  // Duplicate items for the marquee to ensure a continuous scrolling effect
+  useEffect(() => {
+    const timer = setInterval(nextSlide, 4000)
+    return () => clearInterval(timer)
+  }, [nextSlide])
+
+  // Duplicate items for the marquee
   const marqueeItems = [...trustBadges, ...trustBadges, ...trustBadges]
 
   return (
-    <section className="bg-white flex flex-col pt-1 pb-4 md:pt-2 md:pb-6 overflow-hidden">
+    <section className="bg-white flex flex-col overflow-hidden">
       
-      {/* Container for the Hero Card (Unconstrained Width) */}
-      <div className="w-full mx-auto px-0 md:px-4 mb-6 md:mb-12">
-        <div className="relative w-full min-h-[85vh] rounded-none md:rounded-3xl overflow-hidden shadow-2xl flex flex-col justify-center bg-[#0a192f]">
+      {/* Main Hero Area */}
+      <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 pt-16 pb-12 md:pt-20 md:pb-16 lg:pt-28 lg:pb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-8 xl:gap-4 items-start">
           
-          {/* Background Slider */}
-          {slideImages.map((slide, index) => (
-            <div
-              key={slide.src}
-              className={cn(
-                "absolute inset-0 transition-opacity duration-1000 ease-in-out",
-                index === currentSlide ? "opacity-100" : "opacity-0"
-              )}
-            >
-              <Image
-                src={slide.src}
-                alt="Energy insight background"
-                fill
-                className="object-cover"
-                priority={index === 0}
-              />
+          {/* Left Column — Text Content */}
+          <div className="space-y-7 pt-2 lg:pt-4">
+            
+            {/* Pill Badge */}
+            <div className="inline-flex items-center gap-2 bg-[#14b8a6]/10 border border-[#14b8a6]/20 rounded-full px-4 py-1.5 text-sm font-medium text-[#0f766e]">
+              <span className="w-2 h-2 bg-[#14b8a6] rounded-full animate-pulse" />
+              Energy Insight
             </div>
-          ))}
 
-          {/* Overlay - Evenly darkening to make centered text legible anywhere */}
-          <div className="absolute inset-0 bg-black/30" />
-          
-          {/* Subtle Animated Accents */}
-          <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            <div className="absolute top-1/4 left-1/4 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-accent/30 to-transparent animate-[pulse_3s_ease-in-out_infinite]" />
+            {/* Main Heading */}
+            <h1 className="text-[2.75rem] md:text-[3.25rem] lg:text-[3.5rem] xl:text-[4.25rem] font-extrabold text-[#0a192f] leading-[1.08] tracking-tight">
+              Smarter Energy
+              <br />
+              for your{' '}
+              <span className="text-[#14b8a6] underline decoration-[#14b8a6]/30 underline-offset-8">
+                Business
+              </span>
+            </h1>
+
+            {/* Description */}
+            <p className="text-base md:text-[1.1rem] text-text-secondary leading-[1.7] max-w-[420px]">
+              We identify where you&apos;re losing energy, measure your carbon impact, and ensure you meet environmental standards—saving money without the guesswork.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="flex items-center gap-3 pt-1">
+              <Link
+                href="/contact"
+                className="group inline-flex items-center justify-center gap-2 bg-[#0a192f] hover:bg-[#112240] text-white font-bold px-7 py-3.5 rounded-xl transition-all duration-300 shadow-md hover:-translate-y-0.5 text-sm"
+              >
+                Get Started
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+              <button className="inline-flex items-center justify-center gap-2 border border-slate-200 bg-white text-text-primary font-bold px-7 py-3.5 rounded-xl transition-all duration-300 hover:border-slate-300 hover:shadow-sm text-sm">
+                <Play className="w-4 h-4 text-[#14b8a6]" />
+                Preview
+              </button>
+            </div>
+
+            {/* Social Proof */}
+            <div className="flex items-center gap-4 pt-3">
+              <div className="flex -space-x-2">
+                {[
+                  'bg-gradient-to-br from-teal-400 to-emerald-500',
+                  'bg-gradient-to-br from-amber-400 to-orange-500',
+                  'bg-gradient-to-br from-blue-400 to-indigo-500',
+                  'bg-gradient-to-br from-rose-400 to-pink-500',
+                ].map((gradient, i) => (
+                  <div
+                    key={i}
+                    className={cn(
+                      "w-9 h-9 rounded-full border-2 border-white flex items-center justify-center text-white text-xs font-bold shadow-sm",
+                      gradient
+                    )}
+                  >
+                    {['EI', 'CA', 'EA', 'LD'][i]}
+                  </div>
+                ))}
+              </div>
+              <div>
+                <p className="text-[#0a192f] font-extrabold text-lg leading-tight">150+</p>
+                <p className="text-text-secondary text-xs font-medium">Audits completed for businesses</p>
+              </div>
+            </div>
           </div>
 
-          {/* Centered Container taking exactly 60% of space on large screens */}
-          <div className="relative z-10 w-full lg:w-[70%] mx-auto h-full flex flex-col justify-center items-center px-4 py-20 md:px-12 text-center">
-            
-            <div className="space-y-6 md:space-y-8 flex flex-col items-center relative w-full pt-10 lg:pt-0">
-              <div className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-1.5 text-sm text-white font-medium shadow-sm w-max">
-                <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-                Energy Insight
-              </div>
-
-              <h1 className="text-4xl md:text-5xl lg:text-[4rem] font-extrabold text-white leading-[1.1] tracking-tight text-shadow-md">
-                “You’re Paying for Energy <span className="text-accent underline decoration-accent/50 underline-offset-8">
-                   You Don’t Use.”
-                </span>
-              </h1>
-
-              <p className="text-lg md:text-xl text-white/90 leading-relaxed font-medium max-w-2xl px-2">
-                We identify where you’re losing energy, measure your carbon impact, and ensure you meet environmental standards—so you save money and stay compliant without the guesswork.
-              </p>
-
-              <div className="pt-2 flex flex-col items-center gap-6 w-full">
-                <Link
-                  href="/contact"
-                  className="group relative inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent/90 text-[#0a192f] font-bold px-8 py-4 rounded-xl transition-all duration-300 transform hover:-translate-y-1 shadow-md text-base"
-                >
-                  See Where You’re Losing Energy
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
+          {/* Right Column — App Window Frame (xas1.png style) */}
+          <div className="w-full lg:pt-0 relative">
+            <div className="relative py-4 lg:py-6">
+              
+              {/* Main App Window Frame */}
+              <div className="relative bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] border border-slate-100 overflow-hidden">
                 
-                <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3 max-w-md">
-                  <p className="text-xs md:text-sm text-white/90 font-medium leading-relaxed flex items-center gap-3 text-left">
-                    <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-                    Trusted by homeowners, engineers, and commercial facilities to reduce energy costs.
-                  </p>
+                {/* Window Title Bar with 3 dots */}
+                <div className="flex items-center gap-2 px-5 py-3.5 bg-slate-50/80 border-b border-slate-100">
+                  <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
+                  <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
+                  <div className="w-3 h-3 rounded-full bg-[#28c840]" />
+                  <div className="ml-auto flex items-center gap-2">
+                    <span className="text-[10px] text-slate-400 font-medium tracking-wide">energyinsightgh.com</span>
+                  </div>
+                </div>
+
+                {/* Window Content — Image Slider */}
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  {heroSlides.map((slide, index) => (
+                    <div
+                      key={slide.src}
+                      className={cn(
+                        "absolute inset-0 transition-all duration-700 ease-in-out",
+                        index === currentSlide 
+                          ? "opacity-100 scale-100" 
+                          : "opacity-0 scale-[1.02]"
+                      )}
+                    >
+                      <Image
+                        src={slide.src}
+                        alt={slide.title}
+                        fill
+                        className="object-cover"
+                        priority={index === 0}
+                        sizes="(max-width: 768px) 90vw, (max-width: 1024px) 50vw, 600px"
+                      />
+                    </div>
+                  ))}
+
+                  {/* Bottom label overlay */}
+                  <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/60 to-transparent z-10" />
+                  <div className="absolute bottom-4 left-6 z-20 flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                      <Activity className="w-4 h-4 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-white text-sm font-bold">{heroSlides[currentSlide].title}</p>
+                      <p className="text-white/60 text-[11px]">Energy Insight Service</p>
+                    </div>
+                  </div>
+
+                  {/* Slide counter */}
+                  <div className="absolute bottom-4 right-6 z-20 flex items-center gap-1.5">
+                    {heroSlides.map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setCurrentSlide(idx)}
+                        className={cn(
+                          "rounded-full transition-all duration-300",
+                          idx === currentSlide
+                            ? "w-6 h-2 bg-white"
+                            : "w-2 h-2 bg-white/40 hover:bg-white/60"
+                        )}
+                        aria-label={`Go to slide ${idx + 1}`}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          {/* Floating Stat Bubble (Hidden on mobile to avoid mess, shown from sm up) */}
-          <div className="absolute top-6 right-6 lg:top-12 lg:right-12 z-20 pointer-events-none hidden sm:block">
-            {floatingStats.map((stat, idx) => (
-              <div 
-                key={idx}
-                className={cn(
-                  "absolute top-0 right-0 bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl px-5 py-3 shadow-2xl animate-[float_6s_ease-in-out_infinite] transition-opacity duration-700 w-max",
-                  idx === statIndex ? "opacity-100" : "opacity-0"
-                )}
-              >
-                <div className="flex items-center gap-3">
-                  {stat.type === 'warn' && <Activity className="w-5 h-5 text-red-400" />}
-                  {stat.type === 'success' && <TrendingUp className="w-5 h-5 text-emerald-400" />}
-                  {stat.type === 'info' && <Search className="w-5 h-5 text-blue-400" />}
-                  <p className="text-white text-sm font-medium">
-                    <span className={cn("font-bold", stat.type === 'warn' ? "text-red-400" : stat.type === 'success' ? "text-emerald-400" : "text-blue-400")}>{stat.value}</span> {stat.text}
-                  </p>
+              {/* Floating Badge — Top Right */}
+              <div className="absolute -top-3 -right-3 lg:-top-4 lg:-right-6 z-20 bg-white rounded-xl shadow-lg border border-slate-100 px-4 py-3 hidden sm:flex items-center gap-3 animate-[float_6s_ease-in-out_infinite]">
+                <div className="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center">
+                  <ShieldCheck className="w-5 h-5 text-emerald-500" />
+                </div>
+                <div>
+                  <p className="text-[#0a192f] text-sm font-extrabold">ISO Compliant</p>
+                  <p className="text-slate-400 text-[11px]">Certified audits</p>
                 </div>
               </div>
-            ))}
-          </div>
 
-          {/* Slider Navigation Controls (Adjusted for better mobile placement) */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 md:left-8 md:translate-x-0 z-20 flex flex-nowrap items-center gap-3 bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 whitespace-nowrap">
-            <div className="text-white font-medium text-xs flex items-center gap-2">
-              <span className="text-accent font-bold">0{currentSlide + 1}</span> 
-              <span className="text-white/50">/</span> 
-              <span className="text-white/50">0{slideImages.length}</span>
-              <span className="hidden md:inline-block w-6 h-[1px] bg-white/30 mx-1.5" />
-              <span className="text-primary-50 tracking-wide text-[10px] md:text-xs">{slideImages[currentSlide].title}</span>
-            </div>
-            
-            <div className="flex items-center gap-1">
-              <button 
-                onClick={prevSlide}
-                className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white transition-colors"
-                aria-label="Previous Slide"
-              >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-              </button>
-              <button 
-                onClick={nextSlide}
-                className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white transition-colors"
-                aria-label="Next Slide"
-              >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </button>
+              {/* Floating Badge — Bottom Left */}
+              <div className="absolute -bottom-3 -left-3 lg:-bottom-5 lg:-left-6 z-20 bg-white rounded-xl shadow-lg border border-slate-100 px-4 py-3 hidden sm:flex items-center gap-3 animate-[float_6s_ease-in-out_infinite_1s]">
+                <div className="w-10 h-10 rounded-lg bg-amber-50 flex items-center justify-center">
+                  <BarChart2 className="w-5 h-5 text-amber-500" />
+                </div>
+                <div>
+                  <p className="text-[#0a192f] text-sm font-extrabold">30% avg savings</p>
+                  <p className="text-slate-400 text-[11px]">On energy costs</p>
+                </div>
+              </div>
+
             </div>
           </div>
-
         </div>
       </div>
 
-      {/* Marquee Section Right Below the Hero Card */}
+      {/* Marquee Section */}
       <div className="w-full bg-surface-muted py-6 md:py-8 border-y border-gray-100 flex flex-col justify-center overflow-hidden relative">
         <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-surface-muted to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-surface-muted to-transparent z-10 pointer-events-none" />
@@ -242,20 +268,23 @@ export function HeroSection() {
 
         <div className="flex overflow-hidden relative w-full group">
           <div className="flex animate-marquee group-hover:paused w-max items-center gap-6 px-3">
-            {marqueeItems.map((badge, idx) => (
-              <div 
-                key={idx}
-                className="flex items-center gap-4 bg-white border border-gray-200 rounded-2xl px-6 py-4 shadow-sm min-w-[320px] md:min-w-[380px]"
-              >
-                <div className={cn("w-12 h-12 rounded-xl flex items-center justify-center shrink-0 bg-opacity-10 shadow-sm", badge.bg, "bg-opacity-10 text-current")}>
-                  <badge.icon className={cn("w-6 h-6", badge.color)} />
+            {marqueeItems.map((badge, idx) => {
+              const Icon = badge.icon
+              return (
+                <div 
+                  key={idx}
+                  className="flex items-center gap-4 bg-white border border-gray-200 rounded-2xl px-6 py-4 shadow-sm min-w-[320px] md:min-w-[380px]"
+                >
+                  <div className={cn("w-12 h-12 rounded-xl flex items-center justify-center shrink-0 bg-opacity-10 shadow-sm", badge.bg, "bg-opacity-10 text-current")}>
+                    <Icon className={cn("w-6 h-6", badge.color)} />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-text-primary font-bold text-[15px] leading-tight mb-1">{badge.title}</h4>
+                    <p className="text-text-secondary text-[13px] leading-tight">{badge.subtitle}</p>
+                  </div>
                 </div>
-                <div className="flex-1">
-                  <h4 className="text-text-primary font-bold text-[15px] leading-tight mb-1">{badge.title}</h4>
-                  <p className="text-text-secondary text-[13px] leading-tight">{badge.subtitle}</p>
-                </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </div>

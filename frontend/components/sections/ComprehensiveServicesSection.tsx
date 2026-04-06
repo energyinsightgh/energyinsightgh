@@ -38,7 +38,7 @@ const comprehensiveServices = [
 
 export function ComprehensiveServicesSection() {
   return (
-    <section className="section-padding bg-surface">
+    <section className="section-padding bg-[#f8fafc]">
       <div className="container-site">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 bg-white border border-[#f5a623]/20 rounded-full px-5 py-1.5 text-xs text-[#f5a623] font-bold shadow-[0_0_20px_rgba(245,166,35,0.2)] mb-5 tracking-wide uppercase">

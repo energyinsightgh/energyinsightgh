@@ -154,7 +154,7 @@ function AnimatedRow({
 
 export function TransformationSection() {
   return (
-    <section className="relative bg-slate-50 py-16 lg:py-24 overflow-hidden border-y border-slate-100">
+    <section className="relative bg-slate-100 py-16 lg:py-24 overflow-hidden border-y border-slate-200">
       {/* Background accents */}
       <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-[#14b8a6]/[0.03] rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-32 -right-32 w-[400px] h-[400px] bg-[#f5a623]/[0.03] rounded-full blur-3xl pointer-events-none" />

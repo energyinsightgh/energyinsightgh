@@ -1,12 +1,16 @@
 import { createClient } from '@/lib/supabase/server'
 import { HeroSection } from '@/components/sections/HeroSection'
-import { BenefitsSection } from '@/components/sections/BenefitsSection'
+
 import { RealizationSection } from '@/components/sections/RealizationSection'
 import { SolutionFrameworkSection } from '@/components/sections/SolutionFrameworkSection'
 import { TransformationSection } from '@/components/sections/TransformationSection'
 import { WhereLosingMoneySection } from '@/components/sections/WhereLosingMoneySection'
 import { ComprehensiveServicesSection } from '@/components/sections/ComprehensiveServicesSection'
+import { FAQSection } from '@/components/sections/FAQSection'
+import { NewsletterSection } from '@/components/sections/NewsletterSection'
 import { ContactCTASection } from '@/components/sections/ContactCTASection'
+import { TargetAudienceSection } from '@/components/sections/TargetAudienceSection'
+import { PageScrollNavigator } from '@/components/ui/PageScrollNavigator'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
@@ -35,13 +39,41 @@ export default async function HomePage() {
 
   return (
     <>
+      <PageScrollNavigator />
+      
       <HeroSection />
-      <RealizationSection />
-      <WhereLosingMoneySection />
-      <SolutionFrameworkSection />
-      <TransformationSection />
-      <ComprehensiveServicesSection />
-      <BenefitsSection />
+      
+      <div id="realization">
+        <RealizationSection />
+      </div>
+      
+      <div id="where-losing-money">
+        <WhereLosingMoneySection />
+      </div>
+      
+      <div id="solution">
+        <SolutionFrameworkSection />
+      </div>
+      
+      <div id="services">
+        <ComprehensiveServicesSection />
+      </div>
+      
+      <div id="transformation">
+        <TransformationSection />
+      </div>
+
+      <div id="target-audience">
+        <TargetAudienceSection />
+      </div>
+
+      <div id="faq">
+        <FAQSection />
+      </div>
+
+      <div id="newsletter">
+        <NewsletterSection />
+      </div>
 
       {/* Blog Preview */}
       {posts && posts.length > 0 && (
@@ -102,7 +134,9 @@ export default async function HomePage() {
         </section>
       )}
 
-      <ContactCTASection />
+      <div id="contact">
+        <ContactCTASection />
+      </div>
     </>
   )
 }
