@@ -2,8 +2,9 @@
 
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { Menu, X, Zap, Phone } from 'lucide-react'
+import { Menu, X, Phone } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { Logo } from '@/components/ui/Logo'
 
 const navLinks = [
   { label: 'Home', href: '/' },
@@ -39,10 +40,7 @@ export function Header() {
       <div className="container-site">
         <nav className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 font-bold text-text-primary text-xl md:text-2xl shrink-0">
-            <Zap className="w-7 h-7 text-accent fill-accent" />
-            <span>energyinsight<span className="text-accent">gh</span></span>
-          </Link>
+          <Logo priority />
 
           {/* Desktop Nav */}
           <ul className="hidden lg:flex items-center gap-8">
@@ -62,7 +60,7 @@ export function Header() {
           <div className="hidden md:flex items-center gap-3">
             <a
               href="tel:+233558213055"
-              className="inline-flex items-center gap-2 border border-gray-200 text-text-primary text-sm font-semibold px-5 py-2.5 rounded-xl hover:border-gray-300 hover:bg-gray-50 transition-colors duration-200 shadow-sm"
+              className="inline-flex items-center gap-2 border border-gray-200 text-text-primary text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-gray-50 transition-colors duration-200 shadow-sm transition-all active:scale-95"
             >
               <Phone className="w-4 h-4 text-primary" />
               +233 558 213 055
@@ -71,7 +69,7 @@ export function Header() {
               href="https://wa.me/233502344573"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-accent text-white text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-accent/90 transition-colors duration-200 shadow-[0_4px_14px_0_rgba(245,166,35,0.39)] transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 bg-primary text-white text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-primary-600 transition-all duration-200 shadow-[0_4px_14px_0_rgba(15,76,53,0.3)] transform hover:-translate-y-0.5 active:scale-95"
             >
               <WhatsAppIcon className="w-4 h-4" />
               Let&apos;s Talk
@@ -120,7 +118,7 @@ export function Header() {
                 href="https://wa.me/233502344573"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-accent text-white text-sm font-semibold px-4 py-3 rounded-xl hover:bg-accent/90 transition-colors"
+                className="inline-flex items-center justify-center gap-2 bg-primary text-white text-sm font-semibold px-4 py-3 rounded-xl hover:bg-primary-600 transition-colors"
                 onClick={() => setMenuOpen(false)}
               >
                 <WhatsAppIcon className="w-4 h-4" />

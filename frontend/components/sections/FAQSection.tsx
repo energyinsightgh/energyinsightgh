@@ -93,7 +93,7 @@ export function FAQSection() {
         </div>
 
         <div className="mt-12 text-center">
-          <button className="inline-flex items-center gap-2 bg-white border border-[#14b8a6] text-[#14b8a6] font-bold px-8 py-3 rounded-full hover:bg-[#14b8a6] hover:text-white transition-all duration-300 group">
+          <button className="inline-flex items-center gap-2 bg-white border border-primary text-primary font-bold px-8 py-3 rounded-full hover:bg-primary hover:text-white transition-all duration-300 group">
             Read more FAQs
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </button>

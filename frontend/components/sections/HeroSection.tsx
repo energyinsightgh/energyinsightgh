@@ -9,14 +9,13 @@ import {
   Building2, 
   BarChart2, 
   ShieldCheck, 
-  FileSearch,
-  Play
+  FileSearch
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const heroSlides = [
   {
-    src: '/images/hero/energy-audit.jpg',
+    src: '/images/hero/energy-audit-1.jpg',
     title: 'Energy Audit',
   },
   {
@@ -28,8 +27,12 @@ const heroSlides = [
     title: 'Environmental Assessment',
   },
   {
-    src: '/images/hero/lighting-design.jpg',
+    src: '/images/hero/lighting-design-opt.jpg',
     title: 'Pre-Construction Lighting',
+  },
+  {
+    src: '/images/hero/consulting-training.jpg',
+    title: 'Consulting & Training',
   },
 ]
 
@@ -90,7 +93,7 @@ export function HeroSection() {
     <section className="bg-white flex flex-col overflow-hidden">
       
       {/* Main Hero Area */}
-      <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 pt-16 pb-12 md:pt-20 md:pb-16 lg:pt-28 lg:pb-20">
+      <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 pt-16 pb-12 md:pt-20 md:pb-16 hero-custom-pt lg:pb-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-8 xl:gap-4 items-start">
           
           {/* Left Column — Text Content */}
@@ -121,42 +124,14 @@ export function HeroSection() {
             <div className="flex items-center gap-3 pt-1">
               <Link
                 href="/contact"
-                className="group inline-flex items-center justify-center gap-2 bg-[#0a192f] hover:bg-[#112240] text-white font-bold px-7 py-3.5 rounded-xl transition-all duration-300 shadow-md hover:-translate-y-0.5 text-sm"
+                className="group inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-600 text-white font-bold px-7 py-3.5 rounded-xl transition-all duration-300 shadow-md hover:-translate-y-0.5 text-sm"
               >
-                Get Started
+                Book a call with Us Now!!
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <button className="inline-flex items-center justify-center gap-2 border border-slate-200 bg-white text-text-primary font-bold px-7 py-3.5 rounded-xl transition-all duration-300 hover:border-slate-300 hover:shadow-sm text-sm">
-                <Play className="w-4 h-4 text-[#14b8a6]" />
-                Preview
-              </button>
             </div>
 
-            {/* Social Proof */}
-            <div className="flex items-center gap-4 pt-3">
-              <div className="flex -space-x-2">
-                {[
-                  'bg-gradient-to-br from-teal-400 to-emerald-500',
-                  'bg-gradient-to-br from-amber-400 to-orange-500',
-                  'bg-gradient-to-br from-blue-400 to-indigo-500',
-                  'bg-gradient-to-br from-rose-400 to-pink-500',
-                ].map((gradient, i) => (
-                  <div
-                    key={i}
-                    className={cn(
-                      "w-9 h-9 rounded-full border-2 border-white flex items-center justify-center text-white text-xs font-bold shadow-sm",
-                      gradient
-                    )}
-                  >
-                    {['EI', 'CA', 'EA', 'LD'][i]}
-                  </div>
-                ))}
-              </div>
-              <div>
-                <p className="text-[#0a192f] font-extrabold text-lg leading-tight">150+</p>
-                <p className="text-text-secondary text-xs font-medium">Audits completed for businesses</p>
-              </div>
-            </div>
+
           </div>
 
           {/* Right Column — App Window Frame (xas1.png style) */}
@@ -198,18 +173,6 @@ export function HeroSection() {
                       />
                     </div>
                   ))}
-
-                  {/* Bottom label overlay */}
-                  <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/60 to-transparent z-10" />
-                  <div className="absolute bottom-4 left-6 z-20 flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                      <Activity className="w-4 h-4 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-white text-sm font-bold">{heroSlides[currentSlide].title}</p>
-                      <p className="text-white/60 text-[11px]">Energy Insight Service</p>
-                    </div>
-                  </div>
 
                   {/* Slide counter */}
                   <div className="absolute bottom-4 right-6 z-20 flex items-center gap-1.5">

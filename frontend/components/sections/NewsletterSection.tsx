@@ -75,8 +75,8 @@ export function NewsletterSection() {
                   className={cn(
                     "px-4 md:px-6 py-2 rounded-full font-bold text-sm transition-all duration-300 flex items-center justify-center h-full min-w-[100px] md:min-w-[110px]",
                     isSuccess 
-                      ? "bg-[#14b8a6] text-white" 
-                      : "bg-[#0a192f] hover:bg-[#112240] text-white active:scale-95 disabled:opacity-70 disabled:active:scale-100"
+                      ? "bg-primary text-white" 
+                      : "bg-primary hover:bg-primary-600 text-white active:scale-95 disabled:opacity-70 disabled:active:scale-100"
                   )}
                 >
                   {isSubmitting ? (

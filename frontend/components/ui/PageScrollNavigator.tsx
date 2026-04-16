@@ -62,7 +62,7 @@ export function PageScrollNavigator() {
   // Don't render until client side to avoid hydration mismatch if we want, but it's safe.
   
   return (
-    <div className="hidden xl:flex fixed left-8 top-1/2 -translate-y-1/2 z-50 flex-col gap-4 group">
+    <div className="hidden lg:flex fixed left-8 top-1/2 -translate-y-1/2 z-50 flex-col gap-4 group">
       {sections.map((section) => {
         const isActive = activeSection === section.id
         

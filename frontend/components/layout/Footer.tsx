@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Zap, Mail, Phone, MapPin } from 'lucide-react'
+import { Mail, Phone, MapPin } from 'lucide-react'
 
 const serviceLinks = [
   { label: 'Facility Inspection', href: '/services/facility-inspection' },
@@ -20,12 +20,16 @@ export function Footer() {
     <footer className="bg-primary text-white">
       <div className="container-site py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-          {/* Brand */}
           <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center gap-2 font-bold text-xl mb-4">
-              <Zap className="w-6 h-6 text-accent fill-accent" />
-              <span>energyinsight<span className="text-accent">gh</span></span>
-            </Link>
+            {/* Footer logo — text-based, works on dark green bg */}
+            <a href="/" className="inline-flex flex-col mb-5 group">
+              <span className="text-white font-extrabold text-xl tracking-tight leading-none group-hover:text-primary-100 transition-colors">
+                Energy Insight
+              </span>
+              <span className="text-accent font-bold text-[10px] tracking-[0.22em] uppercase mt-1">
+                Ghana
+              </span>
+            </a>
             <p className="text-primary-200 text-sm leading-relaxed">
               Fostering energy literacy and awareness, ensuring clients save on expenditures 
               while contributing to a greener, more sustainable future.

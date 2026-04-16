@@ -1,6 +1,8 @@
 'use client'
 
 import React from 'react'
+import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
 
 const steps = [
   {
@@ -135,14 +137,13 @@ export function SolutionFrameworkSection() {
 
         {/* CTA Button */}
         <div className="mt-16 flex flex-col items-center">
-          <a
-            href="#contact"
-            className="group relative inline-flex items-center gap-3 bg-[#0a192f] text-white font-bold px-8 py-4 rounded-full transition-all duration-300 hover:bg-[#14b8a6] hover:shadow-[0_10px_25px_-5px_rgba(20,184,166,0.4)] active:scale-95"
+          <Link
+            href="/contact"
+            className="group relative inline-flex items-center gap-3 bg-primary text-white font-bold px-8 py-4 rounded-full transition-all duration-300 hover:bg-primary-600 hover:shadow-[0_10px_25px_-5px_rgba(15,76,53,0.4)] active:scale-95"
           >
-            <span className="relative z-10 flex items-center gap-2">
-              Start Your Assessment Now!! <span className="text-xl">👉</span>
-            </span>
-          </a>
+            Empower Your Business Today
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </Link>
           
           <div className="mt-12 flex items-center justify-center gap-4 w-full">
             <div className="h-px flex-1 max-w-xs bg-slate-200" />

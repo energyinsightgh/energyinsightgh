@@ -1,38 +1,36 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 const comprehensiveServices = [
   {
     title: "Energy Audit",
-    description: "Detailed analysis of your energy systems to identify inefficiencies and actionable insights to eliminate waste. We meticulously inspect key components of your infrastructure to ensure zero leakage and peak efficiency.",
-    image: "/images/services/Energy Audit.jpg",
-    tags: [
-      "Lighting System", "Refrigeration System", "Ceiling Fans", "Air Conditioning System",
-      "Chiller System", "Cooling Tower", "Pumps", "Compressor", "Boiler", "Motors", "Transformer"
-    ]
+    description: "Detailed analysis of your energy systems to identify inefficiencies and actionable insights to eliminate waste. We meticulously inspect key components of your infrastructure to ensure zero leakage and peak efficiency",
+    slug: "energy-audit",
+    image: "/images/services/energy-audit.jpg",
   },
   {
     title: "Carbon Accounting",
-    description: "Track and report your organization's greenhouse gas emissions with precision. We help you meet regulatory compliance standards and achieve your sustainability goals effortlessly.",
-    image: "/images/services/Carbon Accounting.jpg",
-    tags: []
+    description: "Track and report your organization's greenhouse gas emissions with precision. We help you meet regulatory compliance standards and achieve your sustainability goals effortlessly",
+    slug: "carbon-accounting",
+    image: "/images/services/carbon-accounting.jpg",
   },
   {
     title: "Environmental Assessment",
-    description: "Comprehensive evaluation of your facility's environmental footprint to ensure strict regulatory compliance, operational safety, and a sustainable impact on the surrounding ecosystem.",
-    image: "/images/services/Environmental Assessment.jpg",
-    tags: []
+    description: "Comprehensive evaluation of your facility's environmental footprint to ensure strict regulatory compliance, operational safety, and a sustainable impact on the surrounding ecosystem",
+    slug: "environmental-assessment",
+    image: "/images/services/environmental-assessment.jpg",
   },
   {
     title: "Consulting & Training",
-    description: "Expert guidance and capacity building programs designed to empower your workforce. We foster energy literacy and equip your team with established energy management best practices.",
-    image: "/images/services/Consulting and training.jpg",
-    tags: []
+    description: "Expert guidance and capacity building programs designed to empower your workforce. We foster energy literacy and equip your team with established energy management best practices",
+    slug: "consulting-training",
+    image: "/images/services/consulting-training.jpg",
   },
   {
     title: "Pre-Construction Lighting Design & Optimization",
-    description: "Strategic lighting design integration during the pre-construction phase to maximize energy efficiency, reduce long-term operational costs, and enhance visual comfort for occupants.",
-    image: "/images/services/Pre-Contruction Lighting Design & Optimization.jpg",
-    tags: []
+    description: "Strategic lighting design integration during the pre-construction phase to maximize energy efficiency, reduce long-term operational costs, and enhance visual comfort for occupants",
+    slug: "lighting-optimization",
+    image: "/images/services/lighting-optimization.jpg",
   }
 ]
 
@@ -83,21 +81,14 @@ export function ComprehensiveServicesSection() {
                   </h3>
                   <p className="text-lg text-text-secondary leading-relaxed mb-8">
                     {service.description}
+                    <span>....</span>
+                    <Link 
+                      href={`/services/${service.slug}`} 
+                      className="text-primary font-bold hover:underline ml-1"
+                    >
+                      Read more
+                    </Link>
                   </p>
-
-                  {/* Tags for specific services (like Energy Audit) */}
-                  {service.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-2">
-                      {service.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-4 py-2 bg-primary-50 text-primary-900 border border-primary-200 rounded-full text-sm font-medium shadow-sm"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
                 </div>
               </div>
             );

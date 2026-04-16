@@ -2,7 +2,8 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Zap, LayoutDashboard, FileText, Settings, LogOut } from 'lucide-react'
+import { LayoutDashboard, FileText, Settings, LogOut } from 'lucide-react'
+import { Logo } from '@/components/ui/Logo'
 import { cn } from '@/lib/utils'
 import { signOutAction } from '@/app/admin/actions'
 
@@ -21,9 +22,8 @@ export default function AdminSidebar({ userEmail }: AdminSidebarProps) {
 
   return (
     <aside className="w-64 bg-primary text-white flex flex-col shrink-0 border-r border-primary-400/20">
-      <div className="flex items-center gap-2 font-bold text-xl p-6 border-b border-primary-400/30">
-        <Zap className="w-5 h-5 text-accent fill-accent" />
-        <span>energyinsight<span className="text-accent">gh</span></span>
+      <div className="p-6 border-b border-primary-400/30">
+        <Logo className="brightness-0 invert h-6 w-auto" />
       </div>
       
       <nav className="flex-1 p-4 overflow-y-auto">
@@ -44,7 +44,7 @@ export default function AdminSidebar({ userEmail }: AdminSidebarProps) {
                       : "text-primary-100 hover:bg-primary-400/30 hover:text-white"
                   )}
                 >
-                  <item.icon className={cn("w-4 h-4", isActive ? "text-accent" : "text-primary-300")} />
+                  <item.icon className={cn("w-4 h-4", isActive ? "text-white" : "text-primary-300")} />
                   {item.label}
                 </Link>
               </li>
@@ -55,7 +55,7 @@ export default function AdminSidebar({ userEmail }: AdminSidebarProps) {
 
       <div className="p-4 border-t border-primary-400/30 bg-primary-600/20">
         <div className="flex items-center gap-3 px-3 py-2 mb-4 rounded-lg bg-black/10">
-          <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-[10px] font-bold text-accent border border-accent/30">
+          <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-[10px] font-bold text-white border border-white/20">
             {userEmail?.substring(0, 2).toUpperCase() || 'AD'}
           </div>
           <div className="flex-1 min-w-0">
