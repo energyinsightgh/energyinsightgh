@@ -7,7 +7,6 @@ import { TransformationSection } from '@/components/sections/TransformationSecti
 import { WhereLosingMoneySection } from '@/components/sections/WhereLosingMoneySection'
 import { ComprehensiveServicesSection } from '@/components/sections/ComprehensiveServicesSection'
 import { FAQSection } from '@/components/sections/FAQSection'
-import { NewsletterSection } from '@/components/sections/NewsletterSection'
 import { ContactCTASection } from '@/components/sections/ContactCTASection'
 import { TargetAudienceSection } from '@/components/sections/TargetAudienceSection'
 import { PageScrollNavigator } from '@/components/ui/PageScrollNavigator'
@@ -69,10 +68,6 @@ export default async function HomePage() {
 
       <div id="faq">
         <FAQSection />
-      </div>
-
-      <div id="newsletter">
-        <NewsletterSection />
       </div>
 
       {/* Blog Preview */}

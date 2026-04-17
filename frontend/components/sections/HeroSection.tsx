@@ -76,6 +76,21 @@ const trustBadges = [
 
 export function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [badgeIndex, setBadgeIndex] = useState(0)
+
+  const topBadgeContent = [
+    { title: "ISO Compliant", subtitle: "Certified audits", icon: ShieldCheck },
+    { title: "Licensed Experts", subtitle: "Energy Commission", icon: ShieldCheck },
+    { title: "GhIE Member", subtitle: "Standard Engineering", icon: ShieldCheck },
+    { title: "Regulation-Ready", subtitle: "Zero compliance risk", icon: ShieldCheck },
+  ]
+
+  const bottomBadgeContent = [
+    { title: "30% avg savings", subtitle: "On energy costs", icon: BarChart2 },
+    { title: "Data-Driven ROI", subtitle: "Actionable feedback", icon: BarChart2 },
+    { title: "Zero Energy Waste", subtitle: "Maximized profits", icon: BarChart2 },
+    { title: "ESG Compliant", subtitle: "Carbon reporting ready", icon: BarChart2 },
+  ]
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
@@ -83,8 +98,16 @@ export function HeroSection() {
 
   useEffect(() => {
     const timer = setInterval(nextSlide, 4000)
-    return () => clearInterval(timer)
-  }, [nextSlide])
+    // Rotate badges every 6s to sync with floating animation
+    const badgeTimer = setInterval(() => {
+      setBadgeIndex((prev) => (prev + 1) % topBadgeContent.length)
+    }, 6000)
+    
+    return () => {
+      clearInterval(timer)
+      clearInterval(badgeTimer)
+    }
+  }, [nextSlide, topBadgeContent.length])
 
   // Duplicate items for the marquee
   const marqueeItems = [...trustBadges, ...trustBadges, ...trustBadges]
@@ -130,8 +153,6 @@ export function HeroSection() {
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
-
-
           </div>
 
           {/* Right Column — App Window Frame (xas1.png style) */}
@@ -196,26 +217,40 @@ export function HeroSection() {
               {/* Floating Badge — Top Right */}
               <div className="absolute -top-3 -right-3 lg:-top-4 lg:-right-6 z-20 bg-white rounded-xl shadow-lg border border-slate-100 px-4 py-3 hidden sm:flex items-center gap-3 animate-[float_6s_ease-in-out_infinite]">
                 <div className="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center">
-                  <ShieldCheck className="w-5 h-5 text-emerald-500" />
+                  {React.createElement(topBadgeContent[badgeIndex].icon, { className: "w-5 h-5 text-emerald-500" })}
                 </div>
-                <div>
-                  <p className="text-[#0a192f] text-sm font-extrabold">ISO Compliant</p>
-                  <p className="text-slate-400 text-[11px]">Certified audits</p>
+                <div className="transition-all duration-500 transform">
+                  <p className="text-[#0a192f] text-sm font-extrabold whitespace-nowrap">{topBadgeContent[badgeIndex].title}</p>
+                  <p className="text-slate-400 text-[11px] whitespace-nowrap">{topBadgeContent[badgeIndex].subtitle}</p>
                 </div>
               </div>
 
               {/* Floating Badge — Bottom Left */}
               <div className="absolute -bottom-3 -left-3 lg:-bottom-5 lg:-left-6 z-20 bg-white rounded-xl shadow-lg border border-slate-100 px-4 py-3 hidden sm:flex items-center gap-3 animate-[float_6s_ease-in-out_infinite_1s]">
                 <div className="w-10 h-10 rounded-lg bg-amber-50 flex items-center justify-center">
-                  <BarChart2 className="w-5 h-5 text-amber-500" />
+                  {React.createElement(bottomBadgeContent[badgeIndex].icon, { className: "w-5 h-5 text-amber-500" })}
                 </div>
-                <div>
-                  <p className="text-[#0a192f] text-sm font-extrabold">30% avg savings</p>
-                  <p className="text-slate-400 text-[11px]">On energy costs</p>
+                <div className="transition-all duration-500 transform">
+                  <p className="text-[#0a192f] text-sm font-extrabold whitespace-nowrap">{bottomBadgeContent[badgeIndex].title}</p>
+                  <p className="text-slate-400 text-[11px] whitespace-nowrap">{bottomBadgeContent[badgeIndex].subtitle}</p>
                 </div>
               </div>
 
             </div>
+          </div>
+        </div>
+
+        {/* Credential Logos — Spanning Full Width under both columns */}
+        <div className="py-2 w-full text-center">
+          <p className="text-[12px] font-bold text-slate-400 mb-6 uppercase tracking-[0.2em]">
+            Trusted and certified by
+          </p>
+          <div className="flex flex-wrap items-center justify-center lg:justify-between gap-10 md:gap-14 opacity-80 group/logos">
+            <Image src="/images/credentials/energy-commission.png" alt="Energy Commission" width={115} height={120} className="h-[120px] w-auto object-contain mix-blend-multiply grayscale contrast-[1.2] hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
+            <Image src="/images/credentials/iso-50001.png" alt="ISO 50001" width={115} height={120} className="h-[120px] w-auto object-contain mix-blend-multiply grayscale contrast-[1.2] hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
+            <Image src="/images/credentials/iso-50002.png" alt="ISO 50002" width={145} height={120} className="h-[120px] w-auto object-contain mix-blend-multiply grayscale contrast-[1.2] hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
+            <Image src="/images/credentials/ghana-institute-of-engineering.png" alt="Ghana Institute of Engineering" width={145} height={120} className="h-[120px] w-auto object-contain mix-blend-multiply grayscale contrast-[1.2] hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
+            <Image src="/images/credentials/mida.png" alt="MiDA" width={115} height={120} className="h-[120px] w-auto object-contain mix-blend-multiply grayscale contrast-[1.2] hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
           </div>
         </div>
       </div>

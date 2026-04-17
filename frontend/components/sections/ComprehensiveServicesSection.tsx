@@ -43,7 +43,24 @@ export function ComprehensiveServicesSection() {
             Our Offerings
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-text-primary mb-6">
-            Services That Drive Transformation
+            Services That Drive{' '}
+            <span className="relative inline-block pb-2">
+              <span>Transformation</span>
+              <svg
+                viewBox="0 0 300 20"
+                className="absolute left-0 right-0 -bottom-1 w-full h-4 text-[#f5a623]"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M5 15 Q 150 2 295 15"
+                  stroke="currentColor"
+                  strokeWidth="6"
+                  strokeLinecap="round"
+                  fill="transparent"
+                  className="opacity-90"
+                />
+              </svg>
+            </span>
           </h2>
           <p className="text-lg text-text-secondary">
             From granular environmental assessments to holistic energy audits, our comprehensive service portfolio is engineered entirely around achieving maximum efficiency and cost reduction for your facility.

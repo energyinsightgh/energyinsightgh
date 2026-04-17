@@ -106,7 +106,24 @@ export function RealizationSection() {
             </div>
             
             <h2 className="text-4xl md:text-5xl lg:text-[3.2rem] font-extrabold text-[#0a192f] leading-[1.1] tracking-tight mb-8">
-              Most Buildings Waste<br /> Energy—<span className="text-[#0a192f] underline decoration-[#f5a623] decoration-[4px] underline-offset-[8px] lg:underline-offset-[12px]">Silently.</span>
+              Most Buildings Waste<br /> Energy—
+              <span className="relative inline-block pb-2">
+                <span>Silently.</span>
+                <svg
+                  viewBox="0 0 300 20"
+                  className="absolute left-0 right-0 -bottom-1 w-full h-4 text-[#f5a623]"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M5 15 Q 150 2 295 15"
+                    stroke="currentColor"
+                    strokeWidth="6"
+                    strokeLinecap="round"
+                    fill="transparent"
+                    className="opacity-90"
+                  />
+                </svg>
+              </span>
             </h2>
             
             <p className="text-lg text-slate-500 font-medium leading-relaxed max-w-xl mb-12">
