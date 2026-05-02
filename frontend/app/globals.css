@@ -11,6 +11,16 @@
 
   body {
     @apply font-sans text-text-primary bg-white antialiased;
+    /* Premium scrollbar */
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    &::-webkit-scrollbar-track {
+      @apply bg-surface-muted;
+    }
+    &::-webkit-scrollbar-thumb {
+      @apply bg-gray-300 rounded-full hover:bg-gray-400 transition-colors;
+    }
   }
 
   h1,
@@ -19,7 +29,7 @@
   h4,
   h5,
   h6 {
-    @apply font-semibold leading-tight;
+    @apply font-semibold leading-tight tracking-tight;
   }
 }
 
@@ -33,22 +43,59 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center gap-2 bg-primary text-white font-semibold px-6 py-3 rounded-lg hover:bg-primary-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+    @apply inline-flex items-center gap-2 bg-primary text-white font-semibold px-6 py-3 rounded-lg hover:bg-primary-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 hover:shadow-lg active:scale-95;
   }
 
   .btn-accent {
-    @apply inline-flex items-center gap-2 bg-primary text-white font-semibold px-6 py-3 rounded-lg hover:bg-primary-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+    @apply inline-flex items-center gap-2 bg-accent text-white font-semibold px-6 py-3 rounded-lg hover:bg-accent-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 hover:shadow-lg active:scale-95;
   }
 
   .btn-outline {
-    @apply inline-flex items-center gap-2 border-2 border-primary text-primary font-semibold px-6 py-3 rounded-lg hover:bg-primary hover:text-white transition-colors duration-200;
+    @apply inline-flex items-center gap-2 border-2 border-primary text-primary font-semibold px-6 py-3 rounded-lg hover:bg-primary hover:text-white transition-all duration-200 hover:shadow-md active:scale-95;
   }
 
   .card {
-    @apply bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200;
+    @apply bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1;
+  }
+
+  hr.wp-read-more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none !important;
+    border-top: 1px dashed #ccc !important;
+    margin: 2rem 0 !important;
+    position: relative;
+    background: transparent !important;
+    height: 1px !important;
+  }
+  hr.wp-read-more::after {
+    content: "READ MORE";
+    position: absolute;
+    top: -10px;
+    background: #fff;
+    padding: 0 10px;
+    font-size: 10px;
+    color: #999;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+  }
+
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-xl;
+  }
+
+  .glass-dark {
+    @apply bg-primary/80 backdrop-blur-md border border-white/10 shadow-2xl;
+  }
+
+  .input-wp {
+    @apply w-full px-4 py-2 border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all;
   }
 }
 
+/* Custom Layout Adjustments (Permanent) */
 @media (min-width: 1024px) {
   .hero-custom-pt {
     padding-top: 3rem;
@@ -58,7 +105,7 @@
     bottom: -1.25rem;
   }
 
-  /* Override for lg:pb-20 to 1rem as per user layout.css adjustment */
+  /* Specific padding adjustment for large screens */
   .lg\:pb-20 {
     padding-bottom: 1rem !important;
   }
@@ -73,11 +120,14 @@
   .logo-custom-height {
     height: 6rem;
   }
+
+  .md\:pt-20 {
+    padding-top: 2.5rem !important;
+  }
 }
 
-
+/* Marquee & Animations */
 .animate-marquee {
-  /* Marquee animation speed - updated to 70s */
   animation: marquee 70s linear infinite;
 }
 
@@ -107,18 +157,23 @@
   }
 }
 
-/* Global Overrides */
+/* Global Utility Overrides */
 .mb-6 {
-  margin-bottom: 0.2rem !important;
-}
-
-@media (min-width: 768px) {
-  .md\:pt-20 {
-    padding-top: 2.5rem !important;
-  }
+  margin-bottom: 1.2rem !important;
 }
 
 .py-2 {
-  padding-top: 1.5rem !important;
+  padding-top: 0.5rem !important;
   padding-bottom: 0.5rem !important;
 }
+
+/* Specific Pill Positioning Overrides */
+.-right-8 {
+  right: -5rem !important;
+}
+
+.-top-10 {
+  top: -2rem !important;
+}
+
+

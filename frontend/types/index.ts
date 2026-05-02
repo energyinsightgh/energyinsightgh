@@ -7,6 +7,21 @@
 
 export type PostStatus = 'draft' | 'published'
 
+export interface Category {
+  id: string
+  name: string
+  slug: string
+  description: string | null
+  created_at: string
+}
+
+export interface ClientEmail {
+  id: string
+  email: string
+  source: 'newsletter' | 'contact_form'
+  created_at: string
+}
+
 export interface BlogPost {
   id: string
   title: string
@@ -16,6 +31,7 @@ export interface BlogPost {
   cover_image_url: string | null
   author: string
   tags: string[]
+  category_id: string | null
   status: PostStatus
   published_at: string | null
   created_at: string
@@ -56,6 +72,22 @@ export interface Database {
           created_at?: string
         }
         Update: Partial<Omit<Service, 'id' | 'created_at'>>
+      }
+      categories: {
+        Row: Category
+        Insert: Omit<Category, 'id' | 'created_at'> & {
+          id?: string
+          created_at?: string
+        }
+        Update: Partial<Omit<Category, 'id' | 'created_at'>>
+      }
+      client_emails: {
+        Row: ClientEmail
+        Insert: Omit<ClientEmail, 'id' | 'created_at'> & {
+          id?: string
+          created_at?: string
+        }
+        Update: Partial<Omit<ClientEmail, 'id' | 'created_at'>>
       }
     }
     Views: Record<string, never>

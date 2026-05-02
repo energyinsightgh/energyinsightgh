@@ -5,6 +5,7 @@ import { ArrowLeft, Calendar, User, Tag } from 'lucide-react'
 import { createClient, createStaticClient } from '@/lib/supabase/server'
 import { formatDate } from '@/lib/utils'
 import type { BlogPost } from '@/types'
+import AuthorDisplayClient from './AuthorDisplayClient'
 
 export const revalidate = 1800
 
@@ -23,9 +24,9 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: { slug: string }
 }): Promise<Metadata> {
-  const { slug } = await params
+  const { slug } = params
   const supabase = createStaticClient()
   const { data } = await supabase
     .from('blog_posts')
@@ -42,17 +43,20 @@ export async function generateMetadata({
 
 export default async function BlogPostPage({
   params,
+  searchParams,
 }: {
-  params: Promise<{ slug: string }>
+  params: { slug: string }
+  searchParams: { preview?: string }
 }) {
-  const { slug } = await params
+  const { slug } = params
   const supabase = await createClient()
-  const { data: post } = await supabase
-    .from('blog_posts')
-    .select('*')
-    .eq('slug', slug)
-    .eq('status', 'published')
-    .single()
+  let query = supabase.from('blog_posts').select('*').eq('slug', slug)
+  
+  if (searchParams.preview !== 'true') {
+    query = query.eq('status', 'published')
+  }
+
+  const { data: post } = await query.single()
 
   if (!post) notFound()
 
@@ -77,7 +81,7 @@ export default async function BlogPostPage({
           )}
           <h1 className="text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">{p.title}</h1>
           <div className="flex items-center gap-4 text-sm text-primary-100">
-            <span className="flex items-center gap-1.5"><User className="w-4 h-4" />{p.author}</span>
+            <AuthorDisplayClient authorNameFallback={p.author} />
             {p.published_at && (
               <span className="flex items-center gap-1.5"><Calendar className="w-4 h-4" />{formatDate(p.published_at)}</span>
             )}
@@ -105,9 +109,13 @@ export default async function BlogPostPage({
               {p.excerpt}
             </p>
           )}
-          <div className="prose prose-lg max-w-none text-text-secondary whitespace-pre-line leading-relaxed">
-            {p.content}
-          </div>
+          <div 
+            className="prose prose-lg prose-primary max-w-none text-text-secondary leading-relaxed 
+              prose-headings:text-text-primary prose-a:text-accent prose-a:no-underline hover:prose-a:underline
+              prose-blockquote:border-accent prose-blockquote:bg-surface-muted prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-r-lg
+              prose-img:rounded-xl prose-img:shadow-lg"
+            dangerouslySetInnerHTML={{ __html: p.content || '' }}
+          />
         </div>
       </section>
     </article>

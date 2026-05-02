@@ -10,13 +10,18 @@ export async function createPostAction(formData: FormData): Promise<void> {
   const title = formData.get('title') as string
   const status = formData.get('status') as 'draft' | 'published'
 
+  const categoryId = formData.get('category_id') as string || null
+  const coverImageUrl = formData.get('cover_image_url') as string || null
+
   const { error } = await (supabase.from('blog_posts') as any).insert({
     title,
     slug: slugify(title),
     excerpt: formData.get('excerpt') as string || null,
     content: formData.get('content') as string || null,
+    cover_image_url: coverImageUrl || null,
     author: formData.get('author') as string || 'energyinsightgh',
     tags: (formData.get('tags') as string || '').split(',').map(t => t.trim()).filter(Boolean),
+    category_id: categoryId || null,
     status,
     published_at: status === 'published' ? new Date().toISOString() : null,
   })
@@ -38,12 +43,17 @@ export async function updatePostAction(formData: FormData): Promise<void> {
   const c = current as any
   const isFirstPublish = status === 'published' && c?.status !== 'published'
 
+  const categoryId = formData.get('category_id') as string || null
+  const coverImageUrl = formData.get('cover_image_url') as string || null
+
   const { error } = await (supabase.from('blog_posts') as any).update({
     title: formData.get('title') as string,
     excerpt: formData.get('excerpt') as string || null,
     content: formData.get('content') as string || null,
+    cover_image_url: coverImageUrl || null,
     author: formData.get('author') as string || 'energyinsightgh',
     tags: (formData.get('tags') as string || '').split(',').map(t => t.trim()).filter(Boolean),
+    category_id: categoryId || null,
     status,
     published_at: isFirstPublish ? new Date().toISOString() : (c?.published_at ?? null),
   }).eq('id', id)

@@ -77,7 +77,28 @@
 | `excerpt` | `string` | Max 200 chars |
 | `content` | `text` | Markdown |
 | `status` | `enum` | `'draft'`, `'published'` |
+| `category_id`| `uuid` (FK) | `references categories.id` |
 | `published_at` | `timestamptz` | |
+
+### TABLE: `categories`
+**Purpose**: Categorization for blog posts
+
+| Field | Type | Notes |
+|---|---|---|
+| `id` | `uuid` (PK) | `default gen_random_uuid()` |
+| `name` | `string` | |
+| `slug` | `string` | Unique |
+| `description`| `string` | |
+
+### TABLE: `client_emails`
+**Purpose**: Lead generation from newsletter and contact form
+
+| Field | Type | Notes |
+|---|---|---|
+| `id` | `uuid` (PK) | `default gen_random_uuid()` |
+| `email` | `string` | |
+| `source` | `enum` | `'newsletter'`, `'contact_form'` |
+| `created_at`| `timestamptz` | |
 
 ### TABLE: `services`
 **Purpose**: Clean energy service offerings

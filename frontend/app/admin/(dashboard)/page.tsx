@@ -5,7 +5,7 @@ import { FileText, Settings, PlusCircle, Eye } from 'lucide-react'
 export default async function AdminDashboardPage() {
   const supabase = await createClient()
 
-  const [{ count: postCount }, { count: serviceCount }, { data: recentPosts }] =
+  const [postsRes, servicesRes, recentPostsRes] =
     await Promise.all([
       (supabase.from('blog_posts') as any).select('*', { count: 'exact', head: true }),
       (supabase.from('services') as any).select('*', { count: 'exact', head: true }),
@@ -13,7 +13,15 @@ export default async function AdminDashboardPage() {
         .select('id, title, slug, status, published_at')
         .order('created_at', { ascending: false })
         .limit(5),
-    ]) as any[]
+    ])
+
+  if (postsRes.error) throw new Error(`Database Error (blog_posts count): ${postsRes.error.message}`)
+  if (servicesRes.error) throw new Error(`Database Error (services count): ${servicesRes.error.message}`)
+  if (recentPostsRes.error) throw new Error(`Database Error (recent posts): ${recentPostsRes.error.message}`)
+
+  const postCount = postsRes.count
+  const serviceCount = servicesRes.count
+  const recentPosts = recentPostsRes.data as any[] || []
 
   return (
     <div>
@@ -81,7 +89,11 @@ export default async function AdminDashboardPage() {
               <tbody className="divide-y divide-gray-50">
                 {(recentPosts as any[]).map((post: any) => (
                   <tr key={post.id} className="hover:bg-surface-muted/50">
-                    <td className="px-4 py-3 font-medium text-text-primary">{post.title}</td>
+                    <td className="px-4 py-3 font-medium text-text-primary">
+                      <Link href={`/admin/blog/${post.id}`} className="hover:underline hover:text-primary block w-full h-full">
+                        {post.title}
+                      </Link>
+                    </td>
                     <td className="px-4 py-3">
                       <span className={`inline-block px-2 py-0.5 text-xs rounded-full font-medium ${
                         post.status === 'published'

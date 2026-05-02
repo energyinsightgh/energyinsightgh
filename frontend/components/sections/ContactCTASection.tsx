@@ -1,17 +1,18 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight, Phone } from 'lucide-react'
 
 export function ContactCTASection() {
   return (
-    <section className="section-padding bg-slate-50 relative overflow-hidden">
-      <div
-        className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, #F5A623 1px, transparent 0)`,
-          backgroundSize: '32px 32px',
-        }}
+    <section className="section-padding relative overflow-hidden">
+      <Image 
+        src="/images/cta-bg.jpg"
+        alt="Background"
+        fill
+        className="object-cover absolute inset-0 z-0"
+        quality={90}
       />
-      <div className="container-site relative text-center">
+      <div className="container-site relative z-10 text-center">
         <h2 className="text-3xl lg:text-4xl font-bold text-text-primary mb-4">
           Ready to Cut Your Energy Costs?
         </h2>

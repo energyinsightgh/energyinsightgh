@@ -75,7 +75,7 @@ export function TargetAudienceSection() {
       <div className="container-site relative z-10">
         <div className="text-center mx-auto max-w-3xl mb-12 lg:mb-16">
           <div className="inline-flex items-center gap-2 bg-[#f5a623]/10 border border-[#f5a623]/20 rounded-full px-5 py-1.5 text-xs text-[#d97706] font-bold mb-5 tracking-wide uppercase">
-            Make Them Feel Seen
+            Tailored for You
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-text-primary mb-6">
             Who This Is For?

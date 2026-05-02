@@ -23,9 +23,9 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: { slug: string }
 }): Promise<Metadata> {
-  const { slug } = await params
+  const { slug } = params
   const supabase = createStaticClient()
   const { data } = await supabase.from('services').select('title').eq('slug', slug).single()
   return { title: (data as any)?.title ?? 'Service' }
@@ -34,9 +34,9 @@ export async function generateMetadata({
 export default async function ServiceDetailPage({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: { slug: string }
 }) {
-  const { slug } = await params
+  const { slug } = params
   const supabase = await createClient()
   const { data: service } = await supabase
     .from('services')
@@ -74,9 +74,10 @@ export default async function ServiceDetailPage({
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2">
               <h2 className="text-2xl font-bold text-text-primary mb-6">About This Service</h2>
-              <div className="prose prose-lg max-w-none text-text-secondary leading-relaxed whitespace-pre-line">
-                {s.full_description}
-              </div>
+              <div 
+                className="prose prose-lg prose-primary max-w-none text-text-secondary leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: s.full_description || '' }}
+              />
             </div>
             <div>
               <div className="card p-6 sticky top-24">
