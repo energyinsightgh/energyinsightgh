@@ -29,10 +29,10 @@ export default function ServiceListClient({ services }: ServiceListClientProps) 
               {/* Decorative background element */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110" />
               
-              <div className="relative z-10 flex gap-6">
+              <div className="relative z-10 flex flex-col gap-5">
                 <div className="shrink-0">
-                  <div className="w-14 h-14 rounded-xl bg-primary-50 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                    <Icon className="w-7 h-7" />
+                  <div className="w-10 h-10 rounded-lg bg-primary-50 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                    <Icon className="w-5 h-5" />
                   </div>
                 </div>
                 <div className="flex flex-col gap-3">
