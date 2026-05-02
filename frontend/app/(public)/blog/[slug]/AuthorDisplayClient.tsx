@@ -21,11 +21,13 @@ export default function AuthorDisplayClient({ authorNameFallback }: { authorName
   return (
     <div className="flex items-center gap-2">
       {authorAvatar ? (
-        <img src={authorAvatar} alt={authorName} className="w-6 h-6 rounded-full object-cover border border-primary-400" />
+        <img src={authorAvatar} alt={authorName} className="w-10 h-10 rounded-full object-cover border-2 border-primary-400 shadow-sm" />
       ) : (
-        <User className="w-4 h-4" />
+        <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center border-2 border-primary-400">
+          <User className="w-5 h-5" />
+        </div>
       )}
-      <span className="font-medium">{authorName}</span>
+      <span className="font-semibold text-lg">{authorName}</span>
     </div>
   )
 }

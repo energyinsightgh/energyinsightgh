@@ -8,6 +8,7 @@ import { ChevronUp, MapPin, Eye, Calendar, ImageIcon, X, Upload, Loader2 } from 
 import Link from 'next/link'
 import { slugify } from '@/lib/utils'
 import { uploadMediaAction } from '@/app/admin/(dashboard)/media/actions'
+import MediaPickerModal from './MediaPickerModal'
 
 interface WPPostFormProps {
   action: (formData: FormData) => Promise<void>
@@ -43,8 +44,7 @@ export default function WPPostForm({ action, initialData, categories: initialCat
 
   // Featured image state
   const [featuredImage, setFeaturedImage] = useState<string>(initialData?.cover_image_url || '')
-  const [uploadingImage, setUploadingImage] = useState(false)
-  const featuredImageRef = useRef<HTMLInputElement>(null)
+  const [showMediaPicker, setShowMediaPicker] = useState(false)
 
   // Slug for permalink
   const [title, setTitle] = useState(initialData?.title || '')
@@ -97,26 +97,8 @@ export default function WPPostForm({ action, initialData, categories: initialCat
   }
 
   // ---- Featured image ----
-  const handleFeaturedImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-    setUploadingImage(true)
-
-    const formData = new FormData()
-    formData.append('file', file)
-    const result = await uploadMediaAction(formData)
-
-    if (result.error) {
-      alert(`Upload failed: ${result.error}`)
-    } else if (result.path) {
-      // Construct the public URL
-      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-      const publicUrl = `${supabaseUrl}/storage/v1/object/public/media/${result.path}`
-      setFeaturedImage(publicUrl)
-    }
-
-    setUploadingImage(false)
-    if (featuredImageRef.current) featuredImageRef.current.value = ''
+  const handleMediaInsert = (url: string) => {
+    setFeaturedImage(url)
   }
 
   return (
@@ -463,32 +445,14 @@ export default function WPPostForm({ action, initialData, categories: initialCat
               </div>
             ) : (
               <div>
-                <input
-                  ref={featuredImageRef}
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFeaturedImageUpload}
-                  className="hidden"
-                  id="featured-image-upload"
-                />
                 <button
                   type="button"
-                  onClick={() => featuredImageRef.current?.click()}
-                  disabled={uploadingImage}
+                  onClick={() => setShowMediaPicker(true)}
                   className="w-full py-6 border-2 border-dashed border-gray-300 rounded-sm hover:border-blue-400 hover:bg-blue-50/30 transition-all flex flex-col items-center justify-center gap-2 text-gray-500"
                 >
-                  {uploadingImage ? (
-                    <>
-                      <Loader2 className="w-6 h-6 animate-spin text-blue-500" />
-                      <span className="text-sm">Uploading...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Upload className="w-6 h-6" />
-                      <span className="text-sm font-medium">Set featured image</span>
-                      <span className="text-xs text-gray-400">Click to upload</span>
-                    </>
-                  )}
+                  <ImageIcon className="w-6 h-6" />
+                  <span className="text-sm font-medium">Set featured image</span>
+                  <span className="text-xs text-gray-400">Choose from Media Library</span>
                 </button>
               </div>
             )}
@@ -496,6 +460,12 @@ export default function WPPostForm({ action, initialData, categories: initialCat
         </div>
 
       </div>
+
+      <MediaPickerModal
+        isOpen={showMediaPicker}
+        onClose={() => setShowMediaPicker(false)}
+        onSelect={handleMediaInsert}
+      />
     </form>
   )
 }

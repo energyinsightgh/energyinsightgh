@@ -58,29 +58,6 @@
     @apply bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1;
   }
 
-  hr.wp-read-more {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none !important;
-    border-top: 1px dashed #ccc !important;
-    margin: 2rem 0 !important;
-    position: relative;
-    background: transparent !important;
-    height: 1px !important;
-  }
-  hr.wp-read-more::after {
-    content: "READ MORE";
-    position: absolute;
-    top: -10px;
-    background: #fff;
-    padding: 0 10px;
-    font-size: 10px;
-    color: #999;
-    font-weight: bold;
-    border: 1px solid #ccc;
-    border-radius: 2px;
-  }
 
   .glass {
     @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-xl;
@@ -174,6 +151,30 @@
 
 .-top-10 {
   top: -2rem !important;
+}
+
+hr.wp-read-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none !important;
+  border-top: 1px dashed #ccc !important;
+  margin: 2rem 0 !important;
+  position: relative;
+  background: transparent !important;
+  height: 1px !important;
+}
+hr.wp-read-more::after {
+  content: "READ MORE";
+  position: absolute;
+  top: -10px;
+  background: #fff;
+  padding: 0 10px;
+  font-size: 10px;
+  color: #999;
+  font-weight: bold;
+  border: 1px solid #ccc;
+  border-radius: 2px;
 }
 
 

@@ -25,7 +25,10 @@ import {
   MoreHorizontal,
   ChevronDown,
   ChevronUp,
-  Settings2
+  Settings2,
+  TableProperties,
+  ArrowDownToLine,
+  ArrowRightToLine
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import MediaPickerModal from './MediaPickerModal'
@@ -137,7 +140,11 @@ export default function WPEditor({ id, name, value, onChange, placeholder, slug 
   }
 
   const handleMediaInsert = (url: string) => {
-    const imgHtml = `<div style="resize: both; overflow: hidden; display: inline-block; width: 300px; max-width: 100%;" class="wp-image-wrapper"><img src="${url}" alt="image" style="width: 100%; height: auto; display: block;" class="rounded-lg shadow-md my-4" /></div>`
+    const altText = prompt('Enter alt text for the image (important for SEO/accessibility):', 'image') || 'image'
+    const imgHtml = `<figure style="display: block; width: 60%; max-width: 100%; margin: 1.5rem auto;" class="wp-image-wrapper">
+      <img src="${url}" alt="${altText}" style="width: 100%; height: auto; display: block;" class="rounded-lg shadow-md" />
+      <figcaption contenteditable="true" style="text-align: center; color: #6b7280; font-size: 0.875rem; margin-top: 0.5rem; padding: 0.25rem; min-height: 1.5rem; outline: none; font-style: italic; border: 1px dashed transparent;" title="Type caption here">Type caption for image (optional)</figcaption>
+    </figure><p><br></p>`
     if (mode === 'visual') {
       execCommand('insertHTML', imgHtml)
     } else {
@@ -185,7 +192,7 @@ export default function WPEditor({ id, name, value, onChange, placeholder, slug 
     const cols = parseInt(colsStr, 10)
     if (isNaN(rows) || isNaN(cols) || rows <= 0 || cols <= 0) return
 
-    let tableHtml = '\n<div style="resize: both; overflow: hidden; width: 100%; border: 1px dashed #ccc; padding: 4px;" class="wp-table-wrapper"><table class="w-full border-collapse border border-gray-200 my-4">\n  <thead>\n    <tr>\n'
+    let tableHtml = '\n<div style="width: 100%; border: 1px dashed transparent; padding: 4px;" class="wp-table-wrapper"><table class="w-full border-collapse border border-gray-200 my-4">\n  <thead>\n    <tr>\n'
     for (let c = 0; c < cols; c++) {
       tableHtml += `      <th class="border border-gray-200 p-2 bg-gray-50">&nbsp;</th>\n`
     }
@@ -209,6 +216,66 @@ export default function WPEditor({ id, name, value, onChange, placeholder, slug 
       const newText = value.substring(0, start) + tableHtml + value.substring(end)
       onChange(newText)
     }
+  }
+
+  const handleAddRow = () => {
+    if (mode !== 'visual') return
+    const selection = window.getSelection()
+    if (!selection || selection.rangeCount === 0) return
+    let node: Node | null = selection.anchorNode
+    while (node && node.nodeName !== 'TR' && node !== editorRef.current) {
+      node = node.parentNode
+    }
+    if (!node || node === editorRef.current) {
+      alert('Please place cursor inside a table row to add a new row.')
+      return
+    }
+    const tr = node as HTMLTableRowElement
+    const cols = tr.children.length
+    const newTr = document.createElement('tr')
+    for(let i=0; i<cols; i++) {
+      const td = document.createElement('td')
+      td.className = "border border-gray-200 p-2"
+      td.innerHTML = "&nbsp;"
+      newTr.appendChild(td)
+    }
+    tr.parentNode?.insertBefore(newTr, tr.nextSibling)
+    handleVisualChange()
+  }
+
+  const handleAddCol = () => {
+    if (mode !== 'visual') return
+    const selection = window.getSelection()
+    if (!selection || selection.rangeCount === 0) return
+    let node: Node | null = selection.anchorNode
+    while (node && node.nodeName !== 'TD' && node.nodeName !== 'TH' && node !== editorRef.current) {
+      node = node.parentNode
+    }
+    if (!node || node === editorRef.current) {
+      alert('Please place cursor inside a table cell to add a new column.')
+      return
+    }
+    const cell = node as HTMLTableCellElement
+    const tr = cell.parentNode as HTMLTableRowElement
+    const table = tr.closest('table')
+    if (!table) return
+    
+    const cellIndex = Array.from(tr.children).indexOf(cell)
+    
+    const allRows = table.querySelectorAll('tr')
+    allRows.forEach(row => {
+      const isHeader = row.parentNode?.nodeName === 'THEAD'
+      const newCell = document.createElement(isHeader ? 'th' : 'td')
+      newCell.className = isHeader ? "border border-gray-200 p-2 bg-gray-50" : "border border-gray-200 p-2"
+      newCell.innerHTML = "&nbsp;"
+      const referenceCell = row.children[cellIndex]
+      if (referenceCell) {
+        row.insertBefore(newCell, referenceCell.nextSibling)
+      } else {
+        row.appendChild(newCell)
+      }
+    })
+    handleVisualChange()
   }
 
   const handleInsertReadMore = () => {
@@ -243,7 +310,9 @@ export default function WPEditor({ id, name, value, onChange, placeholder, slug 
     { icon: Strikethrough, label: 'Strikethrough', action: () => execCommand('strikethrough'), commandName: 'strikethrough' },
     { icon: Underline, label: 'Underline', action: () => execCommand('underline'), commandName: 'underline' },
     { icon: Minus, label: 'Horizontal line', action: () => execCommand('insertHorizontalRule') },
-    { icon: Table, label: 'Table', action: handleInsertTable },
+    { icon: Table, label: 'Insert Table', action: handleInsertTable },
+    { icon: ArrowDownToLine, label: 'Add Row Below', action: handleAddRow },
+    { icon: ArrowRightToLine, label: 'Add Col Right', action: handleAddCol },
   ]
 
   const codeHelperButtons = [
@@ -428,7 +497,7 @@ export default function WPEditor({ id, name, value, onChange, placeholder, slug 
         )}
 
         {/* Content Area */}
-        <div className={cn("relative flex-1 bg-white", isFullscreen ? "min-h-0 overflow-y-auto" : "min-h-[400px]")}>
+        <div className={cn("relative flex-1 bg-white", isFullscreen ? "min-h-0 overflow-y-auto" : "min-h-[400px] max-h-[600px] overflow-y-auto")}>
           {mode === 'visual' ? (
             <div
               ref={editorRef}
@@ -492,8 +561,6 @@ export default function WPEditor({ id, name, value, onChange, placeholder, slug 
           height: auto;
           display: block;
           margin: 1.5rem auto;
-          resize: both;
-          overflow: auto;
         }
         .prose table {
           width: 100%;
@@ -503,6 +570,15 @@ export default function WPEditor({ id, name, value, onChange, placeholder, slug 
         .prose table th, .prose table td {
           border: 1px solid #e2e8f0;
           padding: 0.75rem;
+        }
+        .wp-image-wrapper {
+          resize: both;
+          overflow: hidden;
+        }
+        .wp-table-wrapper {
+          resize: both;
+          overflow: hidden;
+          border: 1px dashed #ccc !important;
         }
         hr.wp-read-more {
           display: flex;

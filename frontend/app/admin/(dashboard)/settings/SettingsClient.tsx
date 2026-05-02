@@ -150,15 +150,6 @@ export default function SettingsClient({ userEmail }: { userEmail: string }) {
               />
             </div>
           </div>
-          <div className="pt-4 flex justify-end">
-            <button 
-              onClick={handleSave}
-              disabled={isSaving}
-              className="btn-primary"
-            >
-              {isSaving ? 'Saving...' : 'Save Settings'}
-            </button>
-          </div>
         </div>
       </section>
 
@@ -241,6 +232,16 @@ export default function SettingsClient({ userEmail }: { userEmail: string }) {
           </div>
         </div>
       </section>
+
+      <div className="flex justify-end pt-4 pb-8 border-t border-gray-200 mt-8">
+        <button 
+          onClick={handleSave}
+          disabled={isSaving}
+          className="btn-primary text-lg px-8 py-3 shadow-lg"
+        >
+          {isSaving ? 'Saving All Settings...' : 'Save All Settings'}
+        </button>
+      </div>
     </div>
   )
 }
