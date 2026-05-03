@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import type { Service } from '@/types'
-import ServiceListAdminClient from './ServiceListAdminClient'
+import ServicesAdminClient from './ServicesAdminClient'
 
 export default async function AdminServicesPage() {
   const supabase = await createClient()
@@ -9,6 +9,6 @@ export default async function AdminServicesPage() {
     .order('display_order', { ascending: true })
 
   return (
-    <ServiceListAdminClient initialServices={(services ?? []) as Service[]} />
+    <ServicesAdminClient initialServices={(services ?? []) as Service[]} />
   )
 }

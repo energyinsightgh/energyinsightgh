@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { ArrowRight, X } from 'lucide-react'
 import type { Service } from '@/types'
 import { Building2, Cpu, BarChart2, GraduationCap, ClipboardList } from 'lucide-react'
@@ -31,12 +31,12 @@ export default function ServiceListClient({ services }: ServiceListClientProps) 
               
               <div className="relative z-10 flex flex-col gap-5">
                 <div className="shrink-0">
-                  <div className="w-10 h-10 rounded-lg bg-primary-50 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                    <Icon className="w-5 h-5" />
+                  <div className="w-12 h-12 rounded-lg bg-primary-50 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                    <Icon className="w-6 h-6" />
                   </div>
                 </div>
                 <div className="flex flex-col gap-3">
-                  <h2 className="text-xl font-bold text-gray-900 group-hover:text-primary transition-colors">{service.title}</h2>
+                  <h2 className="text-lg font-bold text-gray-900 group-hover:text-primary transition-colors">{service.title}</h2>
                   <p className="text-gray-600 leading-relaxed text-sm">{service.short_description}</p>
                   {service.benefits && service.benefits.length > 0 && (
                     <ul className="space-y-1.5 mt-2">
@@ -50,7 +50,7 @@ export default function ServiceListClient({ services }: ServiceListClientProps) 
                   )}
                   <button
                     onClick={() => setSelectedService(service)}
-                    className="inline-flex items-center gap-2 text-primary font-bold text-sm mt-4 group/btn"
+                    className="inline-flex items-center gap-2 text-primary font-bold text-sm mt-auto pt-4 group/btn"
                   >
                     Read more 
                     <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />

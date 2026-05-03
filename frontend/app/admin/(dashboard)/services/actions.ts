@@ -18,48 +18,33 @@ export async function updateServiceAction(id: string, formData: FormData) {
   }
 
   revalidatePath('/admin/services')
-  revalidatePath('/')
-  return { success: true }
-}
-
-export async function reorderServicesAction(updates: { id: string, display_order: number }[]) {
-  const supabase = await createClient()
-  
-  // Supabase bulk update via Promise.all (for simplicity, as bulk update via RPC or upsert is trickier if we don't send all columns)
-  for (const update of updates) {
-    await (supabase.from('services') as any)
-      .update({ display_order: update.display_order })
-      .eq('id', update.id)
-  }
-
-  revalidatePath('/admin/services')
-  revalidatePath('/')
   revalidatePath('/services')
+  revalidatePath('/')
   return { success: true }
 }
 
-export async function addServiceAction() {
+export async function createServiceAction(formData: FormData) {
   const supabase = await createClient()
-  
-  // Get max display order
-  const { data: maxOrderData } = await (supabase.from('services') as any)
+  const title = formData.get('title') as string
+  const short_description = formData.get('short_description') as string
+  const icon_name = formData.get('icon_name') as string
+
+  // Get max display_order
+  const { data: existing } = await (supabase.from('services') as any)
     .select('display_order')
     .order('display_order', { ascending: false })
     .limit(1)
-  
-  const nextOrder = (maxOrderData?.[0]?.display_order || 0) + 1
-  const id = crypto.randomUUID()
-  const newSlug = `new-service-${id.substring(0, 8)}`
+
+  const nextOrder = existing && existing.length > 0 ? (existing[0].display_order ?? 0) + 1 : 1
+  const slug = title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
 
   const { error } = await (supabase.from('services') as any).insert({
-    id,
-    title: 'New Service',
-    slug: newSlug,
-    short_description: 'Short description goes here.',
-    full_description: '<p>Detailed content goes here.</p>',
-    icon_name: 'Building2',
-    is_active: false,
-    display_order: nextOrder
+    title,
+    slug,
+    short_description,
+    icon_name: icon_name || 'Building2',
+    is_active: true,
+    display_order: nextOrder,
   })
 
   if (error) {
@@ -67,7 +52,38 @@ export async function addServiceAction() {
   }
 
   revalidatePath('/admin/services')
-  revalidatePath('/')
   revalidatePath('/services')
+  revalidatePath('/')
+  return { success: true }
+}
+
+export async function reorderServicesAction(orderedIds: string[]) {
+  const supabase = await createClient()
+
+  const updates = orderedIds.map((id, index) =>
+    (supabase.from('services') as any)
+      .update({ display_order: index + 1 })
+      .eq('id', id)
+  )
+
+  const results = await Promise.all(updates)
+  const error = results.find((r) => r.error)?.error
+  if (error) {
+    return { error: error.message }
+  }
+
+  revalidatePath('/admin/services')
+  revalidatePath('/services')
+  revalidatePath('/')
+  return { success: true }
+}
+
+export async function deleteServiceAction(id: string) {
+  const supabase = await createClient()
+  const { error } = await (supabase.from('services') as any).delete().eq('id', id)
+  if (error) return { error: error.message }
+  revalidatePath('/admin/services')
+  revalidatePath('/services')
+  revalidatePath('/')
   return { success: true }
 }
