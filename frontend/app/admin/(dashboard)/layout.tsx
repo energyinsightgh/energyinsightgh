@@ -9,13 +9,14 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   if (!user) redirect('/admin-login')
 
   return (
-    <div className="min-h-screen bg-surface-muted flex h-screen overflow-hidden">
+    <div className="min-h-screen bg-surface-muted flex">
       <AdminSidebar userEmail={user.email} />
 
-      <main className="flex-1 flex flex-col min-w-0">
+      {/* Main content — offset by sidebar width (w-64 = 256px) */}
+      <main className="flex-1 flex flex-col min-w-0 ml-64">
         <AdminHeader />
 
-        <div className="flex-1 overflow-y-auto p-6 bg-surface-muted/50">
+        <div className="flex-1 overflow-y-auto p-6 bg-surface-muted/50 min-h-screen">
           <div className="max-w-7xl mx-auto">
             {children}
           </div>

@@ -25,7 +25,7 @@ export default function AdminSidebar({ userEmail }: AdminSidebarProps) {
   const pathname = usePathname()
 
   return (
-    <aside className="w-64 bg-[#0a192f] text-white flex flex-col shrink-0 border-r border-white/5 selection:bg-accent/20 sticky top-0 h-screen overflow-hidden">
+    <aside className="fixed top-0 left-0 w-64 h-screen bg-[#0a192f] text-white flex flex-col shrink-0 border-r border-white/5 selection:bg-accent/20 overflow-hidden z-40">
       <div className="p-6 border-b border-white/5">
         <Logo className="brightness-0 invert h-6 w-auto" />
       </div>

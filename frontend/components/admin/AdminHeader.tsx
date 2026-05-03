@@ -11,7 +11,7 @@ export default function AdminHeader() {
   const pathSegments = pathname.split('/').filter(segment => segment && segment !== 'admin')
   
   return (
-    <header className="h-14 bg-white border-b border-gray-100 flex items-center justify-between px-6 shrink-0">
+    <header className="sticky top-0 z-30 h-14 bg-white border-b border-gray-100 flex items-center justify-between px-6 shrink-0 shadow-sm">
       <div className="text-sm font-medium text-text-secondary flex items-center gap-2">
         <Link href="/admin" className="hover:text-primary transition-colors">
           Energy Insight GH
