@@ -71,7 +71,7 @@ export default async function AdminEmailsPage() {
                                     <p><strong>Name:</strong> {parsed.name}</p>
                                     {parsed.company && <p><strong>Company:</strong> {parsed.company}</p>}
                                     {parsed.service_interest && <p><strong>Service:</strong> {parsed.service_interest}</p>}
-                                    <div className="mt-2 text-gray-600 italic">"{parsed.message}"</div>
+                                    <div className="mt-2 text-gray-600 italic">&ldquo;{parsed.message}&rdquo;</div>
                                   </div>
                                 </details>
                               )
