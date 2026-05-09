@@ -259,11 +259,11 @@ hr.wp-read-more::after {
 
 /* User explicitly requested h-[6rem] and md:h-[7rem] */
 .h-\[6rem\] {
-  height: 6rem;
+  height: 5rem;
 }
 
 @media (min-width: 768px) {
   .md\:h-\[7rem\] {
-    height: 7rem;
+    height: 6rem;
   }
 }
