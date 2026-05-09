@@ -11,13 +11,16 @@
 
   body {
     @apply font-sans text-text-primary bg-white antialiased;
+
     /* Premium scrollbar */
     &::-webkit-scrollbar {
       width: 8px;
     }
+
     &::-webkit-scrollbar-track {
       @apply bg-surface-muted;
     }
+
     &::-webkit-scrollbar-thumb {
       @apply bg-gray-300 rounded-full hover:bg-gray-400 transition-colors;
     }
@@ -164,6 +167,7 @@ hr.wp-read-more {
   background: transparent !important;
   height: 1px !important;
 }
+
 hr.wp-read-more::after {
   content: "READ MORE";
   position: absolute;
@@ -177,4 +181,89 @@ hr.wp-read-more::after {
   border-radius: 2px;
 }
 
+/* Custom Nav Links Effect */
+.nav-link {
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  position: relative;
+}
 
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  background-color: rgba(166, 166, 166, 0.4);
+  /* #A6A6A6 with opacity */
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -0.25em;
+  height: 2px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+  animation: pulse11 1s;
+  box-shadow: 0 0 0 1em transparent;
+}
+
+@keyframes pulse11 {
+  0% {
+    box-shadow: 0 0 0 0 rgba(166, 166, 166, 0.4);
+  }
+
+  100% {
+    box-shadow: 0 0 0 1em transparent;
+  }
+}
+
+/* Curved Scrollbar for Transformations */
+.curved-scrollbar::-webkit-scrollbar {
+  height: 8px;
+}
+
+.curved-scrollbar::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 10px;
+}
+
+.curved-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.curved-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Enforce uniform font inside admin-edited prose content */
+.prose * {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  color: inherit !important;
+  background-color: transparent !important;
+}
+
+/* Requested manual positioning */
+.top-\[40px\] {
+  top: 50.5px;
+}
+
+/* User explicitly requested logo md:h-12 rule */
+.md\:h-12 {
+  height: 3rem;
+}
+
+/* User explicitly requested h-[6rem] and md:h-[7rem] */
+.h-\[6rem\] {
+  height: 6rem;
+}
+
+@media (min-width: 768px) {
+  .md\:h-\[7rem\] {
+    height: 7rem;
+  }
+}

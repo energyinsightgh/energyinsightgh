@@ -1,8 +1,10 @@
 'use client'
 
+import { useState } from 'react'
 import { useFormState, useFormStatus } from 'react-dom'
 import { submitContactForm, type ContactFormState } from './actions'
 import { CheckCircle, AlertCircle, Loader2 } from 'lucide-react'
+import { useSearchParams } from 'next/navigation'
 
 const initialState: ContactFormState = { success: false }
 
@@ -37,7 +39,11 @@ function SubmitButton() {
 }
 
 export function ContactForm() {
+  const searchParams = useSearchParams()
+  const defaultService = searchParams.get('service') || ''
+  
   const [state, formAction] = useFormState(submitContactForm, initialState)
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   if (state.success) {
     return (
@@ -54,7 +60,7 @@ export function ContactForm() {
   }
 
   return (
-    <form action={formAction} className="space-y-5">
+    <form action={formAction} onSubmit={() => setIsSubmitted(true)} className="space-y-5">
       {state.error && (
         <div className="flex items-center gap-2 text-red-600 bg-red-50 border border-red-200 rounded-lg px-4 py-3 text-sm">
           <AlertCircle className="w-4 h-4 shrink-0" />
@@ -72,7 +78,7 @@ export function ContactForm() {
             name="name"
             type="text"
             required
-            className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            className={`w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${isSubmitted ? 'invalid:border-red-500 invalid:ring-1 invalid:ring-red-500' : ''}`}
             placeholder="Kwame Mensah"
           />
         </div>
@@ -85,7 +91,7 @@ export function ContactForm() {
             name="email"
             type="email"
             required
-            className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            className={`w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${isSubmitted ? 'invalid:border-red-500 invalid:ring-1 invalid:ring-red-500' : ''}`}
             placeholder="kwame@company.com"
           />
         </div>
@@ -111,6 +117,7 @@ export function ContactForm() {
         <select
           id="service_interest"
           name="service_interest"
+          defaultValue={defaultService}
           className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white"
         >
           <option value="">Select a service…</option>
@@ -129,7 +136,7 @@ export function ContactForm() {
           name="message"
           required
           rows={5}
-          className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
+          className={`w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none ${isSubmitted ? 'invalid:border-red-500 invalid:ring-1 invalid:ring-red-500' : ''}`}
           placeholder="Tell us about your facility and energy challenges…"
         />
       </div>

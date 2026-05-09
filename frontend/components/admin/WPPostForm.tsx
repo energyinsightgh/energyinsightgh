@@ -102,7 +102,7 @@ export default function WPPostForm({ action, initialData, categories: initialCat
   }
 
   return (
-    <form ref={formRef} action={action} className="flex gap-5 max-w-7xl mx-auto mt-2">
+    <form ref={formRef} action={action} className="flex flex-col lg:flex-row gap-5 max-w-7xl mx-auto mt-2 px-2 lg:px-0">
 
       {/* Left Column: Editor */}
       <div className="flex-1 space-y-4 min-w-0">
@@ -170,7 +170,7 @@ export default function WPPostForm({ action, initialData, categories: initialCat
       </div>
 
       {/* Right Column: Sidebar Widgets */}
-      <div className="w-72 space-y-4 shrink-0">
+      <div className="w-full lg:w-72 space-y-4 shrink-0">
 
         {/* Publish Widget */}
         <div className="border border-gray-300 bg-white rounded-sm">

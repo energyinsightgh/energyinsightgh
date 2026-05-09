@@ -2,10 +2,11 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, FileText, Settings, LogOut, Tags, Mail, ToggleLeft, ImagePlus } from 'lucide-react'
+import { LayoutDashboard, FileText, Settings, LogOut, Tags, Mail, ToggleLeft, ImagePlus, ChevronRight, ChevronLeft } from 'lucide-react'
 import { Logo } from '@/components/ui/Logo'
 import { cn } from '@/lib/utils'
 import { signOutAction } from '@/app/admin/(dashboard)/actions'
+import { useState } from 'react'
 
 const navItems = [
   { label: 'Dashboard', href: '/admin', icon: LayoutDashboard },
@@ -23,9 +24,33 @@ interface AdminSidebarProps {
 
 export default function AdminSidebar({ userEmail }: AdminSidebarProps) {
   const pathname = usePathname()
+  const [isCollapsed, setIsCollapsed] = useState(true)
 
   return (
-    <aside className="fixed top-0 left-0 w-64 h-screen bg-[#0a192f] text-white flex flex-col shrink-0 border-r border-white/5 selection:bg-accent/20 overflow-hidden z-40">
+    <>
+      {/* Mobile overlay */}
+      {!isCollapsed && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-30 lg:hidden" 
+          onClick={() => setIsCollapsed(true)}
+        />
+      )}
+      
+      {/* Toggle Button for mobile/tablet */}
+      <button 
+        onClick={() => setIsCollapsed(!isCollapsed)}
+        className={cn(
+          "fixed top-20 bg-[#0a192f] text-white p-2 rounded-r-xl lg:hidden z-50 border border-l-0 border-white/10 transition-all duration-300",
+          isCollapsed ? "left-0" : "left-64"
+        )}
+      >
+        {isCollapsed ? <ChevronRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
+      </button>
+
+      <aside className={cn(
+        "fixed top-0 left-0 h-screen bg-[#0a192f] text-white flex flex-col shrink-0 border-r border-white/5 selection:bg-accent/20 z-40 transition-all duration-300",
+        isCollapsed ? "-translate-x-full lg:translate-x-0 w-64" : "translate-x-0 w-64"
+      )}>
       <div className="p-6 border-b border-white/5">
         <Logo className="brightness-0 invert h-6 w-auto" />
       </div>
@@ -41,6 +66,7 @@ export default function AdminSidebar({ userEmail }: AdminSidebarProps) {
               <li key={item.href}>
                 <Link
                   href={item.href}
+                  prefetch={true}
                   className={cn(
                     "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-[13px] font-medium group",
                     isActive 
@@ -79,5 +105,6 @@ export default function AdminSidebar({ userEmail }: AdminSidebarProps) {
         </form>
       </div>
     </aside>
+    </>
   )
 }

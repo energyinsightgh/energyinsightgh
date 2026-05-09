@@ -99,9 +99,9 @@ export function RealizationSection() {
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-20 items-start">
           
           {/* Left Column: Minimalist Content & Typography Accordion */}
-          <div className="flex-1 w-full flex flex-col justify-start">
+          <div className="flex-1 w-full flex flex-col items-center text-center lg:items-start lg:text-left justify-start">
             
-            <div className="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-4 py-1.5 text-[11px] lg:text-xs text-[#0a192f] font-bold shadow-sm w-max mb-6 tracking-wide">
+            <div className="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-4 py-1.5 text-[11px] lg:text-xs text-[#0a192f] font-bold shadow-sm w-max mb-6 tracking-wide mx-auto lg:mx-0">
               The Realization
             </div>
             
@@ -126,12 +126,12 @@ export function RealizationSection() {
               </span>
             </h2>
             
-            <p className="text-lg text-slate-500 font-medium leading-relaxed max-w-xl mb-12">
+            <p className="text-lg text-slate-500 font-medium leading-relaxed max-w-xl mx-auto lg:mx-0 mb-12">
               Because current systems only show you the total bill, finding the root cause of the waste is incredibly tough. 
             </p>
 
             {/* Minimalist Accordion List with Borders strictly between items */}
-            <div className="space-y-0 w-full max-w-lg mb-8">
+            <div className="space-y-0 w-full max-w-lg mb-8 text-left">
               {wastePoints.slice(0, 3).map((point, idx) => renderPoint(point, idx))}
               
               <div 

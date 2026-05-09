@@ -82,7 +82,7 @@ function AnimatedRow({
   return (
     <div
       ref={rowRef}
-      className={`grid grid-cols-1 md:grid-cols-[1fr_56px_1fr] md:gap-x-8 items-stretch transition-all duration-700 ease-out ${
+      className={`grid grid-cols-1 md:grid-cols-[1fr_56px_1fr] md:gap-x-8 items-stretch transition-all duration-700 ease-out shrink-0 w-[85vw] sm:w-[350px] md:w-auto snap-start ${
         isVisible
           ? 'opacity-100 translate-y-0'
           : 'opacity-0 translate-y-6'
@@ -211,7 +211,7 @@ export function TransformationSection() {
         </div>
 
         {/* Transformation Rows */}
-        <div className="max-w-4xl mx-auto flex flex-col gap-6 md:gap-5">
+        <div className="max-w-4xl mx-auto flex flex-nowrap md:flex-col overflow-x-auto gap-6 md:gap-5 pb-6 md:pb-0 snap-x snap-mandatory w-full curved-scrollbar">
           {transformations.map((item, idx) => (
             <AnimatedRow key={idx} item={item} index={idx} />
           ))}

@@ -21,13 +21,13 @@ export function ContactCTASection() {
           actionable path to energy efficiency and compliance.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/contact" className="btn-primary text-base py-4 px-8 justify-center">
+          <Link href="/contact" className="btn-primary text-sm sm:text-base py-3 px-6 sm:py-4 sm:px-8 justify-center">
             Request a Free Consultation
             <ArrowRight className="w-5 h-5" />
           </Link>
           <a
             href="tel:+233000000000"
-            className="inline-flex items-center justify-center gap-2 border-2 border-primary text-primary font-semibold px-8 py-4 rounded-lg hover:border-primary hover:bg-primary-50 transition-colors duration-200"
+            className="inline-flex items-center justify-center gap-2 border-2 border-primary text-primary font-semibold text-sm sm:text-base px-6 py-3 sm:px-8 sm:py-4 rounded-lg hover:border-primary hover:bg-primary-50 transition-colors duration-200"
           >
             <Phone className="w-5 h-5" />
             Call Us Now

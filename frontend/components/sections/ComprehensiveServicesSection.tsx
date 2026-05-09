@@ -1,5 +1,23 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { createClient } from '@/lib/supabase/server'
+
+const stripHtml = (html: string) => {
+  if (!html) return '';
+  return html.replace(/<[^>]*>?/gm, '');
+};
+
+const getFallbackImage = (title: string, slug: string) => {
+  const t = title?.toLowerCase() || '';
+  if (t.includes('load') || t.includes('inventory')) return '/images/services/energy-audit.jpg';
+  if (t.includes('audit')) return '/images/services/energy-audit.jpg';
+  if (t.includes('carbon')) return '/images/services/carbon-accounting.jpg';
+  if (t.includes('environ') || t.includes('assess')) return '/images/services/environmental-assessment.jpg';
+  if (t.includes('train') || t.includes('consult')) return '/images/services/consulting-training.jpg';
+  if (t.includes('light') || t.includes('design') || t.includes('system')) return '/images/services/lighting-optimization.jpg';
+  if (t.includes('inspection')) return '/images/services/energy-audit.jpg';
+  return `/images/services/${slug}.jpg`;
+};
 
 const comprehensiveServices = [
   {
@@ -34,7 +52,29 @@ const comprehensiveServices = [
   }
 ]
 
-export function ComprehensiveServicesSection() {
+export async function ComprehensiveServicesSection() {
+  const supabase = await createClient()
+  const { data: servicesData } = await supabase
+    .from('services')
+    .select('*')
+    .eq('is_active', true)
+    .order('display_order', { ascending: true })
+
+  const services = servicesData && servicesData.length > 0 ? servicesData : comprehensiveServices
+  
+  const allowedHomeServices = [
+    'energy-audit',
+    'carbon-accounting',
+    'environmental-assessment',
+    'training-consultancy',
+    'preconstruction-lighting-design'
+  ];
+
+  const homeServices = services
+    .filter((s: any) => allowedHomeServices.includes(s.slug))
+    .filter((s: any, index: number, self: any[]) => index === self.findIndex((t) => t.slug === s.slug))
+    .sort((a: any, b: any) => allowedHomeServices.indexOf(a.slug) - allowedHomeServices.indexOf(b.slug));
+
   return (
     <section className="section-padding bg-[#f8fafc]">
       <div className="container-site">
@@ -68,8 +108,11 @@ export function ComprehensiveServicesSection() {
         </div>
 
         <div className="space-y-24 mt-16">
-          {comprehensiveServices.map((service, index) => {
+          {homeServices.map((service: any, index: number) => {
             const isEven = index % 2 === 0;
+            const imageSrc = service.image || getFallbackImage(service.title, service.slug);
+            const rawDescription = service.full_description || service.description || '';
+            const description = stripHtml(rawDescription).slice(0, 250) + (rawDescription.length > 250 ? '...' : '');
 
             return (
               <div
@@ -82,9 +125,10 @@ export function ComprehensiveServicesSection() {
                 <div className="w-full md:w-1/2">
                   <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border border-divider">
                     <Image
-                      src={service.image}
+                      src={imageSrc}
                       alt={service.title}
                       fill
+                      priority={index < 2}
                       className="object-cover"
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />
@@ -97,7 +141,7 @@ export function ComprehensiveServicesSection() {
                     {service.title}
                   </h3>
                   <p className="text-lg text-text-secondary leading-relaxed mb-8">
-                    {service.description}
+                    {description}
                     <span>....</span>
                     <Link 
                       href={`/services/${service.slug}`} 

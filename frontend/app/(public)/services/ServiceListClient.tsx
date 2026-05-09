@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import Link from 'next/link'
 import { ArrowRight, X } from 'lucide-react'
 import type { Service } from '@/types'
 import { Building2, Cpu, BarChart2, GraduationCap, ClipboardList } from 'lucide-react'
@@ -101,13 +102,19 @@ export default function ServiceListClient({ services }: ServiceListClientProps) 
               )}
             </div>
             
-            <div className="p-6 border-t border-gray-100 bg-gray-50/50 flex justify-end">
+            <div className="p-6 border-t border-gray-100 bg-gray-50/50 flex justify-end gap-3">
               <button 
                 onClick={() => setSelectedService(null)}
-                className="px-6 py-2 bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-800 transition-colors"
+                className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-100 transition-colors"
               >
-                Close
+                Cancel
               </button>
+              <Link 
+                href={`/contact?service=${encodeURIComponent(selectedService.title)}`}
+                className="px-6 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary-600 transition-colors"
+              >
+                Request This Service
+              </Link>
             </div>
           </div>
         </div>

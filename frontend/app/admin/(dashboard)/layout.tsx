@@ -12,8 +12,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     <div className="min-h-screen bg-surface-muted flex">
       <AdminSidebar userEmail={user.email} />
 
-      {/* Main content — offset by sidebar width (w-64 = 256px) */}
-      <main className="flex-1 flex flex-col min-w-0 ml-64">
+      {/* Main content — offset by sidebar width on desktop */}
+      <main className="flex-1 flex flex-col min-w-0 lg:ml-64">
         <AdminHeader />
 
         <div className="flex-1 overflow-y-auto p-6 bg-surface-muted/50 min-h-screen">

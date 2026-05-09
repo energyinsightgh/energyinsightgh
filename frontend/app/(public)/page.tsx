@@ -83,7 +83,7 @@ export default async function HomePage() {
                   Energy efficiency news, case studies, and technical guidance from our team.
                 </p>
               </div>
-              <Link href="/blog" className="btn-outline text-sm py-2 shrink-0">
+              <Link href="/blog" className="btn-outline text-sm py-2 px-6 shrink-0 inline-flex items-center gap-2 justify-center">
                 View All Posts <ArrowRight className="w-4 h-4" />
               </Link>
             </div>

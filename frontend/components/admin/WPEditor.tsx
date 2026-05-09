@@ -509,9 +509,7 @@ export default function WPEditor({ id, name, value, onChange, placeholder, slug 
               onClick={handleImageClick}
               className="w-full h-full p-6 focus:outline-none prose prose-sm max-w-none prose-primary"
               style={{ 
-                minHeight: '400px',
-                fontFamily: "Georgia, 'Times New Roman', serif",
-                lineHeight: '1.6'
+                minHeight: '400px'
               }}
             />
           ) : (

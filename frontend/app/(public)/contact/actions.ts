@@ -35,12 +35,17 @@ export async function submitContactForm(
   const { name, email, company, service_interest, message } = result.data
 
   try {
+    const { createClient } = await import('@/lib/supabase/server')
+    const supabase = await createClient()
+    const payload = JSON.stringify({ email, name, company, service_interest, message })
+    await supabase.from('client_emails').insert({ email: payload, source: 'contact_form' })
+
     const { Resend } = await import('resend')
     const resend = new Resend(process.env.RESEND_API_KEY)
 
     await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL ?? 'noreply@energyinsightgh.com',
-      to: process.env.RESEND_TO_EMAIL ?? 'info@energyinsightgh.com',
+      to: process.env.RESEND_TO_EMAIL ?? 'energyinsightgh@gmail.com',
       subject: `New Enquiry from ${name} — energyinsightgh`,
       text: [
         `Name: ${name}`,

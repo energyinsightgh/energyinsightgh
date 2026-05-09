@@ -120,10 +120,10 @@ export function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-8 xl:gap-4 items-start">
           
           {/* Left Column — Text Content */}
-          <div className="space-y-7 pt-2 lg:pt-4">
+          <div className="space-y-7 pt-2 lg:pt-4 flex flex-col items-center text-center lg:items-start lg:text-left">
             
             {/* Pill Badge */}
-            <div className="inline-flex items-center gap-2 bg-[#14b8a6]/10 border border-[#14b8a6]/20 rounded-full px-4 py-1.5 text-sm font-medium text-[#0f766e]">
+            <div className="inline-flex items-center gap-2 bg-[#14b8a6]/10 border border-[#14b8a6]/20 rounded-full px-4 py-1.5 text-sm font-medium text-[#0f766e] mx-auto lg:mx-0">
               <span className="w-2 h-2 bg-[#14b8a6] rounded-full animate-pulse" />
               Energy Insight
             </div>
@@ -139,12 +139,12 @@ export function HeroSection() {
             </h1>
 
             {/* Description */}
-            <p className="text-base md:text-[1.1rem] text-text-secondary leading-[1.7] max-w-[420px]">
+            <p className="text-base md:text-[1.1rem] text-text-secondary leading-[1.7] max-w-[420px] mx-auto lg:mx-0">
               We identify where you&apos;re losing energy, measure your carbon impact, and ensure you meet environmental standards—saving money without the guesswork.
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex items-center gap-3 pt-1">
+            <div className="flex justify-center lg:justify-start w-full sm:w-auto pt-1">
               <Link
                 href="/contact"
                 className="group inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-600 text-white font-bold px-7 py-3.5 rounded-xl transition-all duration-300 shadow-md hover:-translate-y-0.5 text-sm"

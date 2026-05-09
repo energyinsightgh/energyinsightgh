@@ -1,28 +1,29 @@
 'use client'
 
 import React, { useState } from 'react'
-import Image from 'next/image'
 import { ArrowRight, Mail } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { subscribeNewsletter } from '@/app/(public)/newsletter-action'
 
 export function NewsletterSection() {
   const [email, setEmail] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
     
-    // Simulate API call for now; will connect to Supabase later.
-    setTimeout(() => {
-      setIsSubmitting(false)
+    const res = await subscribeNewsletter(email)
+    
+    setIsSubmitting(false)
+    if (res.success) {
       setIsSuccess(true)
       setEmail('')
-      
-      // Reset success message after 5 seconds
       setTimeout(() => setIsSuccess(false), 5000)
-    }, 1000)
+    } else {
+      alert(res.error || 'Failed to subscribe')
+    }
   }
 
   return (
@@ -84,7 +85,7 @@ export function NewsletterSection() {
                   ) : isSuccess ? (
                     "Joined ✅"
                   ) : (
-                    "Subscribe"
+                    <><span className="hidden md:inline">Subscribe</span><ArrowRight className="w-5 h-5 md:hidden" /></>
                   )}
                 </button>
               </div>

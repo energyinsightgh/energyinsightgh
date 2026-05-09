@@ -60,7 +60,28 @@ export default async function AdminEmailsPage() {
                     </td>
                     <td className="px-6 py-4">
                       <div className="text-sm font-medium text-text-primary">
-                        {email.email}
+                        {email.source === 'contact_form' && email.email.startsWith('{') ? (
+                          (() => {
+                            try {
+                              const parsed = JSON.parse(email.email)
+                              return (
+                                <details className="cursor-pointer group">
+                                  <summary className="font-semibold text-primary">{parsed.email}</summary>
+                                  <div className="mt-2 p-3 bg-white rounded-lg text-xs space-y-1.5 border border-gray-200 shadow-sm max-w-sm whitespace-normal">
+                                    <p><strong>Name:</strong> {parsed.name}</p>
+                                    {parsed.company && <p><strong>Company:</strong> {parsed.company}</p>}
+                                    {parsed.service_interest && <p><strong>Service:</strong> {parsed.service_interest}</p>}
+                                    <div className="mt-2 text-gray-600 italic">"{parsed.message}"</div>
+                                  </div>
+                                </details>
+                              )
+                            } catch(e) {
+                              return email.email
+                            }
+                          })()
+                        ) : (
+                          email.email
+                        )}
                       </div>
                     </td>
                     <td className="px-6 py-4">

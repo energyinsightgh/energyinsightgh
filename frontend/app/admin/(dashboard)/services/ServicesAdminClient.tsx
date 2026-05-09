@@ -291,6 +291,13 @@ export default function ServicesAdminClient({ initialServices }: { initialServic
   }
 
   const handleDragEnd = async () => {
+    if (dragIndex.current !== null) {
+      const draggedService = services[dragIndex.current]
+      if (draggedService && !(draggedService as any).image && !(draggedService as any).cover_image_url) {
+        alert(`Notice: "${draggedService.title}" does not have a featured image set. Please ensure you insert an image for it. Recommended dimensions for the 'Our Offerings' section: 800x600 pixels.`)
+      }
+    }
+    
     dragIndex.current = null
     dragOverIndex.current = null
     // Persist order to DB

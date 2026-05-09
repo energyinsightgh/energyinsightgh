@@ -1,14 +1,15 @@
 'use client'
 
-import React from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, ChevronRight } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 const steps = [
   {
     number: '01',
     title: 'Request assessment',
-    description: 'We start by understanding your facility, current energy usage, and goals.',
+    description: 'when you request assessment, we start by understanding your facility, current energy usage, and goals.',
   },
   {
     number: '02',
@@ -28,6 +29,39 @@ const steps = [
 ]
 
 export function SolutionFrameworkSection() {
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
+
+  const checkScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
+      setCanScrollLeft(scrollLeft > 10)
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10)
+    }
+  }
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (el) {
+      el.addEventListener('scroll', checkScroll)
+      checkScroll()
+    }
+    return () => el?.removeEventListener('scroll', checkScroll)
+  }, [])
+
+  const scrollRight = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: 300, behavior: 'smooth' })
+    }
+  }
+
+  const scrollLeft = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: -300, behavior: 'smooth' })
+    }
+  }
+
   return (
     <section className="bg-white py-16 lg:py-24 relative overflow-hidden">
       {/* Subtle corner decor */}
@@ -79,20 +113,27 @@ export function SolutionFrameworkSection() {
             style={{ left: '12.5%', right: '12.5%' }}
           />
 
+          {/* Scroll Buttons for Mobile/Desktop */}
+          <div className={cn("absolute left-0 top-1/2 -translate-y-1/2 z-20 -translate-x-4 md:-translate-x-8 transition-all duration-300", canScrollLeft ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none")}>
+            <button onClick={scrollLeft} className="w-12 h-12 rounded-full bg-white shadow-xl border border-slate-100 flex items-center justify-center text-primary">
+              <ChevronRight className="w-6 h-6 rotate-180" />
+            </button>
+          </div>
+          <div className={cn("absolute right-0 top-1/2 -translate-y-1/2 z-20 translate-x-4 md:translate-x-8 transition-all duration-300", canScrollRight ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none")}>
+            <button onClick={scrollRight} className="w-12 h-12 rounded-full bg-white shadow-xl border border-slate-100 flex items-center justify-center text-primary">
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          </div>
+
           {/* Steps */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-y-16 lg:gap-8">
+          <div ref={scrollRef} className="flex gap-6 lg:gap-8 overflow-x-auto snap-x snap-mandatory pb-8 scrollbar-hide pt-4 -mt-4 w-full" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
             {steps.map((step, idx) => (
               <div
                 key={idx}
-                className="relative flex flex-col items-center"
+                className="relative flex flex-col items-center shrink-0 w-[85vw] sm:w-[320px] lg:w-auto snap-start"
               >
-                {/* Vertical connector lines (only for mobile/tablet where stacked) */}
-                <div className="md:hidden">
-                  {idx < steps.length - 1 && (
-                    <div className="absolute top-[80px] left-1/2 -translate-x-1/2 w-[2px] h-12 bg-[#0a192f]/10" />
-                  )}
-                </div>
-                <div className="hidden md:block lg:hidden">
+                {/* Vertical connector lines (only for mobile/tablet where stacked - removed since it's horizontal now) */}
+                <div className="hidden lg:hidden">
                   {/* Tablet vertical connector for 2-column layout */}
                   {idx % 2 === 0 && (
                     <div className="absolute left-center right-center h-[2px] bg-[#0a192f]/10 top-[40px] w-full" style={{ left: '50%' }} />
@@ -141,10 +182,10 @@ export function SolutionFrameworkSection() {
             href="/contact"
             className="group relative inline-flex items-center gap-3 bg-primary text-white font-bold px-8 py-4 rounded-full transition-all duration-300 hover:bg-primary-600 hover:shadow-[0_10px_25px_-5px_rgba(15,76,53,0.4)] active:scale-95"
           >
-            Empower Your Business Today
+            Empower Your Homes & Business Today!
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>
-          
+
           <div className="mt-12 flex items-center justify-center gap-4 w-full">
             <div className="h-px flex-1 max-w-xs bg-slate-200" />
             <span className="text-[11px] font-bold uppercase tracking-widest text-slate-400">

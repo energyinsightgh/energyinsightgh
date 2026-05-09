@@ -93,7 +93,7 @@ export default async function ServiceDetailPage({
                   </ul>
                 )}
                 <div className="border-t border-gray-100 mt-6 pt-6">
-                  <Link href="/contact" className="btn-primary w-full justify-center text-sm">
+                  <Link href={`/contact?service=${encodeURIComponent(s.title)}`} className="btn-primary w-full justify-center text-sm">
                     Request This Service
                   </Link>
                 </div>

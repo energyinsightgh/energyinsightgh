@@ -48,7 +48,8 @@ export function Header() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="text-text-secondary hover:text-primary font-medium transition-colors duration-200 text-[15px]"
+                  prefetch={true}
+                  className="nav-link text-text-secondary hover:text-primary font-medium transition-colors duration-200 text-[15px]"
                 >
                   {item.label}
                 </Link>
@@ -66,7 +67,7 @@ export function Header() {
               +233 558 213 055
             </a>
             <a
-              href="https://wa.me/233502344573"
+              href="https://wa.me/233209564542"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-primary text-white text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-primary-600 transition-all duration-200 shadow-[0_4px_14px_0_rgba(15,76,53,0.3)] transform hover:-translate-y-0.5 active:scale-95"
@@ -98,6 +99,7 @@ export function Header() {
               <li key={item.href}>
                 <Link
                   href={item.href}
+                  prefetch={true}
                   className="block px-4 py-3 text-text-secondary hover:text-primary font-medium rounded-xl hover:bg-gray-50 transition-colors"
                   onClick={() => setMenuOpen(false)}
                 >
@@ -115,7 +117,7 @@ export function Header() {
                 Call +233 558 213 055
               </a>
               <a
-                href="https://wa.me/233502344573"
+                href="https://wa.me/233209564542"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 bg-primary text-white text-sm font-semibold px-4 py-3 rounded-xl hover:bg-primary-600 transition-colors"

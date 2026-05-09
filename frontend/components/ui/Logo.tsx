@@ -22,7 +22,7 @@ export function Logo({ className, priority = false }: LogoProps) {
         width={420}
         height={160}
         className={cn(
-          'h-12 logo-custom-height w-auto object-contain',
+          'h-[6rem] md:h-[7rem] w-auto object-contain',
           'transition-opacity duration-300 group-hover:opacity-85'
         )}
         priority={priority}
