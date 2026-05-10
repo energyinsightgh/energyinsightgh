@@ -175,7 +175,7 @@ export function SolutionFrameworkSection() {
         {/* CTA Button */}
         <div className="mt-16 flex flex-col items-center">
           <Link
-            href="/contact"
+            href="/services"
             className="group relative inline-flex items-center gap-3 bg-primary text-white font-bold px-8 py-4 rounded-full transition-all duration-300 hover:bg-primary-600 hover:shadow-[0_10px_25px_-5px_rgba(15,76,53,0.4)] active:scale-95"
           >
             Empower Your Homes & Business Today!

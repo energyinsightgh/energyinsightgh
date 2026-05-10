@@ -145,13 +145,13 @@ export function HeroSection() {
 
             {/* CTA Buttons */}
             <div className="flex justify-center lg:justify-start w-full sm:w-auto pt-1">
-              <Link
-                href="/contact"
+              <a
+                href="tel:+233558213055"
                 className="group inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-600 text-white font-bold px-7 py-3.5 rounded-xl transition-all duration-300 shadow-md hover:-translate-y-0.5 text-sm"
               >
-                Book a call with Us Now!!
+                Book a call with Us Now!
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
+              </a>
             </div>
           </div>
 

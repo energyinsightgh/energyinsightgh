@@ -3,16 +3,16 @@
 import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 
-export async function deleteClientEmail(formData: FormData) {
+export async function deleteClientEmail(formData: FormData): Promise<void> {
   const id = formData.get('id') as string
-  if (!id) return { success: false, error: 'No ID provided' }
+  if (!id) return
 
   const supabase = await createClient()
   
   // Need to ensure the user is an admin
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) {
-    return { success: false, error: 'Unauthorized' }
+    return
   }
 
   const { error } = await supabase
@@ -21,10 +21,10 @@ export async function deleteClientEmail(formData: FormData) {
     .eq('id', id)
 
   if (error) {
-    return { success: false, error: error.message }
+    console.error('Delete error:', error)
+    return
   }
 
   revalidatePath('/admin/emails')
   revalidatePath('/admin')
-  return { success: true }
 }
