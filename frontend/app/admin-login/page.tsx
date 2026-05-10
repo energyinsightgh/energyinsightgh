@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { LoginForm } from './LoginForm'
-import { Zap } from 'lucide-react'
+import Image from 'next/image'
 
 export const metadata: Metadata = { title: 'Admin Login — energyinsightgh' }
 
@@ -9,9 +9,15 @@ export default function AdminLoginPage() {
     <div className="min-h-screen bg-surface-muted flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 font-bold text-primary text-2xl mb-2">
-            <Zap className="w-7 h-7 text-accent fill-accent" />
-            energyinsight<span className="text-accent">gh</span>
+          <div className="flex justify-center mb-3">
+            <Image
+              src="/energyinsightgh-logo.png"
+              alt="Energy Insight GH Logo"
+              width={180}
+              height={72}
+              className="h-16 w-auto object-contain"
+              priority
+            />
           </div>
           <p className="text-text-secondary text-sm">Admin Portal</p>
         </div>

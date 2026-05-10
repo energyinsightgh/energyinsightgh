@@ -264,6 +264,6 @@ hr.wp-read-more::after {
 
 @media (min-width: 768px) {
   .md\:h-\[7rem\] {
-    height: 6rem;
+    height: 6rem !important;
   }
 }
