@@ -7,6 +7,7 @@ import { uploadMediaAction } from '@/app/admin/(dashboard)/media/actions'
 export default function SettingsClient({ userEmail }: { userEmail: string }) {
   const [siteName, setSiteName] = useState('Energy Insight GH')
   const [contactEmail, setContactEmail] = useState('energyinsightgh@gmail.com')
+  const [waitlistEnabled, setWaitlistEnabled] = useState(false)
   
   const [authorName, setAuthorName] = useState('energyinsightgh')
   const [authorAvatar, setAuthorAvatar] = useState('')
@@ -22,6 +23,7 @@ export default function SettingsClient({ userEmail }: { userEmail: string }) {
         const parsed = JSON.parse(saved)
         if (parsed.siteName) setSiteName(parsed.siteName)
         if (parsed.contactEmail) setContactEmail(parsed.contactEmail)
+        if (parsed.waitlistEnabled !== undefined) setWaitlistEnabled(parsed.waitlistEnabled)
         if (parsed.authorName) setAuthorName(parsed.authorName)
         if (parsed.authorAvatar) setAuthorAvatar(parsed.authorAvatar)
       } catch (e) {}
@@ -32,7 +34,7 @@ export default function SettingsClient({ userEmail }: { userEmail: string }) {
     setIsSaving(true)
     setTimeout(() => {
       localStorage.setItem('ei_settings', JSON.stringify({
-        siteName, contactEmail, authorName, authorAvatar
+        siteName, contactEmail, waitlistEnabled, authorName, authorAvatar
       }))
       setIsSaving(false)
       alert('Settings saved successfully!')
@@ -148,6 +150,21 @@ export default function SettingsClient({ userEmail }: { userEmail: string }) {
                 onChange={(e) => setContactEmail(e.target.value)}
                 className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none" 
               />
+            </div>
+            <div className="flex items-center justify-between mt-4 p-4 bg-gray-50 rounded-lg border border-gray-100">
+              <div>
+                <h3 className="font-semibold text-text-primary mb-1">Blog Waitlist Mode</h3>
+                <p className="text-sm text-text-secondary">Enable the waitlist page for the blog section.</p>
+              </div>
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input 
+                  type="checkbox" 
+                  className="sr-only peer" 
+                  checked={waitlistEnabled}
+                  onChange={(e) => setWaitlistEnabled(e.target.checked)}
+                />
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+              </label>
             </div>
           </div>
         </div>

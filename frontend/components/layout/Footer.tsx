@@ -15,6 +15,8 @@ const quickLinks = [
   { label: 'Contact', href: '/contact' },
 ]
 
+import { FooterNewsletterForm } from './FooterNewsletterForm'
+
 export function Footer() {
   return (
     <footer className="bg-primary text-white relative">
@@ -28,21 +30,8 @@ export function Footer() {
               Join visionary leaders receiving curated strategies and actionable efficiency tips directly from our experts.
             </p>
           </div>
-          <div className="md:w-1/2 flex justify-center md:justify-end w-full">
-            <form className="flex w-full max-w-md bg-transparent rounded overflow-hidden">
-              <input
-                type="email"
-                placeholder="Enter Email"
-                className="flex-1 px-4 py-3 outline-none text-text-primary placeholder:text-slate-500 bg-transparent text-sm md:text-base border border-slate-400 rounded-l focus:border-accent focus:ring-1 focus:ring-accent transition-all"
-                required
-              />
-              <button
-                type="submit"
-                className="bg-accent text-white px-6 md:px-8 py-3 font-semibold text-sm hover:bg-accent/90 transition-colors uppercase tracking-wide rounded-r border border-accent"
-              >
-                Subscribe
-              </button>
-            </form>
+          <div className="md:w-1/2 flex flex-col justify-center md:justify-end w-full">
+            <FooterNewsletterForm />
           </div>
         </div>
 

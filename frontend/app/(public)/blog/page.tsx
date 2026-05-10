@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { formatDate } from '@/lib/utils'
 import type { BlogPost } from '@/types'
+import { BlogWaitlistWrapper } from './BlogWaitlistWrapper'
 
 export const metadata: Metadata = { title: 'Insights & Updates' }
 export const revalidate = 1800
@@ -15,7 +16,7 @@ export default async function BlogPage() {
     .order('published_at', { ascending: false })
 
   return (
-    <>
+    <BlogWaitlistWrapper>
       <section className="bg-primary section-padding">
         <div className="container-site">
           <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">Insights & Updates</h1>
@@ -70,6 +71,6 @@ export default async function BlogPage() {
           )}
         </div>
       </section>
-    </>
+    </BlogWaitlistWrapper>
   )
 }

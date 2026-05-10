@@ -267,3 +267,8 @@ hr.wp-read-more::after {
     height: 6rem !important;
   }
 }
+
+/* User explicitly requested h-16 height change */
+.h-16 {
+  height: 6rem !important;
+}

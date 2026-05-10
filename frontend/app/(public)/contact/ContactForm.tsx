@@ -51,9 +51,9 @@ export function ContactForm() {
         <div className="w-16 h-16 rounded-full bg-primary-50 flex items-center justify-center">
           <CheckCircle className="w-8 h-8 text-primary" />
         </div>
-        <h3 className="text-xl font-bold text-text-primary">Message Sent!</h3>
+        <h3 className="text-xl font-bold text-text-primary">Congratulations!</h3>
         <p className="text-text-secondary max-w-sm">
-          Thank you for reaching out. Our team will get back to you within 1–2 business days.
+          Management will contact back as soon as possible.
         </p>
       </div>
     )
@@ -121,6 +121,9 @@ export function ContactForm() {
           className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white"
         >
           <option value="">Select a service…</option>
+          {defaultService && !serviceOptions.includes(defaultService) && (
+            <option value={defaultService}>{defaultService}</option>
+          )}
           {serviceOptions.map((s) => (
              <option key={s} value={s}>{s}</option>
           ))}

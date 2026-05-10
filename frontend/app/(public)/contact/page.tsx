@@ -6,9 +6,9 @@ import { ContactForm } from './ContactForm'
 export const metadata: Metadata = { title: 'Contact Us' }
 
 const contactInfo = [
-  { icon: MapPin, label: 'Location', value: 'Accra, Ghana, West Africa' },
+  { icon: MapPin, label: 'Location', value: 'Lapaz, Accra - Ghana' },
   { icon: Mail, label: 'Email', value: 'info@energyinsightgh.com', href: 'mailto:info@energyinsightgh.com' },
-  { icon: Phone, label: 'Phone', value: '+233 000 000 000', href: 'tel:+233000000000' },
+  { icon: Phone, label: 'Phone', value: '+233 558 213 055', href: 'tel:+233558213055' },
   { icon: Clock, label: 'Hours', value: 'Mon–Fri, 8:00 AM – 5:00 PM GMT' },
 ]
 

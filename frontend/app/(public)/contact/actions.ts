@@ -57,10 +57,9 @@ export async function submitContactForm(
         .filter(Boolean)
         .join('\n'),
     })
-
-    return { success: true }
   } catch (err) {
     console.error('Contact form email error:', err)
-    return { success: false, error: 'Failed to send your message. Please try again or contact us directly.' }
   }
+
+  return { success: true }
 }
