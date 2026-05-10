@@ -1,3 +1,5 @@
+import { createClient } from '@/lib/supabase/server'
+import Link from 'next/link'
 import { FileText, Settings, PlusCircle, Mail, Folder, Tag } from 'lucide-react'
 
 export default async function AdminDashboardPage() {
