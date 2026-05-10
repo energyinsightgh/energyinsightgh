@@ -64,6 +64,7 @@ export interface Database {
           updated_at?: string
         }
         Update: Partial<Omit<BlogPost, 'id' | 'created_at'>>
+        Relationships: []
       }
       services: {
         Row: Service
@@ -72,6 +73,7 @@ export interface Database {
           created_at?: string
         }
         Update: Partial<Omit<Service, 'id' | 'created_at'>>
+        Relationships: []
       }
       categories: {
         Row: Category
@@ -80,6 +82,7 @@ export interface Database {
           created_at?: string
         }
         Update: Partial<Omit<Category, 'id' | 'created_at'>>
+        Relationships: []
       }
       client_emails: {
         Row: ClientEmail
@@ -88,6 +91,7 @@ export interface Database {
           created_at?: string
         }
         Update: Partial<Omit<ClientEmail, 'id' | 'created_at'>>
+        Relationships: []
       }
     }
     Views: Record<string, never>

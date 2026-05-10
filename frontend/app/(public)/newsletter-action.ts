@@ -5,7 +5,10 @@ import { createClient } from '@/lib/supabase/server'
 export async function subscribeNewsletter(email: string) {
   if (!email || !email.includes('@')) return { success: false, error: 'Invalid email' }
   const supabase = await createClient()
-  const { error } = await supabase.from('client_emails').insert({ email, source: 'newsletter' })
+  const { error } = await supabase.from('client_emails').insert({ 
+    email, 
+    source: 'newsletter' as 'newsletter' | 'contact_form' 
+  })
   
   try {
     const { Resend } = await import('resend')
