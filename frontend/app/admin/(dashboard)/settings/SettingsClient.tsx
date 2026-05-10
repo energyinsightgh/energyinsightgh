@@ -254,7 +254,7 @@ export default function SettingsClient({ userEmail }: { userEmail: string }) {
         <button 
           onClick={handleSave}
           disabled={isSaving}
-          className="btn-primary text-lg px-8 py-3 shadow-lg"
+          className="btn-primary text-sm px-6 py-2.5 shadow-md"
         >
           {isSaving ? 'Saving All Settings...' : 'Save All Settings'}
         </button>

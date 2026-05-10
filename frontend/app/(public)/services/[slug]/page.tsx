@@ -82,16 +82,52 @@ export default async function ServiceDetailPage({
             <div>
               <div className="card p-6 sticky top-24">
                 <h3 className="font-bold text-text-primary mb-4 text-lg">Key Benefits</h3>
-                {s.benefits && s.benefits.length > 0 && (
-                  <ul className="space-y-3">
-                    {s.benefits.map((benefit) => (
-                      <li key={benefit} className="flex items-start gap-3 text-sm text-text-secondary">
-                        <CheckCircle className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                        {benefit}
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                {(() => {
+                  const benefitsMap: Record<string, string[]> = {
+                    'energy-audit': [
+                      'Identify critical energy waste and leakages',
+                      'Actionable insights for immediate cost savings',
+                      'Optimize system performance to peak efficiency'
+                    ],
+                    'carbon-accounting': [
+                      'Precise tracking of greenhouse gas emissions',
+                      'Ensure strict regulatory compliance',
+                      'Enhance corporate sustainability reputation'
+                    ],
+                    'environmental-assessment': [
+                      'Comprehensive footprint evaluation',
+                      'Mitigate environmental and operational risks',
+                      'Ensure safety and ecological harmony'
+                    ],
+                    'training-consultancy': [
+                      'Empower your workforce with energy literacy',
+                      'Implement global best practices in management',
+                      'Long-term capacity building for sustainable operations'
+                    ],
+                    'preconstruction-lighting-design': [
+                      'Strategic integration during planning phases',
+                      'Maximize efficiency and reduce lifetime costs',
+                      'Enhance visual comfort and productivity'
+                    ]
+                  };
+                  const defaultBenefits = benefitsMap[s.slug] || [
+                    'Maximize operational efficiency',
+                    'Reduce long-term energy costs',
+                    'Ensure regulatory compliance'
+                  ];
+                  const displayBenefits = s.benefits && s.benefits.length > 0 ? s.benefits : defaultBenefits;
+
+                  return (
+                    <ul className="space-y-3">
+                      {displayBenefits.map((benefit) => (
+                        <li key={benefit} className="flex items-start gap-3 text-sm text-text-secondary">
+                          <CheckCircle className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                          {benefit}
+                        </li>
+                      ))}
+                    </ul>
+                  )
+                })()}
                 <div className="border-t border-gray-100 mt-6 pt-6">
                   <Link href={`/contact?service=${encodeURIComponent(s.title)}`} className="btn-primary w-full justify-center text-sm">
                     Request This Service

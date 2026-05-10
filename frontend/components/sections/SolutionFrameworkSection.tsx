@@ -75,9 +75,9 @@ export function SolutionFrameworkSection() {
           </div>
 
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#0a192f] leading-[1.1] tracking-tight mb-6">
-            We Don&apos;t Guess.{' '}
+            The energy insight method.{' '}
             <span className="relative inline-block pb-2">
-              <span>We Diagnose and Optimize.</span>
+              <span>How to turn hidden waste into proven savings.</span>
               <svg
                 viewBox="0 0 350 20"
                 className="absolute left-0 right-0 -bottom-1 w-full h-4 text-[#f5a623]"
@@ -94,10 +94,6 @@ export function SolutionFrameworkSection() {
               </svg>
             </span>
           </h2>
-
-          <p className="text-base text-slate-500 font-medium leading-relaxed max-w-2xl mx-auto">
-            We make optimizing your facility&apos;s energy effortlessly simple. With a straightforward, hassle-free process, we identify where you&apos;re losing money and give you the exact steps to fix it.
-          </p>
         </div>
 
         <div className="relative max-w-[75rem] mx-auto px-4">

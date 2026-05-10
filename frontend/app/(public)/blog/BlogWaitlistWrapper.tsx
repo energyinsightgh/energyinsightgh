@@ -29,7 +29,7 @@ export function BlogWaitlistWrapper({ children }: { children: React.ReactNode })
     setIsSubmitting(true)
     
     // Using the same action since it sends email to energyinsightgh@gmail.com and saves to DB
-    const res = await subscribeNewsletter(email)
+    const res = await subscribeNewsletter(email, 'blog_waitlist')
     
     setIsSubmitting(false)
     if (res.success) {

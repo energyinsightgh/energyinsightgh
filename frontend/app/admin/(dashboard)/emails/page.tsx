@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { ClientEmail } from '@/types'
 import { formatDate } from '@/lib/utils'
 import { Mail, Trash2 } from 'lucide-react'
+import { deleteClientEmail } from './actions'
 
 export const revalidate = 0 // Disable cache for admin pages
 
@@ -95,6 +96,18 @@ export default async function AdminEmailsPage() {
                     </td>
                     <td className="px-6 py-4 text-sm text-text-secondary whitespace-nowrap">
                       {formatDate(email.created_at)}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      <form action={deleteClientEmail}>
+                        <input type="hidden" name="id" value={email.id} />
+                        <button 
+                          type="submit" 
+                          className="text-red-500 hover:text-red-700 bg-red-50 hover:bg-red-100 p-1.5 rounded transition-colors"
+                          title="Delete email"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </form>
                     </td>
                   </tr>
                 ))
