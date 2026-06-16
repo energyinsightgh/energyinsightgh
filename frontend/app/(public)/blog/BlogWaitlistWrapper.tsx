@@ -12,9 +12,21 @@ export function BlogWaitlistWrapper({ children }: { children: React.ReactNode })
   const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
-    setIsMounted(true)
-    const saved = localStorage.getItem('ei_settings')
-    if (saved) {
+    const loadSettings = async () => {
+      setIsMounted(true)
+      try {
+        const res = await fetch('/api/settings', { cache: 'no-store' })
+        if (res.ok) {
+          const parsed = await res.json()
+          if (parsed.waitlistEnabled === 'true') {
+            setWaitlistEnabled(true)
+            return
+          }
+        }
+      } catch (e) {}
+
+      const saved = localStorage.getItem('ei_settings')
+      if (!saved) return
       try {
         const parsed = JSON.parse(saved)
         if (parsed.waitlistEnabled) {
@@ -22,6 +34,7 @@ export function BlogWaitlistWrapper({ children }: { children: React.ReactNode })
         }
       } catch (e) {}
     }
+    loadSettings()
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {

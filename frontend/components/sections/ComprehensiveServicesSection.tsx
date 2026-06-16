@@ -114,6 +114,39 @@ export async function ComprehensiveServicesSection() {
             const rawDescription = service.full_description || service.description || '';
             const description = stripHtml(rawDescription).slice(0, 250) + (rawDescription.length > 250 ? '...' : '');
 
+            const benefitsMap: Record<string, string[]> = {
+              'energy-audit': [
+                'Identify critical energy waste and leakages',
+                'Actionable insights for immediate cost savings',
+                'Optimize system performance to peak efficiency'
+              ],
+              'carbon-accounting': [
+                'Precise tracking of greenhouse gas emissions',
+                'Ensure strict regulatory compliance',
+                'Enhance corporate sustainability reputation'
+              ],
+              'environmental-assessment': [
+                'Comprehensive footprint evaluation',
+                'Mitigate environmental and operational risks',
+                'Ensure safety and ecological harmony'
+              ],
+              'training-consultancy': [
+                'Empower your workforce with energy literacy',
+                'Implement global best practices in management',
+                'Long-term capacity building for sustainable operations'
+              ],
+              'preconstruction-lighting-design': [
+                'Strategic integration during planning phases',
+                'Maximize efficiency and reduce lifetime costs',
+                'Enhance visual comfort and productivity'
+              ]
+            };
+            const benefits = benefitsMap[service.slug] || [
+              'Maximize operational efficiency',
+              'Reduce long-term energy costs',
+              'Ensure regulatory compliance'
+            ];
+
             return (
               <div
                 key={service.title}
@@ -140,16 +173,38 @@ export async function ComprehensiveServicesSection() {
                   <h3 className="text-3xl font-bold text-text-primary mb-6">
                     {service.title}
                   </h3>
-                  <p className="text-lg text-text-secondary leading-relaxed mb-8">
+                  <p className="text-lg text-text-secondary leading-relaxed mb-6">
                     {description}
                     <span>....</span>
-                    <Link 
-                      href={`/services/${service.slug}`} 
-                      className="text-primary font-bold hover:underline ml-1"
+                  </p>
+
+                  <ul className="space-y-3 mb-8">
+                    {benefits.map((benefit: string, i: number) => (
+                      <li key={i} className="flex items-start gap-3 text-text-secondary">
+                        <div className="w-5 h-5 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0 mt-0.5">
+                          <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <span>{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="flex flex-wrap items-center gap-4">
+                    <Link
+                      href={`/contact?service=${encodeURIComponent(service.title)}`}
+                      className="bg-accent hover:bg-accent/90 text-white px-6 py-2.5 rounded-full font-bold transition-all text-sm inline-flex items-center gap-2 shadow-lg shadow-accent/20"
+                    >
+                      Request this service
+                    </Link>
+                    <Link
+                      href={`/services/${service.slug}`}
+                      className="text-primary font-bold hover:text-primary-600 transition-colors px-4 py-2 text-sm"
                     >
                       Read more
                     </Link>
-                  </p>
+                  </div>
                 </div>
               </div>
             );

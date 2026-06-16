@@ -49,6 +49,7 @@ export default function AdminSidebar({ userEmail }: AdminSidebarProps) {
 
       <aside className={cn(
         "fixed top-0 left-0 h-screen bg-[#0a192f] text-white flex flex-col shrink-0 border-r border-white/5 selection:bg-accent/20 z-40 transition-all duration-300",
+        // Mobile: toggle via isCollapsed
         isCollapsed ? "-translate-x-full lg:translate-x-0 w-64" : "translate-x-0 w-64"
       )}>
       <div className="p-6 border-b border-white/5">

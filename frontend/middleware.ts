@@ -37,14 +37,38 @@ export async function middleware(request: NextRequest) {
   if (!user && isAdminRoute) {
     const loginUrl = request.nextUrl.clone()
     loginUrl.pathname = '/admin-login'
-    return NextResponse.redirect(loginUrl)
+    const redirectResponse = NextResponse.redirect(loginUrl)
+    supabaseResponse.cookies.getAll().forEach((cookie) => {
+      redirectResponse.cookies.set(cookie.name, cookie.value, {
+        path: cookie.path,
+        domain: cookie.domain,
+        secure: cookie.secure,
+        httpOnly: cookie.httpOnly,
+        maxAge: cookie.maxAge,
+        expires: cookie.expires,
+        sameSite: cookie.sameSite,
+      })
+    })
+    return redirectResponse
   }
 
   // Already logged in → trying to access login page → redirect to admin dashboard
   if (user && isLoginPage) {
     const dashboardUrl = request.nextUrl.clone()
     dashboardUrl.pathname = '/admin'
-    return NextResponse.redirect(dashboardUrl)
+    const redirectResponse = NextResponse.redirect(dashboardUrl)
+    supabaseResponse.cookies.getAll().forEach((cookie) => {
+      redirectResponse.cookies.set(cookie.name, cookie.value, {
+        path: cookie.path,
+        domain: cookie.domain,
+        secure: cookie.secure,
+        httpOnly: cookie.httpOnly,
+        maxAge: cookie.maxAge,
+        expires: cookie.expires,
+        sameSite: cookie.sameSite,
+      })
+    })
+    return redirectResponse
   }
 
   return supabaseResponse

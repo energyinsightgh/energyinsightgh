@@ -47,28 +47,31 @@ supabase.auth.signInWithPassword({ email, password })
 
 ## 3. Middleware Configuration
 
-File: `src/middleware.ts`
+File: `frontend/middleware.ts`
 
 ```typescript
-// Protects all /admin/* routes except /admin/login
+// Protects all /admin/* routes except /admin-login
 // Uses @supabase/ssr createServerClient with cookie read/write
-matcher: ['/admin/:path*']
+matcher: [
+  '/admin/:path*',
+  '/admin-login',
+]
 ```
 
 Logic:
-1. Create a Supabase server client from request cookies
-2. Call `supabase.auth.getUser()` — this validates the JWT server-side
-3. If no user → `NextResponse.redirect('/admin/login')`
-4. If user exists → `NextResponse.next()` with refreshed cookie headers
+1. Create a Supabase server client from request cookies.
+2. Call `supabase.auth.getUser()` — this validates the JWT server-side.
+3. If no user → redirect to `/admin-login`. Any updated cookies from `supabaseResponse` must be copied to the redirect response.
+4. If user exists and is on `/admin-login` → redirect to `/admin`. Any updated cookies from `supabaseResponse` must be copied to the redirect response.
+5. If user exists and is on `/admin/*` → return `supabaseResponse` with refreshed cookie headers.
 
-**Critical**: Always use `getUser()` (not `getSession()`) in middleware — `getUser()` re-validates
-the JWT with Supabase servers, preventing stale session attacks.
+**Critical**: Always use `getUser()` (not `getSession()`) in middleware — `getUser()` re-validates the JWT with Supabase servers, preventing stale session attacks. When returning a redirect response, you must explicitly copy cookies from the `supabaseResponse` to the new `redirectResponse` to avoid losing the refreshed session state.
 
 ---
 
 ## 4. Server-Side Session in Route Handlers / Server Components
 
-File: `src/lib/supabase/server.ts`
+File: `frontend/lib/supabase/server.ts`
 
 - Uses `createServerClient` from `@supabase/ssr`
 - Reads and writes cookies via Next.js `cookies()` API
@@ -78,7 +81,7 @@ File: `src/lib/supabase/server.ts`
 
 ## 5. Client-Side Session (Admin Browser Components)
 
-File: `src/lib/supabase/client.ts`
+File: `frontend/lib/supabase/client.ts`
 
 - Uses `createBrowserClient` from `@supabase/ssr`
 - Used in: Client Components within the admin panel only
@@ -88,8 +91,8 @@ File: `src/lib/supabase/client.ts`
 
 ## 6. Admin Login Page
 
-Route: `/admin/login`
-File: `src/app/admin/login/page.tsx`
+Route: `/admin-login`
+File: `frontend/app/admin-login/page.tsx`
 
 - Simple email + password form
 - Calls `supabase.auth.signInWithPassword` via Server Action
@@ -102,7 +105,7 @@ File: `src/app/admin/login/page.tsx`
 
 - Admin layout includes a "Sign Out" button
 - Calls `supabase.auth.signOut()` via Server Action
-- Redirects to `/admin/login` after sign out
+- Redirects to `/admin-login` after sign out
 
 ---
 

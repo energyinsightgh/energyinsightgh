@@ -2,39 +2,43 @@ import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { FileText, Settings, PlusCircle, Mail, Folder, Tag } from 'lucide-react'
 
+export const revalidate = 0
+
 export default async function AdminDashboardPage() {
   const supabase = await createClient()
 
+  // Fetch all stats with individual error handling — never crash the full page
   const [postsRes, servicesRes, categoriesRes, allPostsRes, newsletterRes, waitlistRes, contactRes] =
-    await Promise.all([
+    await Promise.allSettled([
       (supabase.from('blog_posts') as any).select('*', { count: 'exact', head: true }),
       (supabase.from('services') as any).select('*', { count: 'exact', head: true }),
       (supabase.from('categories') as any).select('*'),
       (supabase.from('blog_posts') as any).select('id, title, slug, status, published_at, category_id, tags'),
       (supabase.from('client_emails') as any).select('*', { count: 'exact', head: true }).eq('source', 'newsletter'),
       (supabase.from('client_emails') as any).select('*', { count: 'exact', head: true }).eq('source', 'blog_waitlist'),
-      (supabase.from('client_emails') as any).select('*', { count: 'exact', head: true }).eq('source', 'contact_form')
+      (supabase.from('client_emails') as any).select('*', { count: 'exact', head: true }).eq('source', 'contact_form'),
     ])
 
-  if (postsRes.error) throw new Error(`Database Error (blog_posts count): ${postsRes.error.message}`)
-  if (servicesRes.error) throw new Error(`Database Error (services count): ${servicesRes.error.message}`)
+  const postCount    = postsRes.status === 'fulfilled'     ? postsRes.value.count     : 0
+  const serviceCount = servicesRes.status === 'fulfilled'  ? servicesRes.value.count  : 0
+  const categories   = (categoriesRes.status === 'fulfilled' ? categoriesRes.value.data : null) as any[] || []
+  const allPosts     = (allPostsRes.status === 'fulfilled'  ? allPostsRes.value.data  : null) as any[] || []
+  const newsletterCount = newsletterRes.status === 'fulfilled' ? newsletterRes.value.count : 0
+  const waitlistCount   = waitlistRes.status === 'fulfilled'   ? waitlistRes.value.count   : 0
+  const contactCount    = contactRes.status === 'fulfilled'    ? contactRes.value.count    : 0
 
-  const postCount = postsRes.count
-  const serviceCount = servicesRes.count
-  
-  const categories = categoriesRes.data as any[] || []
-  const allPosts = allPostsRes.data as any[] || []
-  
   // Group posts by category
   const folders = categories.map(cat => {
     const catPosts = allPosts.filter(p => p.category_id === cat.id)
     return {
       ...cat,
       postCount: catPosts.length,
-      recentPosts: catPosts.sort((a, b) => new Date(b.published_at || 0).getTime() - new Date(a.published_at || 0).getTime()).slice(0, 3)
+      recentPosts: catPosts
+        .sort((a, b) => new Date(b.published_at || 0).getTime() - new Date(a.published_at || 0).getTime())
+        .slice(0, 3),
     }
   })
-  
+
   // Also collect posts without a category
   const uncategorizedPosts = allPosts.filter(p => !p.category_id)
   if (uncategorizedPosts.length > 0) {
@@ -45,7 +49,9 @@ export default async function AdminDashboardPage() {
       description: 'Posts without a category',
       created_at: '',
       postCount: uncategorizedPosts.length,
-      recentPosts: uncategorizedPosts.sort((a, b) => new Date(b.published_at || 0).getTime() - new Date(a.published_at || 0).getTime()).slice(0, 3)
+      recentPosts: uncategorizedPosts
+        .sort((a, b) => new Date(b.published_at || 0).getTime() - new Date(a.published_at || 0).getTime())
+        .slice(0, 3),
     })
   }
 
@@ -88,15 +94,15 @@ export default async function AdminDashboardPage() {
           <div className="space-y-2 mt-auto">
             <div className="flex justify-between items-center text-sm">
               <span className="text-text-secondary">Newsletter</span>
-              <span className="font-bold text-text-primary bg-slate-100 px-2 py-0.5 rounded-full">{newsletterRes.count ?? 0}</span>
+              <span className="font-bold text-text-primary bg-slate-100 px-2 py-0.5 rounded-full">{newsletterCount ?? 0}</span>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span className="text-text-secondary">Waitlist</span>
-              <span className="font-bold text-text-primary bg-slate-100 px-2 py-0.5 rounded-full">{waitlistRes.count ?? 0}</span>
+              <span className="font-bold text-text-primary bg-slate-100 px-2 py-0.5 rounded-full">{waitlistCount ?? 0}</span>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span className="text-text-secondary">Contact Form</span>
-              <span className="font-bold text-text-primary bg-slate-100 px-2 py-0.5 rounded-full">{contactRes.count ?? 0}</span>
+              <span className="font-bold text-text-primary bg-slate-100 px-2 py-0.5 rounded-full">{contactCount ?? 0}</span>
             </div>
           </div>
         </div>

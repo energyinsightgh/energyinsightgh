@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Moon, Sun, Globe, Bell, Shield, Paintbrush, User, Upload, Loader2, X } from 'lucide-react'
+import { Moon, Sun, Globe, Bell, Shield, Paintbrush, User, Upload, Loader2 } from 'lucide-react'
 import { uploadMediaAction } from '@/app/admin/(dashboard)/media/actions'
 
 export default function SettingsClient({ userEmail }: { userEmail: string }) {
@@ -15,10 +15,24 @@ export default function SettingsClient({ userEmail }: { userEmail: string }) {
   const avatarRef = useRef<HTMLInputElement>(null)
   const [isSaving, setIsSaving] = useState(false)
 
-  // Load from local storage
+  // Load from database settings first, then local fallback.
   useEffect(() => {
-    const saved = localStorage.getItem('ei_settings')
-    if (saved) {
+    const loadSettings = async () => {
+      try {
+        const res = await fetch('/api/settings', { cache: 'no-store' })
+        if (res.ok) {
+          const parsed = await res.json()
+          if (parsed.siteName) setSiteName(parsed.siteName)
+          if (parsed.contactEmail) setContactEmail(parsed.contactEmail)
+          if (parsed.waitlistEnabled !== undefined) setWaitlistEnabled(parsed.waitlistEnabled === 'true')
+          if (parsed.authorName) setAuthorName(parsed.authorName)
+          if (parsed.authorAvatar) setAuthorAvatar(parsed.authorAvatar)
+          return
+        }
+      } catch (e) {}
+
+      const saved = localStorage.getItem('ei_settings')
+      if (!saved) return
       try {
         const parsed = JSON.parse(saved)
         if (parsed.siteName) setSiteName(parsed.siteName)
@@ -28,17 +42,32 @@ export default function SettingsClient({ userEmail }: { userEmail: string }) {
         if (parsed.authorAvatar) setAuthorAvatar(parsed.authorAvatar)
       } catch (e) {}
     }
+    loadSettings()
   }, [])
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setIsSaving(true)
-    setTimeout(() => {
+    try {
+      await fetch('/api/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          siteName,
+          contactEmail,
+          waitlistEnabled,
+          authorName,
+          authorAvatar,
+        }),
+      })
       localStorage.setItem('ei_settings', JSON.stringify({
         siteName, contactEmail, waitlistEnabled, authorName, authorAvatar
       }))
-      setIsSaving(false)
       alert('Settings saved successfully!')
-    }, 600)
+    } catch (e) {
+      alert('Failed to save settings. Please try again.')
+    } finally {
+      setIsSaving(false)
+    }
   }
 
   const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,20 +116,25 @@ export default function SettingsClient({ userEmail }: { userEmail: string }) {
             
             <div>
               <label className="block text-sm font-semibold text-text-primary mb-2">Author Avatar / Favicon</label>
+              <input
+                ref={avatarRef}
+                type="file"
+                accept="image/*"
+                onChange={handleAvatarUpload}
+                className="hidden"
+              />
               {authorAvatar ? (
                 <div className="flex items-center gap-4">
                   <img src={authorAvatar} alt="Author Avatar" className="w-16 h-16 rounded-full object-cover border border-gray-200 shadow-sm" />
-                  <button type="button" onClick={() => setAuthorAvatar('')} className="text-red-600 text-sm hover:underline">Remove Image</button>
+                  <div className="flex items-center gap-3">
+                    <button type="button" onClick={() => avatarRef.current?.click()} className="text-blue-600 text-sm hover:underline">
+                      Change Image
+                    </button>
+                    <button type="button" onClick={() => setAuthorAvatar('')} className="text-red-600 text-sm hover:underline">Remove Image</button>
+                  </div>
                 </div>
               ) : (
                 <div>
-                  <input
-                    ref={avatarRef}
-                    type="file"
-                    accept="image/*"
-                    onChange={handleAvatarUpload}
-                    className="hidden"
-                  />
                   <button
                     type="button"
                     onClick={() => avatarRef.current?.click()}

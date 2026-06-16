@@ -20,7 +20,7 @@ export const revalidate = 3600
 export default async function HomePage() {
   const supabase = await createClient()
 
-  const [{ data: servicesData }, { data: postsData }] = await Promise.all([
+  const [{ data: servicesData }, { data: postsData }, { data: waitlistSettingData }] = await Promise.all([
     (supabase.from('services') as any)
       .select('*')
       .eq('is_active', true)
@@ -31,10 +31,15 @@ export default async function HomePage() {
       .eq('status', 'published')
       .order('published_at', { ascending: false })
       .limit(3),
+    (supabase.from('site_settings') as any)
+      .select('value')
+      .eq('key', 'waitlistEnabled')
+      .maybeSingle(),
   ]) as any[]
 
   const services = servicesData ?? []
   const posts = postsData ?? []
+  const waitlistEnabled = waitlistSettingData?.value === 'true'
 
   return (
     <>
@@ -71,7 +76,7 @@ export default async function HomePage() {
       </div>
 
       {/* Blog Preview */}
-      {posts && posts.length > 0 && (
+      {!waitlistEnabled && posts && posts.length > 0 && (
         <section className="section-padding bg-surface-muted">
           <div className="container-site">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">

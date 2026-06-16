@@ -89,9 +89,15 @@ export default async function AdminEmailsPage() {
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                         email.source === 'newsletter' 
                           ? 'bg-blue-100 text-blue-800' 
-                          : 'bg-green-100 text-green-800'
+                          : email.source === 'blog_waitlist'
+                            ? 'bg-purple-100 text-purple-800'
+                            : 'bg-green-100 text-green-800'
                       }`}>
-                        {email.source === 'newsletter' ? 'Newsletter' : 'Contact Form'}
+                        {email.source === 'newsletter'
+                          ? 'Newsletter'
+                          : email.source === 'blog_waitlist'
+                            ? 'Waitlist Form'
+                            : 'Contact Form'}
                       </span>
                     </td>
                     <td className="px-6 py-4 text-sm text-text-secondary whitespace-nowrap">
