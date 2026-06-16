@@ -5,10 +5,11 @@ import { createClient } from '@/lib/supabase/server'
 export async function GET() {
   try {
     const supabase = await createClient()
-    const { data, error } = await supabase.from('site_settings').select('key, value')
+    // Supabase types may not include site_settings in our generated Database map.
+    const { data, error } = await (supabase.from('site_settings') as any).select('key, value')
     if (error) return NextResponse.json({ error: error.message }, { status: 500 })
     const settings: Record<string, string> = {}
-    for (const row of data ?? []) {
+    for (const row of (data as any[]) ?? []) {
       settings[row.key] = row.value ?? ''
     }
     return NextResponse.json(settings)
@@ -32,7 +33,7 @@ export async function POST(req: NextRequest) {
       updated_at: new Date().toISOString(),
     }))
 
-    const { error } = await supabase
+    const { error } = await (supabase as any)
       .from('site_settings')
       .upsert(updates, { onConflict: 'key' })
 

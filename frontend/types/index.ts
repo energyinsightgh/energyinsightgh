@@ -18,7 +18,7 @@ export interface Category {
 export interface ClientEmail {
   id: string
   email: string
-  source: 'newsletter' | 'contact_form'
+  source: 'newsletter' | 'contact_form' | 'blog_waitlist'
   created_at: string
 }
 
